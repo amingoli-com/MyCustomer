@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".ActivityCustomerDetail">
+
+    <TextView
+        android:id="@+id/txt_error"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerInParent="true"
+        android:gravity="center_horizontal"
+        android:text="Not Found"
+        android:textColor="@android:color/white"
+        android:padding="@dimen/_20sdp"
+        android:textSize="@dimen/_12ssp"
+        android:visibility="gone" />
+
+    <ir.amingoli.mycoustomer.view.TicketView
+        android:id="@+id/layout_ticket"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@android:color/transparent"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_10sdp">
+
+        <TextView
+            android:id="@+id/customerName"
+            android:paddingTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textStyle="bold"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/_14ssp" />
+
+        <TextView
+            android:id="@+id/customerTel"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/colorTitle"
+            android:textAlignment="center"
+            android:textSize="@dimen/_12sdp" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_margin="@dimen/_10sdp">
+            <ImageView
+                android:id="@+id/poster"
+                android:src="@drawable/ic_avatar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="fitCenter" />
+            <TextView
+                android:id="@+id/customerId"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textSize="@dimen/_40sdp"
+                android:textColor="@color/colorTitle"/>
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_7sdp"
+            android:paddingRight="@dimen/_7sdp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:onClick="waitingOrder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/waiting_orders"
+                    style="@style/ActivityMainTitle"/>
+
+                <TextView
+                    android:id="@+id/waiting_order"
+                    style="@style/ActivityMainValue"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/desc"
+                    style="@style/ActivityMainTitle" />
+
+                <TextView
+                    android:id="@+id/desc"
+                    style="@style/ActivityMainValue" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:onClick="lastPied"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/last_pied"
+                    style="@style/ActivityMainTitle" />
+
+                <TextView
+                    android:id="@+id/last_pied"
+                    style="@style/ActivityMainValue"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:onClick="totalPied"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:text="@string/total_pied"
+                    style="@style/ActivityMainTitle" />
+
+                <TextView
+                    android:id="@+id/total_pied"
+                    style="@style/ActivityMainValue"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ir.amingoli.mycoustomer.view.TicketView>
+
+    <Button
+        android:id="@+id/addOrder"
+        android:onClick="addOrder"
+        android:text="@string/add_order"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
+        android:background="@android:color/transparent"
+        android:fontFamily="sans-serif-condensed"
+        android:foreground="?attr/selectableItemBackground"
+        android:paddingLeft="@dimen/_7sdp"
+        android:paddingRight="@dimen/_7sdp"
+        android:textColor="@color/colorPrimary"
+        android:textSize="@dimen/_18ssp"
+        tools:ignore="UnusedAttribute" />
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="@dimen/_30sdp"
+        android:layout_height="@dimen/_30sdp"
+        android:layout_centerInParent="true"
+        android:indeterminateTint="@android:color/black"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone" />
+</RelativeLayout>
