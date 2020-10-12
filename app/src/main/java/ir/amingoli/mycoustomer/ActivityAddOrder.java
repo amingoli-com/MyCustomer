@@ -177,15 +177,6 @@ public class ActivityAddOrder extends AppCompatActivity {
                 order.setStatus(false);
             } else {
                 order.setStatus(true);
-                if (checkBoxSendSmsToCustomer.isChecked()){
-                    String a = AppConfig.SendSmsToCustomer_ORDER_IS_PIAED
-                            .replace(AppConfig.CUSTOMER_NAME,customerName.getText().toString())
-                            .replace(AppConfig.TOTAL_PRICE,totalPrice.getText().toString());
-                    Uri uri = Uri.parse("smsto:09100530593");
-                    Intent it = new Intent(Intent.ACTION_SENDTO, uri);
-                    it.putExtra("sms_body", a);
-                    startActivity(it);
-                }
             }
         } else {
             if (checkboxOrderIsReady.isChecked()){
