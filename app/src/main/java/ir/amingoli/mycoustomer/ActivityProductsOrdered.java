@@ -30,6 +30,7 @@ public class ActivityProductsOrdered extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        ((MyCustomerApplication) getApplication()).refreshLocale(this);
     }
 
     @Override

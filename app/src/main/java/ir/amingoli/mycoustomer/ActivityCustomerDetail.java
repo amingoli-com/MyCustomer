@@ -32,6 +32,7 @@ public class ActivityCustomerDetail extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        ((MyCustomerApplication) getApplication()).refreshLocale(this);
         initTotalWaitingOrder();
         initLastPied();
         initTotalPricePied();

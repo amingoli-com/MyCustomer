@@ -32,6 +32,12 @@ public class ActivityProduct extends AppCompatActivity {
     private Boolean GET_PRODUCT = false;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        ((MyCustomerApplication) getApplication()).refreshLocale(this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product);

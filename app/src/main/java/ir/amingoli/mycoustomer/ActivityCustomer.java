@@ -30,6 +30,11 @@ public class ActivityCustomer extends AppCompatActivity {
     private AdapterCustomer adapter;
     private List<Customer> arrayList;
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ((MyCustomerApplication) getApplication()).refreshLocale(this);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

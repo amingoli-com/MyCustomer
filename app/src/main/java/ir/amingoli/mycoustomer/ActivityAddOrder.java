@@ -48,6 +48,12 @@ public class ActivityAddOrder extends AppCompatActivity {
     private Button submit;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        ((MyCustomerApplication) getApplication()).refreshLocale(this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_order);

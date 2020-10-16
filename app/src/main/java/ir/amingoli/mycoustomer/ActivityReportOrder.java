@@ -29,6 +29,7 @@ public class ActivityReportOrder extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        ((MyCustomerApplication) getApplication()).refreshLocale(this);
         showOrderList();
     }
 
