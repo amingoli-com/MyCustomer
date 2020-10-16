@@ -15,6 +15,7 @@ import ir.amingoli.mycoustomer.Adapter.AdapterReportOrder;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
+import ir.amingoli.mycoustomer.util.Tools;
 
 public class ActivityReportOrder extends AppCompatActivity {
 
@@ -60,7 +61,7 @@ public class ActivityReportOrder extends AppCompatActivity {
         List<Order> orders;
         if (CUSTOMER_ID != 0){
             orders = db.getOrderListByCustomerId(CUSTOMER_ID,ORDER_IS_PIED);
-        } else orders = db.getOrderList(ORDER_IS_PIED);
+        } else orders = db.getOrderList(true , Tools.convertDayToMillis(3));
 
         if (!orders.isEmpty()){
             for (int i = 0; i < orders.size(); i++) {

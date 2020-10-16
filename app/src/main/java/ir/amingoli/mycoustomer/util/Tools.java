@@ -39,6 +39,30 @@ public class Tools {
         return pdformater.format(new PersianDate(dateTime));
     }
 
+    public static long convertDayToMillis(int howBeforeDay){
+        long toDay = System.currentTimeMillis();
+        long oneDay = 86400000;
+        switch (howBeforeDay){
+            case 1:
+                return toDay -oneDay;
+            case 2:
+                return toDay -oneDay*2;
+            case 3:
+                return toDay -oneDay*3;
+            case 4:
+                return toDay -oneDay*4;
+            case 5:
+                return toDay -oneDay*5;
+            case 6:
+                return toDay -oneDay*6;
+            case 7:
+                return toDay -oneDay*7;
+            case 30:
+                return toDay -oneDay*30;
+            default: return toDay ;
+        }
+    }
+
     public static String convertNumberToEN(String string) {
         String[][] mChars = new String[][]{
                 {"0", "۰"}, {"1", "۱"}, {"2", "۲"}, {"3", "۳"}, {"4", "۴"}, {"5", "۵"}, {"6", "۶"},

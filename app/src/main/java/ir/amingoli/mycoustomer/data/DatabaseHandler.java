@@ -388,10 +388,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
 //    GET ORDER
-    public List<Order> getOrderList() {
+    public List<Order> getOrderList(boolean isPied, long mils) {
+        int status = isPied ? 1 : 0;
         List<Order> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
-        sb.append(" SELECT * FROM " + TABLE_ORDER + " o ORDER BY o." + COL_ORDER_CREATED_AT + " DESC ");
+        sb.append(" SELECT * FROM " + TABLE_ORDER
+                + " WHERE " + COL_ORDER_CREATED_AT + " >= "+ mils
+                +" AND " + COL_ORDER_STATUS + " IN ("+status+") "
+                +" ORDER BY " + COL_ORDER_CREATED_AT + " DESC ");
         Cursor cursor = db.rawQuery(sb.toString(), null);
         if (cursor.moveToFirst()) {
             items = getListOrderByCursor(cursor);
