@@ -24,12 +24,17 @@ public class Tools {
 
         if (AppConfig.PRICE_CURRENCY_IN_END) {
 //            result = result + " " + sharedPref.getInfoData().currency;
-            result = result + " تومان ";
+            result = result + " تومان";
         } else {
 //            result = sharedPref.getInfoData().currency + " " + result;
-            result =  " تومان " + result;
+            result =  " تومان" + result;
         }
         return result;
+    }
+
+    public static String getFormattedInteger(int price) {
+        DecimalFormat df = new DecimalFormat("###,###,###");
+        return df.format(price);
     }
 
     public static String getFormattedDate(Long dateTime) {
@@ -42,25 +47,8 @@ public class Tools {
     public static long convertDayToMillis(int howBeforeDay){
         long toDay = System.currentTimeMillis();
         long oneDay = 86400000;
-        switch (howBeforeDay){
-            case 1:
-                return toDay -oneDay;
-            case 2:
-                return toDay -oneDay*2;
-            case 3:
-                return toDay -oneDay*3;
-            case 4:
-                return toDay -oneDay*4;
-            case 5:
-                return toDay -oneDay*5;
-            case 6:
-                return toDay -oneDay*6;
-            case 7:
-                return toDay -oneDay*7;
-            case 30:
-                return toDay -oneDay*30;
-            default: return toDay ;
-        }
+        if (howBeforeDay >= 1 ) return toDay -oneDay * howBeforeDay;
+        return toDay ;
     }
 
     public static String convertNumberToEN(String string) {

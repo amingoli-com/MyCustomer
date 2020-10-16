@@ -13,10 +13,13 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 import java.util.Objects;
 
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
+import ir.amingoli.mycoustomer.model.Order;
+import ir.amingoli.mycoustomer.util.Tools;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +37,25 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DatabaseHandler(this);
+        a();
+    }
+
+    private void a(){
+        TextView unkow = findViewById(R.id.unkow);
+        double total = 0;
+        List<Order> orders;
+        orders = db.getOrderList(true , Tools.convertDayToMillis(30));
+
+        if (!orders.isEmpty()){
+            for (int i = 0; i < orders.size(); i++) {
+                total = total + orders.get(i).getPrice();
+            }
+        }else findViewById(R.id.include_empty).setVisibility(View.VISIBLE);
+
+        unkow.setText(getString(R.string.uknow ,
+                Tools.getFormattedPrice(total, this),
+                Tools.getFormattedInteger(orders.size())
+                ));
     }
 
 
