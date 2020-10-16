@@ -9,7 +9,7 @@ public class Order {
     public Double price;
     public String desc;
     public Boolean status;
-    public Long created_at = System.currentTimeMillis();
+    public Long created_at ;
 
     public Order(String code, Long id_coustomer, Long id_order_detail, Double price, String desc, Boolean status) {
         this.code = code;

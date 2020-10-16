@@ -8,7 +8,7 @@ public class OrderDetail {
     public Double amount;
     public Double price_item;
     public Double price_all;
-    public Long created_at = System.currentTimeMillis();
+    public Long created_at;
 
     public Long getId() {
         return id;

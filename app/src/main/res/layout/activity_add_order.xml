@@ -31,6 +31,7 @@
 
                 <TextView
                     android:id="@+id/dateToDay"
+                    android:onClick="setDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:textAlignment="center"
