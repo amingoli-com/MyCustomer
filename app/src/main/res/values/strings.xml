@@ -49,4 +49,6 @@
     <string name="products_ordered">Products Ordered</string>
     <string name="order">Order</string>
     <string name="from">From</string>
+    <string name="cancel">Cancel</string>
+    <string name="today">ToDay</string>
 </resources>

@@ -2,9 +2,11 @@ package ir.amingoli.mycoustomer;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +26,9 @@ import ir.amingoli.mycoustomer.model.Order;
 import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Product;
 import ir.amingoli.mycoustomer.util.Tools;
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class ActivityAddOrder extends AppCompatActivity {
     String TAG = "amingoli78888";
@@ -174,6 +179,7 @@ public class ActivityAddOrder extends AppCompatActivity {
     private void saveOrder(){
         Order order = new Order();
         if (ID_ORDER != 0) order.setId(ID_ORDER);
+        order.setCreated_at(CRATED_AT);
         order.setId_coustomer(ID_CUSTOMER);
         order.setId_order_detail(ID_THIS_ORDER);
         order.setCode(ID_THIS_ORDER+"");
@@ -206,6 +212,7 @@ public class ActivityAddOrder extends AppCompatActivity {
     private void saveOrderDetail(){
         for (int i = 0; i < arrayList.size(); i++) {
             OrderDetail orderDetail = new OrderDetail();
+            orderDetail.setCreated_at(CRATED_AT);
             orderDetail.setId_product(arrayList.get(i).getId());
             orderDetail.setId_order_detail(ID_THIS_ORDER);
             orderDetail.setName(arrayList.get(i).getName());
@@ -266,5 +273,40 @@ public class ActivityAddOrder extends AppCompatActivity {
             saveOrderDetail();
             finish();
         }
+    }
+
+    public void setDate(View view) {
+        PersianDatePickerDialog picker = new PersianDatePickerDialog(this)
+                .setPositiveButtonString(getString(R.string.save))
+                .setNegativeButton(getString(R.string.cancel))
+                .setTodayButton(getString(R.string.today))
+                .setTodayButtonVisible(true)
+                .setMinYear(1300)
+                .setMaxYear(PersianDatePickerDialog.THIS_YEAR)
+                .setInitDate(new PersianCalendar())
+                .setActionTextColor(Color.GRAY)
+                .setTypeFace(ResourcesCompat.getFont(this, R.font.iranyekan_regular))
+                .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
+                .setShowInBottomSheet(true)
+                .setListener(new Listener() {
+                    @Override
+                    public void onDateSelected(PersianCalendar persianCalendar) {
+                        CRATED_AT = persianCalendar.getTimeInMillis();
+                        dateToDay.setText(Tools.getFormattedDate(CRATED_AT));
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getGregorianChange());//Fri Oct 15 03:25:44 GMT+04:30 1582
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getTimeInMillis());//1583253636577
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getTime());//Tue Mar 03 20:10:36 GMT+03:30 2020
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getDelimiter());//  /
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianLongDate());// سه‌شنبه  13  اسفند  1398
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianLongDateAndTime()); //سه‌شنبه  13  اسفند  1398 ساعت 20:10:36
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.getPersianMonthName()); //اسفند
+                        Log.d(TAG, "onDateSelected: "+persianCalendar.isPersianLeapYear());//false
+                    }
+                    @Override
+                    public void onDismissed() {
+
+                    }
+                });
+        picker.show();
     }
 }

@@ -49,4 +49,6 @@
     <string name="products_ordered">محصولات سفارش داده شده</string>
     <string name="order">سفارش</string>
     <string name="from">از</string>
+    <string name="cancel">لغو</string>
+    <string name="today">امروز</string>
 </resources>
