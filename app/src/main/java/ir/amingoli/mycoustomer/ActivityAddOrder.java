@@ -175,7 +175,7 @@ public class ActivityAddOrder extends AppCompatActivity {
         setTextTotalPrice();
     }
 
-//    Save Factor
+//    Save Order
     private void saveOrder(){
         Order order = new Order();
         if (ID_ORDER != 0) order.setId(ID_ORDER);
