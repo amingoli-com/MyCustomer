@@ -543,8 +543,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_PRODUCT);
     }
 
-
-
+//    GET SIZE
     public int getCustomerSize() {
         int count = (int) DatabaseUtils.queryNumEntries(db, TABLE_CUSTOMER);
         return count;
