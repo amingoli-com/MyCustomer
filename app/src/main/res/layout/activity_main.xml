@@ -26,10 +26,11 @@
                 <LinearLayout
                     style="@style/LinearLayout_vmw_padding">
                     <TextView
+                        android:id="@+id/unkow"
                         android:text="فروش این ماه ۳۸۰٬۰۰۰ تومان از ۱۲ سفارش"
                         style="@style/ActivityMainTitle"/>
                     <TextView
-                        android:text="مهر ۱۳۹۹"
+                        android:text="نمایش تمامی سفارشات پرداخت شده"
                         style="@style/ActivityMainValue" />
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
