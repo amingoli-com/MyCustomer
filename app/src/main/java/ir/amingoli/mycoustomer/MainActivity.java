@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void setCount(){
-        TextView totalProduct = findViewById(R.id.total_product);
+        /*TextView totalProduct = findViewById(R.id.total_product);
         TextView totalCustomer = findViewById(R.id.total_customer);
         TextView totalOrderPied = findViewById(R.id.total_orderPied);
         TextView totalOrderWaiting = findViewById(R.id.total_orderWaiting);
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         totalCustomer.setText(db.getCustomerSize() +" "+ getResources().getString(R.string.customer));
         totalOrderPied.setText(db.getOrderIsPiedSize() +" ");
         totalOrderWaiting.setText(db.getOrderIsWaitingSize() +" ");
-        total_productOrdered.setText(getResources().getString(R.string.from)+" "+ db.getOrderIsWaitingSize() +" "+ getResources().getString(R.string.order));
+        total_productOrdered.setText(getResources().getString(R.string.from)+" "+ db.getOrderIsWaitingSize() +" "+ getResources().getString(R.string.order));*/
     }
 
 //    onClick

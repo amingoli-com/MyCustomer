@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:padding="@dimen/_5sdp"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -12,108 +13,108 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/_7sdp"
-            android:paddingRight="@dimen/_7sdp"
-            android:weightSum="2">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:onClick="goToActitvityProduct">
-
-                <TextView
-                    android:text="@string/all_product"
-                    style="@style/ActivityMainTitle"/>
-
-                <TextView
-                    android:id="@+id/total_product"
-                    android:text="50 stock"
-                    style="@style/ActivityMainValue" />
-            </LinearLayout>
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:onClick="goToActitvityCustomer">
-
-                <TextView
-                    android:text="@string/my_customers"
-                    style="@style/ActivityMainTitle"/>
-
-                <TextView
-                    android:id="@+id/total_customer"
-                    android:text="580"
-                    style="@style/ActivityMainValue"/>
-            </LinearLayout>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingLeft="@dimen/_7sdp"
-            android:paddingRight="@dimen/_7sdp"
-            android:weightSum="2">
-            <LinearLayout
-                android:onClick="goToActivityOrderIsNotPied"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:text="@string/waiting_orders"
-                    style="@style/ActivityMainTitle"/>
-
-                <TextView
-                    android:id="@+id/total_orderWaiting"
-                    android:text="1,000"
-                    style="@style/ActivityMainValue" />
-            </LinearLayout>
-            <LinearLayout
-                android:onClick="goToActivityProductsOrdered"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:text="@string/products_ordered"
-                    style="@style/ActivityMainTitle"/>
-
-                <TextView
-                    android:id="@+id/total_productOrdered"
-                    android:text="از ۱٬۰۰۰ سفارش"
-                    style="@style/ActivityMainValue" />
-            </LinearLayout>
-        </LinearLayout>
 
         <LinearLayout
             android:onClick="goToActivityOrderIsPied"
-            android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingLeft="@dimen/_7sdp"
-            android:paddingRight="@dimen/_7sdp"
+            android:orientation="horizontal"
             android:weightSum="2">
-            <TextView
-                android:text="@string/paid_order"
-                style="@style/ActivityMainTitle"/>
+            <androidx.cardview.widget.CardView
+                style="@style/CardView_MainActivity"
+                android:layout_width="match_parent">
+                <LinearLayout
+                    style="@style/LinearLayout_vmw_padding">
+                    <TextView
+                        android:text="فروش این ماه ۳۸۰٬۰۰۰ تومان از ۱۲ سفارش"
+                        style="@style/ActivityMainTitle"/>
+                    <TextView
+                        android:text="مهر ۱۳۹۹"
+                        style="@style/ActivityMainValue" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
 
-            <TextView
-                android:id="@+id/total_orderPied"
-                android:text="786,976,200"
-                style="@style/ActivityMainValue" />
+
+
+
+
+
+
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <androidx.cardview.widget.CardView
+                style="@style/CardView_MainActivity">
+                <LinearLayout
+                    style="@style/LinearLayout_vmw_padding"
+                    android:onClick="goToActitvityProduct">
+                    <TextView
+                        android:text="۲۵ محصول"
+                        style="@style/ActivityMainTitle"/>
+                    <TextView
+                        android:id="@+id/total_product"
+                        android:text="۷ محصول پر طرفدار"
+                        style="@style/ActivityMainValue" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/CardView_MainActivity">
+                <LinearLayout
+                    style="@style/LinearLayout_vmw_padding"
+                    android:onClick="goToActitvityCustomer">
+                    <TextView
+                        android:text="۸۲ مشتری"
+                        style="@style/ActivityMainTitle"/>
+                    <TextView
+                        android:id="@+id/total_customer"
+                        android:text="۱۸ مشتری ثابت"
+                        style="@style/ActivityMainValue"/>
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="2">
+            <androidx.cardview.widget.CardView
+                style="@style/CardView_MainActivity">
+                <LinearLayout
+                    android:onClick="goToActivityOrderIsNotPied"
+                    style="@style/LinearLayout_vmw_padding">
+                    <TextView
+                        android:text="۳۸۰ سفارش از ۲۲ مشتری"
+                        style="@style/ActivityMainTitle"/>
+                    <TextView
+                        android:id="@+id/total_orderWaiting"
+                        android:text="۱۲ محصول بیشترین سفارش"
+                        style="@style/ActivityMainValue" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                style="@style/CardView_MainActivity">
+                <LinearLayout
+                    android:onClick="goToActivityProductsOrdered"
+                    style="@style/LinearLayout_vmw_padding">
+                    <TextView
+                        android:text="نمایش جزئیات ۲۵ محصول سفارش داده شده"
+                        style="@style/ActivityMainTitle"/>
+                    <TextView
+                        android:id="@+id/total_productOrdered"
+                        android:text="از ۳۸۰ سفارش"
+                        style="@style/ActivityMainValue" />
+                </LinearLayout>
+            </androidx.cardview.widget.CardView>
         </LinearLayout>
     </LinearLayout>
 
