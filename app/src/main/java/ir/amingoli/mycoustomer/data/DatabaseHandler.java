@@ -402,7 +402,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_ORDER,
                 new String[] {},
                 COL_ORDER_STATUS + " IN ("+status+")",
-                null, null, null, null);
+                null, null, null, COL_ORDER_CREATED_AT + " DESC");
 
         if (cursor.moveToFirst()) {
             items = getListOrderByCursor(cursor);
@@ -428,7 +428,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor = db.query(TABLE_ORDER,
                 new String[] {},
                 COL_ORDER_STATUS + " IN (1)"+ " AND " +COL_ORDER_ID_CUSTOMER + " IN ("+idCustomer+")",
-                null, null, null, null);
+                null, null, null, COL_ORDER_CREATED_AT + " DESC");
         if (cursor.getCount() == 0) return null;
         cursor.moveToLast();
         return cursor.getLong(cursor.getColumnIndex(COL_ORDER_CREATED_AT));
