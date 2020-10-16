@@ -430,7 +430,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 COL_ORDER_STATUS + " IN (1)"+ " AND " +COL_ORDER_ID_CUSTOMER + " IN ("+idCustomer+")",
                 null, null, null, COL_ORDER_CREATED_AT + " DESC");
         if (cursor.getCount() == 0) return null;
-        cursor.moveToLast();
+        cursor.moveToFirst();
         return cursor.getLong(cursor.getColumnIndex(COL_ORDER_CREATED_AT));
     }
 
