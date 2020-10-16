@@ -319,6 +319,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return obj;
     }
 
+    //    GET CUSTOMER
     public List<Customer> getCustomerByPage(int limit, int offset) {
         List<Customer> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -363,6 +364,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
+//    GET ORDER DETAIL
     public List<OrderDetail> getOrderDetailListById(Long id) {
         List<OrderDetail> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -385,6 +387,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
+//    GET ORDER
     public List<Order> getOrderList() {
         List<Order> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -434,6 +437,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor.getLong(cursor.getColumnIndex(COL_ORDER_CREATED_AT));
     }
 
+//    GET PRODUCT
     public List<Product> getProductList() {
         List<Product> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -507,38 +511,34 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
+//    DELETE CUSTOMER
     public void deleteCustomer(Long id) {
         db.delete(TABLE_CUSTOMER, COL_CUSTOMER_ID + " = ?", new String[]{id.toString()});
     }
-
-    // delete all records
     public void deleteCustomer() {
         db.execSQL("DELETE FROM " + TABLE_CUSTOMER);
     }
 
+//    DELETE ORDER DETAIL
     public void deleteOrderDetail(Long id) {
         db.delete(TABLE_ORDER_DETAIL, COL_ORDER_DETAIL_ID + " = ?", new String[]{id.toString()});
     }
-
-    // delete all records
     public void deleteOrderDetail() {
         db.execSQL("DELETE FROM " + TABLE_ORDER_DETAIL);
     }
 
+//    DELETE ORDER
     public void deleteOrder(Long order_id) {
         db.delete(TABLE_ORDER, COL_ORDER_ID + " = ?", new String[]{order_id.toString()});
     }
-
-    // delete all records
     public void deleteOrder() {
         db.execSQL("DELETE FROM " + TABLE_ORDER);
     }
 
+//    DELETE PRODUCT
     public void deleteProduct(Long order_id) {
         db.delete(TABLE_PRODUCT, COL_PRODUCT_ID + " = ?", new String[]{order_id.toString()});
     }
-
-    // delete all records
     public void deleteProduct() {
         db.execSQL("DELETE FROM " + TABLE_PRODUCT);
     }
