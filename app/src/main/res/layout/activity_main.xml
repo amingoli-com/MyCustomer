@@ -22,16 +22,21 @@
             <androidx.cardview.widget.CardView
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
-                <LinearLayout
-                    style="@style/LinearLayout_vmw_padding">
+                <RelativeLayout
+                    style="@style/RelativeLayout_ww">
                     <TextView
                         android:id="@+id/salesAll"
-                        android:text="فروش امروز ۳۸۰٬۰۰۰ تومان از ۱۲ سفارش"
-                        style="@style/ActivityMainTitle"/>
-                    <TextView
-                        android:text="از ۳۸۰ سفارش"
-                        style="@style/ActivityMainValue" />
-                </LinearLayout>
+                        android:text="@string/no_data_sales_all"
+                        style="@style/ActivityMainTitle_sales"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/live_salesAll"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:scaleType="centerCrop"
+                        app:lottie_rawRes="@raw/live"
+                        app:lottie_loop="true"
+                        app:lottie_autoPlay="true" />
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
@@ -44,35 +49,59 @@
             <androidx.cardview.widget.CardView
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
-                <LinearLayout
-                    style="@style/LinearLayout_vmw_padding">
+                <RelativeLayout
+                    style="@style/RelativeLayout_ww">
                     <TextView
                         android:id="@+id/salesToday"
-                        android:text="فروش امروز ۳۸۰٬۰۰۰ تومان از ۱۲ سفارش"
-                        style="@style/ActivityMainTitle"/>
-                </LinearLayout>
+                        android:text="@string/no_data_sales_today"
+                        style="@style/ActivityMainTitle_sales"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/live_salesToday"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:scaleType="centerCrop"
+                        app:lottie_rawRes="@raw/live"
+                        app:lottie_loop="true"
+                        app:lottie_autoPlay="true" />
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
-                <LinearLayout
-                    style="@style/LinearLayout_vmw_padding">
+                <RelativeLayout
+                    style="@style/RelativeLayout_ww">
                     <TextView
                         android:id="@+id/salesThisWeek"
-                        android:text="فروش این هفته ۳۸۰٬۰۰۰ تومان از ۱۲ سفارش"
-                        style="@style/ActivityMainTitle"/>
-                </LinearLayout>
+                        android:text="@string/no_data_sales_this_week"
+                        style="@style/ActivityMainTitle_sales"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/live_salesThisWeek"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:scaleType="centerCrop"
+                        app:lottie_rawRes="@raw/live"
+                        app:lottie_loop="true"
+                        app:lottie_autoPlay="true" />
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
-                <LinearLayout
-                    style="@style/LinearLayout_vmw_padding">
+                <RelativeLayout
+                    style="@style/RelativeLayout_ww">
                     <TextView
                         android:id="@+id/salesThisMonth"
-                        android:text="فروش این ماه ۳۸۰٬۰۰۰ تومان از ۱۲ سفارش"
-                        style="@style/ActivityMainTitle"/>
-                </LinearLayout>
+                        android:text="@string/no_data_sales_this_month"
+                        style="@style/ActivityMainTitle_sales"/>
+                    <com.airbnb.lottie.LottieAnimationView
+                        android:id="@+id/live_salesThisMonth"
+                        android:layout_width="@dimen/_10sdp"
+                        android:layout_height="@dimen/_10sdp"
+                        android:scaleType="centerCrop"
+                        app:lottie_rawRes="@raw/live"
+                        app:lottie_loop="true"
+                        app:lottie_autoPlay="true" />
+                </RelativeLayout>
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 

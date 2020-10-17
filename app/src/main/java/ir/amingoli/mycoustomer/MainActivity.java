@@ -20,12 +20,13 @@ public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler db;
     TextView salesAll, salesToday, salesThisWeek, salesThisMonth;
+    View live_salesAll,live_salesToday,live_salesThisWeek,live_salesThisMonth;
     
     @Override
     protected void onResume() {
         super.onResume();
         ((MyCustomerApplication) getApplication()).refreshLocale(this);
-        setCount();
+        initData();
     }
 
     @Override
@@ -33,10 +34,51 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DatabaseHandler(this);
+    }
+    private void initData(){
         initId();
         initValue();
     }
 
+    private void initId(){
+        salesAll = findViewById(R.id.salesAll);
+        salesToday = findViewById(R.id.salesToday);
+        salesThisWeek = findViewById(R.id.salesThisWeek);
+        salesThisMonth = findViewById(R.id.salesThisMonth);
+
+        live_salesAll = findViewById(R.id.live_salesAll);
+        live_salesToday = findViewById(R.id.live_salesToday);
+        live_salesThisWeek = findViewById(R.id.live_salesThisWeek);
+        live_salesThisMonth = findViewById(R.id.live_salesThisMonth);
+    }
+
+    @SuppressLint("StringFormatMatches")
+    private void initValue(){
+        GetTotalSales all = getTotalSales(0);
+        GetTotalSales today = getTotalSales(1);
+        GetTotalSales thisWeek = getTotalSales(7);
+        GetTotalSales thisMonth = getTotalSales(30);
+        if (all != null) {
+            salesAll.setText(getString(R.string.sales_all,
+                    Tools.getFormattedPrice(all.getTotalSales(), this),
+                    Tools.getFormattedInteger(all.getSalesCount())));
+        } else live_salesAll.setVisibility(View.GONE);
+        if (today != null) {
+            salesToday.setText(getString(R.string.sales_tody,
+                    Tools.getFormattedPrice(today.getTotalSales(), this),
+                    Tools.getFormattedInteger(today.getSalesCount())));
+        } else live_salesToday.setVisibility(View.GONE);
+        if (thisWeek != null) {
+            salesThisWeek.setText(getString(R.string.sales_this_week,
+                    Tools.getFormattedPrice(thisWeek.getTotalSales(), this),
+                    Tools.getFormattedInteger(thisWeek.getSalesCount())));
+        } else live_salesThisWeek.setVisibility(View.GONE);
+        if (thisMonth != null) {
+            salesThisMonth.setText(getString(R.string.sales_this_month,
+                    Tools.getFormattedPrice(thisMonth.getTotalSales(), this),
+                    Tools.getFormattedInteger(thisMonth.getSalesCount())));
+        } else live_salesThisMonth.setVisibility(View.GONE);
+    }
 
     private GetTotalSales getTotalSales(int howDays){
         GetTotalSales model = new GetTotalSales();
@@ -56,53 +98,6 @@ public class MainActivity extends AppCompatActivity {
             return model;
         }
         return null;
-    }
-
-    private void initId(){
-        salesAll = findViewById(R.id.salesAll);
-        salesToday = findViewById(R.id.salesToday);
-        salesThisWeek = findViewById(R.id.salesThisWeek);
-        salesThisMonth = findViewById(R.id.salesThisMonth);
-    }
-
-    @SuppressLint("StringFormatMatches")
-    private void initValue(){
-        GetTotalSales all = getTotalSales(0);
-        GetTotalSales today = getTotalSales(1);
-        GetTotalSales thisWeek = getTotalSales(7);
-        GetTotalSales thisMonth = getTotalSales(30);
-        if (all != null)
-            salesAll.setText(getString(R.string.sales_all,
-                    Tools.getFormattedPrice(all.getTotalSales(),this),
-                    Tools.getFormattedInteger(all.getSalesCount())));
-        if (today != null)
-            salesToday.setText(getString(R.string.sales_tody,
-                    Tools.getFormattedPrice(today.getTotalSales(),this),
-                    Tools.getFormattedInteger(today.getSalesCount())));
-        if (thisWeek != null)
-            salesThisWeek.setText(getString(R.string.sales_this_week,
-                    Tools.getFormattedPrice(thisWeek.getTotalSales(),this),
-                    Tools.getFormattedInteger(thisWeek.getSalesCount())));
-        if (thisMonth != null)
-            salesThisMonth.setText(getString(R.string.sales_this_month,
-                    Tools.getFormattedPrice(thisMonth.getTotalSales(),this),
-                    Tools.getFormattedInteger(thisMonth.getSalesCount())));
-    }
-
-
-    @SuppressLint("SetTextI18n")
-    private void setCount(){
-        /*TextView totalProduct = findViewById(R.id.total_product);
-        TextView totalCustomer = findViewById(R.id.total_customer);
-        TextView totalOrderPied = findViewById(R.id.total_orderPied);
-        TextView totalOrderWaiting = findViewById(R.id.total_orderWaiting);
-        TextView total_productOrdered = findViewById(R.id.total_productOrdered);
-
-        totalProduct.setText(db.getProductSize() +" "+ getResources().getString(R.string.stock));
-        totalCustomer.setText(db.getCustomerSize() +" "+ getResources().getString(R.string.customer));
-        totalOrderPied.setText(db.getOrderIsPiedSize() +" ");
-        totalOrderWaiting.setText(db.getOrderIsWaitingSize() +" ");
-        total_productOrdered.setText(getResources().getString(R.string.from)+" "+ db.getOrderIsWaitingSize() +" "+ getResources().getString(R.string.order));*/
     }
 
 //    onClick

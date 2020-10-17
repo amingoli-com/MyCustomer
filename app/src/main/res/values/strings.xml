@@ -55,4 +55,8 @@
     <string name="sales_this_week">فروش این هفته %1$s از %2$s سفارش</string>
     <string name="sales_this_month">فروش این ماه %1$s از %2$s سفارش</string>
     <string name="sales_all">فروش کل %1$s از %2$s سفارش</string>
+    <string name="no_data_sales_all">⚠️ \n اطلاعاتی برای نمایش فروش کل وجود ندارد</string>
+    <string name="no_data_sales_today">⚠️ \n اطلاعاتی برای نمایش فروش امروز وجود ندارد</string>
+    <string name="no_data_sales_this_week">⚠️ \n اطلاعاتی برای نمایش فروش این هفته وجود ندارد</string>
+    <string name="no_data_sales_this_month">⚠️ \n اطلاعاتی برای نمایش فروش این ماه وجود ندارد</string>
 </resources>
