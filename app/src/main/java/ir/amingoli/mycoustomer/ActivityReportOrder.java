@@ -61,7 +61,7 @@ public class ActivityReportOrder extends AppCompatActivity {
         List<Order> orders;
         if (CUSTOMER_ID != 0){
             orders = db.getOrderListByCustomerId(CUSTOMER_ID,ORDER_IS_PIED);
-        } else orders = db.getOrderList(true);
+        } else orders = db.getOrderList(ORDER_IS_PIED);
 
         if (!orders.isEmpty()){
             for (int i = 0; i < orders.size(); i++) {

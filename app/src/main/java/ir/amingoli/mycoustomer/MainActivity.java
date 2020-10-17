@@ -19,7 +19,8 @@ import ir.amingoli.mycoustomer.util.Tools;
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler db;
-    TextView salesAll, salesToday, salesThisWeek, salesThisMonth;
+    TextView salesAll, salesToday, salesThisWeek, salesThisMonth ,
+             totalCustomers, totalProduct, totalOrder, totalDetailOrder;
     View live_salesAll,live_salesToday,live_salesThisWeek,live_salesThisMonth;
     
     @Override
@@ -50,6 +51,12 @@ public class MainActivity extends AppCompatActivity {
         live_salesToday = findViewById(R.id.live_salesToday);
         live_salesThisWeek = findViewById(R.id.live_salesThisWeek);
         live_salesThisMonth = findViewById(R.id.live_salesThisMonth);
+
+        totalCustomers = findViewById(R.id.totalCustomers);
+        totalProduct = findViewById(R.id.totalProducts);
+        totalOrder = findViewById(R.id.totalOrders);
+        totalDetailOrder = findViewById(R.id.totalDetailOrder);
+
     }
 
     @SuppressLint("StringFormatMatches")
@@ -78,6 +85,15 @@ public class MainActivity extends AppCompatActivity {
                     Tools.getFormattedPrice(thisMonth.getTotalSales(), this),
                     Tools.getFormattedInteger(thisMonth.getSalesCount())));
         } else live_salesThisMonth.setVisibility(View.GONE);
+
+        totalCustomers.setText(getString(R.string.total_customer ,
+                Tools.getFormattedInteger(db.getCustomerSize())));
+        totalOrder.setText(getString(R.string.total_order ,
+                Tools.getFormattedInteger(db.getOrderIsWaitingSize())));
+        totalDetailOrder.setText(getString(R.string.total_detail_order ,
+                Tools.getFormattedInteger(db.getOrderIsWaitingSize())));
+        totalProduct.setText(getString(R.string.total_product ,
+                Tools.getFormattedInteger(db.getProductSize())));
     }
 
     private GetTotalSales getTotalSales(int howDays){
