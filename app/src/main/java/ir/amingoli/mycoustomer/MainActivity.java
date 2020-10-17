@@ -2,28 +2,24 @@ package ir.amingoli.mycoustomer;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 
-import java.util.Calendar;
 import java.util.List;
-import java.util.Locale;
-import java.util.Objects;
 
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
+import ir.amingoli.mycoustomer.model.GetTotalSales;
 import ir.amingoli.mycoustomer.model.Order;
 import ir.amingoli.mycoustomer.util.Tools;
 
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler db;
+    TextView salesAll, salesToday, salesThisWeek, salesThisMonth;
     
     @Override
     protected void onResume() {
@@ -37,25 +33,60 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DatabaseHandler(this);
-        a();
+        initId();
+        initValue();
     }
 
-    private void a(){
-        TextView unkow = findViewById(R.id.unkow);
+
+    private GetTotalSales getTotalSales(int howDays){
+        GetTotalSales model = new GetTotalSales();
         double total = 0;
         List<Order> orders;
-        orders = db.getOrderList(true , Tools.convertDayToMillis(30));
-
+        if (howDays == 0){
+            orders = db.getOrderList(true);
+        }else {
+            orders = db.getOrderList(true , Tools.convertDayToMillis(howDays));
+        }
         if (!orders.isEmpty()){
             for (int i = 0; i < orders.size(); i++) {
                 total = total + orders.get(i).getPrice();
             }
-        }else findViewById(R.id.include_empty).setVisibility(View.VISIBLE);
+            model.setTotalSales(total);
+            model.setSalesCount(orders.size());
+            return model;
+        }
+        return null;
+    }
 
-        unkow.setText(getString(R.string.uknow ,
-                Tools.getFormattedPrice(total, this),
-                Tools.getFormattedInteger(orders.size())
-                ));
+    private void initId(){
+        salesAll = findViewById(R.id.salesAll);
+        salesToday = findViewById(R.id.salesToday);
+        salesThisWeek = findViewById(R.id.salesThisWeek);
+        salesThisMonth = findViewById(R.id.salesThisMonth);
+    }
+
+    @SuppressLint("StringFormatMatches")
+    private void initValue(){
+        GetTotalSales all = getTotalSales(0);
+        GetTotalSales today = getTotalSales(1);
+        GetTotalSales thisWeek = getTotalSales(7);
+        GetTotalSales thisMonth = getTotalSales(30);
+        if (all != null)
+            salesAll.setText(getString(R.string.sales_all,
+                    Tools.getFormattedPrice(all.getTotalSales(),this),
+                    Tools.getFormattedInteger(all.getSalesCount())));
+        if (today != null)
+            salesToday.setText(getString(R.string.sales_tody,
+                    Tools.getFormattedPrice(today.getTotalSales(),this),
+                    Tools.getFormattedInteger(today.getSalesCount())));
+        if (thisWeek != null)
+            salesThisWeek.setText(getString(R.string.sales_this_week,
+                    Tools.getFormattedPrice(thisWeek.getTotalSales(),this),
+                    Tools.getFormattedInteger(thisWeek.getSalesCount())));
+        if (thisMonth != null)
+            salesThisMonth.setText(getString(R.string.sales_this_month,
+                    Tools.getFormattedPrice(thisMonth.getTotalSales(),this),
+                    Tools.getFormattedInteger(thisMonth.getSalesCount())));
     }
 
 

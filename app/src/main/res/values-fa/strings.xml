@@ -51,5 +51,8 @@
     <string name="from">از</string>
     <string name="cancel">لغو</string>
     <string name="today">امروز</string>
-    <string name="uknow">فروش این ماه %1$s از %2$s سفارش</string>
+    <string name="sales_tody">فروش امروز %1$s از %2$s سفارش</string>
+    <string name="sales_this_week">فروش این هفته %1$s از %2$s سفارش</string>
+    <string name="sales_this_month">فروش این ماه %1$s از %2$s سفارش</string>
+    <string name="sales_all">فروش کل %1$s از %2$s سفارش</string>
 </resources>
