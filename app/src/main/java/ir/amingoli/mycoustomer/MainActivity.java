@@ -141,4 +141,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,ActivityProductsOrdered.class);
         startActivity(intent);
     }
+
+    public void addOrder(View view) {
+        Intent intent = new Intent(this,ActivityCustomer.class);
+        intent.putExtra("add_order",true);
+        startActivity(intent);
+    }
 }

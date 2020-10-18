@@ -6,18 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.SearchView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import ir.amingoli.mycoustomer.Adapter.AdapterCustomer;
-import ir.amingoli.mycoustomer.data.Constant;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
 
@@ -29,6 +25,7 @@ public class ActivityCustomer extends AppCompatActivity {
     private DatabaseHandler db;
     private AdapterCustomer adapter;
     private List<Customer> arrayList;
+    private boolean ADD_ORDER = false;
 
     @Override
     protected void onResume() {
@@ -40,7 +37,7 @@ public class ActivityCustomer extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer);
-
+        ADD_ORDER = getIntent().getBooleanExtra("add_order",false);
         populateData();
         initAdapter();
         initSearchView();
@@ -128,7 +125,12 @@ public class ActivityCustomer extends AppCompatActivity {
     private void goToActivityCustomerDetail(Customer item){
         Intent intent = new Intent(this,ActivityCustomerDetail.class);
         intent.putExtra("id_customer",item.getId());
-        startActivity(intent);
+        if (ADD_ORDER) {
+            intent = new Intent(this,ActivityAddOrder.class);
+            intent.putExtra("id_customer",item.getId());
+            startActivity(intent);
+            finish();
+        } else startActivity(intent);
     }
 
     public void addCustomer(View view) {
