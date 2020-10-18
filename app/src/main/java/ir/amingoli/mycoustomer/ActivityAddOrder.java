@@ -70,6 +70,7 @@ public class ActivityAddOrder extends AppCompatActivity {
         populateData();
         initAdapter();
         if (ID_ORDER_DETAIL != 0 ){
+            findViewById(R.id.remove).setVisibility(View.VISIBLE);
             getListForOrderDetail();
         }
         initCustomerDetail();
@@ -273,6 +274,12 @@ public class ActivityAddOrder extends AppCompatActivity {
             saveOrderDetail();
             finish();
         }
+    }
+
+    public void remove(View view) {
+        db.deleteOrder(ID_ORDER);
+        db.deleteOrderDetail(ID_ORDER_DETAIL);
+        finish();
     }
 
     public void setDate(View view) {

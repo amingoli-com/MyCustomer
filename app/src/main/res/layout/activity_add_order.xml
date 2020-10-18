@@ -193,21 +193,45 @@
         </RelativeLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/submit"
+    <LinearLayout
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_10sdp"
-        android:background="@android:color/transparent"
-        android:fontFamily="sans-serif-condensed"
-        android:foreground="?attr/selectableItemBackground"
-        android:onClick="submit"
-        android:paddingLeft="@dimen/_7sdp"
-        android:paddingRight="@dimen/_7sdp"
-        android:text="@string/save"
-        android:textColor="@color/colorPrimary"
-        android:textSize="@dimen/_18ssp"
-        tools:ignore="UnusedAttribute" />
+        android:layout_centerVertical="true"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif-condensed"
+            android:foreground="?attr/selectableItemBackground"
+            android:onClick="submit"
+            android:paddingLeft="@dimen/_7sdp"
+            android:paddingRight="@dimen/_7sdp"
+            android:text="@string/save"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_18ssp"
+            tools:ignore="UnusedAttribute" />
+
+        <Button
+            android:id="@+id/remove"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_10sdp"
+            android:background="@android:color/transparent"
+            android:fontFamily="sans-serif-condensed"
+            android:foreground="?attr/selectableItemBackground"
+            android:onClick="remove"
+            android:paddingLeft="@dimen/_7sdp"
+            android:paddingRight="@dimen/_7sdp"
+            android:text="@string/remove"
+            android:textColor="@android:color/holo_red_dark"
+            android:textSize="@dimen/_18ssp"
+            tools:ignore="UnusedAttribute" />
+    </LinearLayout>
+
 </RelativeLayout>

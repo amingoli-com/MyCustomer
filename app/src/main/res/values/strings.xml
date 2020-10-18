@@ -68,4 +68,5 @@
     <string name="add_product_now">محصولی ثبت کنید!</string>
     <string name="add_customer_now">متشری اضافه کنید!</string>
     <string name="no_order">سفارشی نداریم</string>
+    <string name="remove">حذف</string>
 </resources>
