@@ -50,12 +50,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:onClick="goToActivityOrderIsPied"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="1">
             <androidx.cardview.widget.CardView
+                android:onClick="goToActivityOrderIsPied"
+                android:tag="0" 
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
                 <RelativeLayout
@@ -78,12 +79,13 @@
         </LinearLayout>
 
         <LinearLayout
-            android:onClick="goToActivityOrderIsPied"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="3">
             <androidx.cardview.widget.CardView
+                android:onClick="goToActivityOrderIsPied"
+                android:tag="1"
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
                 <RelativeLayout
@@ -104,6 +106,8 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:onClick="goToActivityOrderIsPied"
+                android:tag="7"
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
                 <RelativeLayout
@@ -124,6 +128,8 @@
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
             <androidx.cardview.widget.CardView
+                android:onClick="goToActivityOrderIsPied"
+                android:tag="30"
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
                 <RelativeLayout

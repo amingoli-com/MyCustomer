@@ -10,7 +10,6 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import ir.amingoli.mycoustomer.Adapter.AdapterProduct;
 import ir.amingoli.mycoustomer.Adapter.AdapterReportOrder;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
@@ -23,6 +22,7 @@ public class ActivityReportOrder extends AppCompatActivity {
     private RecyclerView recyclerView;
     private AdapterReportOrder adapter;
     private ArrayList<Order> arrayList;
+    private Integer FILTER = 0;
     private boolean ORDER_IS_PIED = true;
     private long CUSTOMER_ID = 0;
     private boolean activityIsCrated = false;
@@ -38,6 +38,7 @@ public class ActivityReportOrder extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report_order);
+        FILTER = getIntent().getIntExtra("filter",0);
         ORDER_IS_PIED = getIntent().getBooleanExtra("order_status",true);
         CUSTOMER_ID = getIntent().getLongExtra("id_customer",0);
         populateData();
@@ -61,7 +62,13 @@ public class ActivityReportOrder extends AppCompatActivity {
         List<Order> orders;
         if (CUSTOMER_ID != 0){
             orders = db.getOrderListByCustomerId(CUSTOMER_ID,ORDER_IS_PIED);
-        } else orders = db.getOrderList(ORDER_IS_PIED);
+        } else {
+            if (FILTER == 0){
+                orders = db.getOrderList(ORDER_IS_PIED);
+            }else {
+                orders = db.getOrderList(ORDER_IS_PIED,Tools.dayToMillis(FILTER));
+            }
+        }
 
         if (!orders.isEmpty()){
             for (int i = 0; i < orders.size(); i++) {

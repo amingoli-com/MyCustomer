@@ -417,6 +417,22 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
+    public List<Order> getOrderList(long idCustomer, boolean isPied, long mils) {
+        int status = isPied ? 1 : 0;
+        List<Order> items = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append(" SELECT * FROM " + TABLE_ORDER
+                + " WHERE " + COL_ORDER_CREATED_AT + " >= "+ mils
+                +" AND " + COL_ORDER_STATUS + " IN ("+status+") "
+                +" AND " + COL_CUSTOMER_ID + " IN (" +idCustomer+") "
+                +" ORDER BY " + COL_ORDER_CREATED_AT + " DESC ");
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        if (cursor.moveToFirst()) {
+            items = getListOrderByCursor(cursor);
+        }
+        return items;
+    }
+
     public List<Order> getOrderListByCustomerId(long idCustomer, boolean isPied) {
         int status = isPied ? 1 : 0;
         List<Order> items = new ArrayList<>();

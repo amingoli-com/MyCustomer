@@ -44,7 +44,7 @@ public class Tools {
         return pdformater.format(new PersianDate(dateTime));
     }
 
-    public static long convertDayToMillis(int howBeforeDay){
+    public static long dayToMillis(int howBeforeDay){
         long toDay = System.currentTimeMillis();
         long oneDay = 86400000;
         if (howBeforeDay >= 1 ) return toDay -oneDay * howBeforeDay;

@@ -3,6 +3,7 @@ package ir.amingoli.mycoustomer;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
@@ -103,7 +104,7 @@ public class MainActivity extends AppCompatActivity {
         if (howDays == 0){
             orders = db.getOrderList(true);
         }else {
-            orders = db.getOrderList(true , Tools.convertDayToMillis(howDays));
+            orders = db.getOrderList(true , Tools.dayToMillis(howDays));
         }
         if (!orders.isEmpty()){
             for (int i = 0; i < orders.size(); i++) {
@@ -128,6 +129,8 @@ public class MainActivity extends AppCompatActivity {
     public void goToActivityOrderIsPied(View view) {
         Intent intent = new Intent(this,ActivityReportOrder.class);
         intent.putExtra("order_status",true);
+        if (!TextUtils.isEmpty(view.getTag().toString()))
+            intent.putExtra("filter",Integer.valueOf(view.getTag().toString()));
         startActivity(intent);
     }
 
