@@ -56,7 +56,7 @@
             android:weightSum="1">
             <androidx.cardview.widget.CardView
                 android:onClick="goToActivityOrderIsPied"
-                android:tag="0" 
+                android:tag="0"
                 style="@style/CardView_MainActivity"
                 android:layout_width="match_parent">
                 <RelativeLayout

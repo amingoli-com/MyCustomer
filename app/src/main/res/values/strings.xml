@@ -14,6 +14,7 @@
     <string name="desc">Desc</string>
     <string name="add_customer">Add Customer</string>
     <string name="add">Add</string>
+    <string name="update">بروزرسانی</string>
     <string name="invalid_name">Invalid Name</string>
     <string name="invalid_number">Invalid Number</string>
     <string name="show_customer_by">Show Customer By</string>
@@ -38,6 +39,7 @@
     <string name="and">And</string>
     <string name="product">Product</string>
     <string name="add_product">Add Product</string>
+    <string name="update_product">بروزرسانی محصول</string>
     <string name="total_pied">Total Pied</string>
     <string name="last_pied">Last Pied</string>
     <string name="product_list">Product List</string>

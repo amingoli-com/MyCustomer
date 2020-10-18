@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -105,6 +106,9 @@ public class ActivityProduct extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void dialogAddOrEditProduct(Product value){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        String title_dialog = getResources().getString(R.string.add_product);
+        String title_button_add = getResources().getString(R.string.add);
         if (GET_PRODUCT && value != null){
             Intent resultIntent = new Intent();
             resultIntent.putExtra("product_id", value.getId());
@@ -118,18 +122,22 @@ public class ActivityProduct extends AppCompatActivity {
             EditText price = itemView_DialogAddProduct.findViewById(R.id.price);
             price.addTextChangedListener(new PriceNumberTextWatcher(price));
 //            EditText amount = itemView_DialogAddProduct.findViewById(R.id.amount);
+            builder.setView(itemView_DialogAddProduct);
 
             if (value !=null){
                 name.setText(value.getName());
                 price.setText(Tools.getFormattedPrice(value.getPrice(),this));
 //                amount.setText(value.getAmount()+"");
+                title_dialog = getResources().getString(R.string.update_product);
+                title_button_add = getResources().getString(R.string.update);
+                builder.setNegativeButton(getString(R.string.remove), (dialogInterface, i) -> {
+                    db.deleteProduct(value.getId());
+                    loadProductListByNameOrTel("",false);
+                });
             }
-
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle(getResources().getString(R.string.add_product));
-            builder.setView(itemView_DialogAddProduct)
+            builder.setTitle(title_dialog)
                     .setCancelable(true)
-                    .setPositiveButton(getResources().getString(R.string.add), (dialog, id) -> {
+                    .setPositiveButton(title_button_add, (dialog, id) -> {
                         Product product = new Product();
                         product.setName(name.getText().toString());
                         product.setPrice(
