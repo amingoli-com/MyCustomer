@@ -203,6 +203,7 @@ public class ActivityAddOrder extends AppCompatActivity {
             }
         } else {
             if (checkboxOrderIsReady.isChecked()){
+                order.setCreated_at(System.currentTimeMillis());
                 order.setStatus(true);
             }else {
                 order.setStatus(false);
