@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -234,10 +235,10 @@ public class ActivityAddOrder extends AppCompatActivity {
                 if (product.getId().equals(arrayList.get(i).getId())){
                     Double allAmount = arrayList.get(i).getAmount()+product.getAmount();
                     product.setAmount(allAmount);
-                    if (product.getPrice_all() == 0.0 || product.getPrice_all() == null ){
-                        product.setPrice_all(allAmount*product.getPrice());
-                    }
+                    product.setPrice_all(allAmount*product.getPrice());
                     arrayList.set(i,product);
+                    setTextTotalPrice();
+                    Toast.makeText(this, "-", Toast.LENGTH_SHORT).show();
                     return;
                 }else if (i == arrayList.size()-1){
                     arrayList.add(product);
