@@ -171,7 +171,7 @@
         android:foreground="?attr/selectableItemBackground"
         android:paddingLeft="@dimen/_7sdp"
         android:paddingRight="@dimen/_7sdp"
-        android:textColor="@color/colorPrimary"
+        android:textColor="@color/colorTextBlue"
         android:textSize="@dimen/_18ssp"
         tools:ignore="UnusedAttribute" />
 
