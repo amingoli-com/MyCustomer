@@ -24,10 +24,12 @@ public class AdapterAddOrder extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public interface Listener {
         void onClickPlus(Product product);
         void onClickRemove(Product product);
+        void onClickChangeAmount(Product product, int position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
+        public View boxAmount;
         public TextView name;
         public TextView desc;
         public TextView tv_id;
@@ -37,13 +39,14 @@ public class AdapterAddOrder extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         public ViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.name);
-            desc = (TextView) itemView.findViewById(R.id.desc);
-            tv_id = (TextView) itemView.findViewById(R.id.tv_id);
-            textBlue = (TextView) itemView.findViewById(R.id.textBlue);
-            avatar = (ImageView) itemView.findViewById(R.id.image);
-            plus = (ImageView) itemView.findViewById(R.id.plusAmount);
-            remove = (ImageView) itemView.findViewById(R.id.removeAmount);
+            boxAmount = itemView.findViewById(R.id.box_img);
+            name = itemView.findViewById(R.id.name);
+            desc = itemView.findViewById(R.id.desc);
+            tv_id = itemView.findViewById(R.id.tv_id);
+            textBlue =  itemView.findViewById(R.id.textBlue);
+            avatar = itemView.findViewById(R.id.image);
+            plus = itemView.findViewById(R.id.plusAmount);
+            remove = itemView.findViewById(R.id.removeAmount);
         }
     }
 
@@ -73,6 +76,8 @@ public class AdapterAddOrder extends RecyclerView.Adapter<RecyclerView.ViewHolde
             vItem.textBlue.setText(" جمع " + Tools.getFormattedPrice(c.getPrice_all(),ctx));
 //            vItem.textBlue.setText(ctx.getResources().getString(R.string.edit));
             c.setPosition(position);
+
+            vItem.boxAmount.setOnClickListener(view -> listener.onClickChangeAmount(c,position));
             vItem.plus.setOnClickListener(view -> listener.onClickPlus(c));
             vItem.remove.setOnClickListener(view -> listener.onClickRemove(c));
         }

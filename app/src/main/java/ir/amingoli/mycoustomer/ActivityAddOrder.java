@@ -6,8 +6,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -30,7 +28,6 @@ import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
 import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Product;
-import ir.amingoli.mycoustomer.util.PriceNumberTextWatcher;
 import ir.amingoli.mycoustomer.util.Tools;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
@@ -49,7 +46,7 @@ public class ActivityAddOrder extends AppCompatActivity {
 
     private Long ID_THIS_ORDER = System.currentTimeMillis();
 
-    private ArrayList<Product> arrayList;
+    private ArrayList<Product> productsList;
     private RecyclerView recyclerView;
     private DatabaseHandler db;
     private AdapterAddOrder adapter;
@@ -102,7 +99,7 @@ public class ActivityAddOrder extends AppCompatActivity {
     private void populateData(){
         db = new DatabaseHandler(this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
-        arrayList = new ArrayList<>();
+        productsList = new ArrayList<>();
         totalPrice = findViewById(R.id.all_price);
         customerName = findViewById(R.id.customerName);
         dateToDay = findViewById(R.id.dateToDay);
@@ -117,13 +114,13 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
     private void initAdapter(){
-        adapter = new AdapterAddOrder(this, arrayList, new AdapterAddOrder.Listener() {
+        adapter = new AdapterAddOrder(this, productsList, new AdapterAddOrder.Listener() {
             @Override
             public void onClickPlus(Product product) {
                 if (!ORDER_STATUS_IS_PIED){
                     product.setAmount(product.getAmount() + 1.0);
                     product.setPrice_all(product.getAmount()*product.getPrice());
-                    arrayList.set(product.getPosition(),product);
+                    productsList.set(product.getPosition(),product);
                     adapter.notifyDataSetChanged();
                     setTextTotalPrice();
                 }
@@ -133,15 +130,20 @@ public class ActivityAddOrder extends AppCompatActivity {
             public void onClickRemove(Product product) {
                 if (!ORDER_STATUS_IS_PIED){
                     if (product.getAmount() == 1) {
-                        arrayList.remove(product.getPosition());
+                        productsList.remove(product.getPosition());
                     } else {
                         product.setAmount(product.getAmount() - 1.0);
                         product.setPrice_all(product.getAmount() * product.getPrice());
-                        arrayList.set(product.getPosition(),product);
+                        productsList.set(product.getPosition(),product);
                     }
                     adapter.notifyDataSetChanged();
                     setTextTotalPrice();
                 }
+            }
+
+            @Override
+            public void onClickChangeAmount(Product product, int position) {
+                changeAmount(product,position);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -218,15 +220,15 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
     private void saveOrderDetail(){
-        for (int i = 0; i < arrayList.size(); i++) {
+        for (int i = 0; i < productsList.size(); i++) {
             OrderDetail orderDetail = new OrderDetail();
             orderDetail.setCreated_at(CRATED_AT);
-            orderDetail.setId_product(arrayList.get(i).getId());
+            orderDetail.setId_product(productsList.get(i).getId());
             orderDetail.setId_order_detail(ID_THIS_ORDER);
-            orderDetail.setName(arrayList.get(i).getName());
-            orderDetail.setAmount(arrayList.get(i).getAmount());
-            orderDetail.setPrice_item(arrayList.get(i).getPrice());
-            orderDetail.setPrice_all(arrayList.get(i).getPrice_all());
+            orderDetail.setName(productsList.get(i).getName());
+            orderDetail.setAmount(productsList.get(i).getAmount());
+            orderDetail.setPrice_item(productsList.get(i).getPrice());
+            orderDetail.setPrice_all(productsList.get(i).getPrice_all());
             db.saveOrderDetail(orderDetail);
         }
 
@@ -234,20 +236,20 @@ public class ActivityAddOrder extends AppCompatActivity {
 
 //    Util
     private void addProductInOrder(Product product) {
-        if (arrayList.size() == 0){
-            arrayList.add(product);
+        if (productsList.size() == 0){
+            productsList.add(product);
         }else {
-            for (int i = 0; i <= arrayList.size()-1; i++) {
-                if (product.getId().equals(arrayList.get(i).getId())){
-                    Double allAmount = arrayList.get(i).getAmount()+product.getAmount();
+            for (int i = 0; i <= productsList.size()-1; i++) {
+                if (product.getId().equals(productsList.get(i).getId())){
+                    Double allAmount = productsList.get(i).getAmount()+product.getAmount();
                     product.setAmount(allAmount);
                     product.setPrice_all(allAmount*product.getPrice());
-                    arrayList.set(i,product);
+                    productsList.set(i,product);
                     setTextTotalPrice();
                     Toast.makeText(this, "-", Toast.LENGTH_SHORT).show();
                     return;
-                }else if (i == arrayList.size()-1){
-                    arrayList.add(product);
+                }else if (i == productsList.size()-1){
+                    productsList.add(product);
                     return;
                 }
             }
@@ -256,8 +258,8 @@ public class ActivityAddOrder extends AppCompatActivity {
 
     private double getAllPrice(){
         double p = 0.0;
-        for (int i = 0; i < arrayList.size(); i++) {
-            p = p + arrayList.get(i).getPrice_all();
+        for (int i = 0; i < productsList.size(); i++) {
+            p = p + productsList.get(i).getPrice_all();
         }
         return p;
     }
@@ -274,9 +276,27 @@ public class ActivityAddOrder extends AppCompatActivity {
         }
     }
 
+//    dialog
+    private void changeAmount(Product product , int i){
+        View view = View.inflate(this, R.layout.item_dialog_change_amount, null);
+        EditText amount = view.findViewById(R.id.amount);
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(view);
+        builder.setTitle(getString(R.string.do_you_want_remove_this_order))
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.yes), (dialog, id) -> {
+                    product.setAmount(Double.valueOf(amount.getText().toString()));
+                    product.setPrice_all(product.getAmount()*product.getPrice());
+                    productsList.set(i,product);
+                    adapter.notifyDataSetChanged();
+                    setTextTotalPrice();
+                })
+                .show();
+    }
+
 //    onClick
     public void submit(View view) {
-        if (arrayList.size() !=0){
+        if (productsList.size() !=0){
             saveOrder();
             saveOrderDetail();
             finish();
