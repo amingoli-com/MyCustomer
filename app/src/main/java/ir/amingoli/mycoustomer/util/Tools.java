@@ -37,6 +37,11 @@ public class Tools {
         return df.format(price);
     }
 
+    public static String getFormattedDiscount(Double count) {
+        DecimalFormat df = new DecimalFormat("#.##");
+        return df.format(count);
+    }
+
     public static String getFormattedDate(Long dateTime) {
         PersianDateFormat pdformater;
         pdformater = new PersianDateFormat("l j F Y");

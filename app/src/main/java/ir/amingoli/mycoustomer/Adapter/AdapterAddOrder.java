@@ -1,5 +1,6 @@
 package ir.amingoli.mycoustomer.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -65,6 +66,7 @@ public class AdapterAddOrder extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
@@ -72,7 +74,7 @@ public class AdapterAddOrder extends RecyclerView.Adapter<RecyclerView.ViewHolde
             final Product c = items.get(position);
             vItem.name.setText(c.getName());
             vItem.desc.setText(" فی " + Tools.getFormattedPrice(c.getPrice(),ctx));
-            vItem.tv_id.setText(c.getAmount()+"");
+            vItem.tv_id.setText(Tools.getFormattedDiscount(c.getAmount()));
             vItem.textBlue.setText(" جمع " + Tools.getFormattedPrice(c.getPrice_all(),ctx));
 //            vItem.textBlue.setText(ctx.getResources().getString(R.string.edit));
             c.setPosition(position);
