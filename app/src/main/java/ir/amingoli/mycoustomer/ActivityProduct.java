@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -47,7 +46,7 @@ public class ActivityProduct extends AppCompatActivity {
         populateData();
         initAdapter();
         initSearchView();
-        loadProductListByNameOrTel("",false);
+        loadProductListByNameOrPrice("",false);
     }
 
     private void populateData(){
@@ -70,7 +69,7 @@ public class ActivityProduct extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
-                loadProductListByNameOrTel(query,false);
+                loadProductListByNameOrPrice(query,false);
                 return false;
             }
 
@@ -78,19 +77,19 @@ public class ActivityProduct extends AppCompatActivity {
             public boolean onQueryTextChange(String query) {
                 include_load.setVisibility(View.VISIBLE);
                 if (query.matches("[0-9]+") && query.length() > 0) {
-                    loadProductListByNameOrTel(query,true);
+                    loadProductListByNameOrPrice(query,true);
                 }else {
-                    loadProductListByNameOrTel(query,false);
+                    loadProductListByNameOrPrice(query,false);
                 }
                 return false;
             }
         });
     }
 
-    private void loadProductListByNameOrTel(String keyword, boolean searchByTel) {
+    private void loadProductListByNameOrPrice(String keyword, boolean searchByPrice) {
         arrayList.clear();
         List<Product> items;
-        if (searchByTel){
+        if (searchByPrice){
             items = db.getProductByPrice(keyword);
         }else {
             items = db.getProductByName(keyword);
@@ -145,7 +144,7 @@ public class ActivityProduct extends AppCompatActivity {
 //                        product.setAmount(Double.valueOf(amount.getText().toString()));
                         if (value != null) product.setId(value.getId());
                         db.saveProduct(product);
-                        loadProductListByNameOrTel("",false);
+                        loadProductListByNameOrPrice("",false);
                         recyclerView.scrollToPosition(arrayList.size()-1);
                         dialog.dismiss();
                     }).show();
@@ -160,7 +159,7 @@ public class ActivityProduct extends AppCompatActivity {
                 .setCancelable(true)
                 .setPositiveButton(getString(R.string.yes), (dialog, id) -> {
                     db.deleteProduct(product.getId());
-                    loadProductListByNameOrTel("",false);
+                    loadProductListByNameOrPrice("",false);
                 })
                 .setNegativeButton(getString(R.string.no),
                         (dialogInterface, i) -> dialogInterface.dismiss())
