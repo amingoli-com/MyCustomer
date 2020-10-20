@@ -61,7 +61,7 @@
     <string name="total_customer">%1$s مشتری</string>
     <string name="total_product">%1$s محصول</string>
     <string name="total_order">%1$s سفارش</string>
-    <string name="total_detail_order">اطلاعات دقیق از %1$s سفارش، جهت آماده سازی راحت تر سفارشات</string>
+    <string name="total_detail_order">محصولات سفارش داده شده از %1$s سفارش</string>
 
     <string name="no_data_sales_all">⚠️ \n اطلاعاتی برای نمایش فروش کل وجود ندارد</string>
     <string name="no_data_sales_today">⚠️ \n اطلاعاتی برای نمایش فروش امروز وجود ندارد</string>
