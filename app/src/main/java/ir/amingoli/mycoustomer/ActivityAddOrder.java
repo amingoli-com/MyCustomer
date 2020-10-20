@@ -290,11 +290,11 @@ public class ActivityAddOrder extends AppCompatActivity {
         }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);
-        builder.setTitle(getString(R.string.do_you_want_remove_this_order))
+        builder.setTitle(getString(R.string.change_discount_product, product.getName()))
                 .setCancelable(true)
-                .setPositiveButton(getString(R.string.yes), (dialog, id) -> {
+                .setPositiveButton(getString(R.string.save), (dialog, id) -> {
                     if (!TextUtils.isEmpty(amount.getText().toString())
-                            && Double.valueOf(amount.getText().toString()) != 0){
+                            && Double.parseDouble(amount.getText().toString()) != 0){
                         product.setAmount(Double.valueOf(amount.getText().toString()));
                         product.setPrice_all(product.getAmount()*product.getPrice());
                         productsList.set(i,product);
