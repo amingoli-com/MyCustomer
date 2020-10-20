@@ -212,7 +212,7 @@
             android:paddingLeft="@dimen/_7sdp"
             android:paddingRight="@dimen/_7sdp"
             android:text="@string/save"
-            android:textColor="@color/colorPrimary"
+            android:textColor="@color/colorTextBlue"
             android:textSize="@dimen/_18ssp"
             tools:ignore="UnusedAttribute" />
 
