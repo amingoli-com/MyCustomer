@@ -70,22 +70,34 @@ public class MainActivity extends AppCompatActivity {
             salesAll.setText(getString(R.string.sales_all,
                     Tools.getFormattedPrice(all.getTotalSales(), this),
                     Tools.getFormattedInteger(all.getSalesCount())));
-        } else live_salesAll.setVisibility(View.GONE);
+        } else {
+            live_salesAll.setVisibility(View.GONE);
+            salesAll.setText(getString(R.string.no_data_sales_all));
+        }
         if (today != null) {
             salesToday.setText(getString(R.string.sales_tody,
                     Tools.getFormattedPrice(today.getTotalSales(), this),
                     Tools.getFormattedInteger(today.getSalesCount())));
-        } else live_salesToday.setVisibility(View.GONE);
+        } else {
+            live_salesToday.setVisibility(View.GONE);
+            salesToday.setText(getString(R.string.no_data_sales_today));
+        }
         if (thisWeek != null) {
             salesThisWeek.setText(getString(R.string.sales_this_week,
                     Tools.getFormattedPrice(thisWeek.getTotalSales(), this),
                     Tools.getFormattedInteger(thisWeek.getSalesCount())));
-        } else live_salesThisWeek.setVisibility(View.GONE);
+        } else {
+            live_salesThisWeek.setVisibility(View.GONE);
+            salesThisWeek.setText(getString(R.string.no_data_sales_this_week));
+        }
         if (thisMonth != null) {
             salesThisMonth.setText(getString(R.string.sales_this_month,
                     Tools.getFormattedPrice(thisMonth.getTotalSales(), this),
                     Tools.getFormattedInteger(thisMonth.getSalesCount())));
-        } else live_salesThisMonth.setVisibility(View.GONE);
+        } else {
+            live_salesThisMonth.setVisibility(View.GONE);
+            salesThisMonth.setText(getString(R.string.no_data_sales_this_month));
+        }
 
         totalCustomers.setText(getString(R.string.total_customer ,
                 Tools.getFormattedInteger(db.getCustomerSize())));
