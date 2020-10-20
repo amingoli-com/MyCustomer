@@ -1,10 +1,13 @@
 package ir.amingoli.mycoustomer;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Activity;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
@@ -13,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +30,7 @@ import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
 import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Product;
+import ir.amingoli.mycoustomer.util.PriceNumberTextWatcher;
 import ir.amingoli.mycoustomer.util.Tools;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
@@ -279,9 +284,16 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
     public void remove(View view) {
-        db.deleteOrder(ID_ORDER);
-        db.deleteOrderDetail(ID_ORDER_DETAIL);
-        finish();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.do_you_want_remove_this_order))
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.yes), (dialog, id) -> {
+                    db.deleteOrder(ID_ORDER);
+                    db.deleteOrderDetail(ID_ORDER_DETAIL);
+                    finish(); })
+                .setNegativeButton(getString(R.string.no),
+                        (dialogInterface, i) -> dialogInterface.dismiss())
+                .show();
     }
 
     public void setDate(View view) {

@@ -131,8 +131,7 @@ public class ActivityProduct extends AppCompatActivity {
                 title_dialog = getResources().getString(R.string.update_product);
                 title_button_add = getResources().getString(R.string.update);
                 builder.setNegativeButton(getString(R.string.remove), (dialogInterface, i) -> {
-                    db.deleteProduct(value.getId());
-                    loadProductListByNameOrTel("",false);
+                    dialogDoYouWantToRemoveThisProduct(value);
                 });
             }
             builder.setTitle(title_dialog)
@@ -154,6 +153,18 @@ public class ActivityProduct extends AppCompatActivity {
     }
     private void dialogAddOrEditProduct(){
         dialogAddOrEditProduct(null);
+    }
+    private void dialogDoYouWantToRemoveThisProduct(Product product){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(getString(R.string.do_you_want_remove_this_product,product.getName()))
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.yes), (dialog, id) -> {
+                    db.deleteProduct(product.getId());
+                    loadProductListByNameOrTel("",false);
+                })
+                .setNegativeButton(getString(R.string.no),
+                        (dialogInterface, i) -> dialogInterface.dismiss())
+                .show();
     }
 
     public void addCustomer(View view) {

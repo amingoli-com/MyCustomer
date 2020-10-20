@@ -71,4 +71,8 @@
     <string name="add_customer_now">متشری اضافه کنید!</string>
     <string name="no_order">سفارشی نداریم</string>
     <string name="remove">حذف</string>
+    <string name="do_you_want_remove_this_product">%1$s حذف شود؟</string>
+    <string name="do_you_want_remove_this_order">این سفارش حذف شود؟</string>
+    <string name="yes">بله</string>
+    <string name="no">خیر</string>
 </resources>
