@@ -250,7 +250,6 @@ public class ActivityAddOrder extends AppCompatActivity {
                     product.setPrice_all(allAmount*product.getPrice());
                     productsList.set(i,product);
                     setTextTotalPrice();
-                    Toast.makeText(this, "-", Toast.LENGTH_SHORT).show();
                     return;
                 }else if (i == productsList.size()-1){
                     productsList.add(product);
@@ -301,7 +300,7 @@ public class ActivityAddOrder extends AppCompatActivity {
                         adapter.notifyDataSetChanged();
                         setTextTotalPrice();
                     }else {
-                        Toast.makeText(this, amount.getText()+"", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this, getString(R.string.is_not_decimal), Toast.LENGTH_SHORT).show();
                     }
 
                 })
