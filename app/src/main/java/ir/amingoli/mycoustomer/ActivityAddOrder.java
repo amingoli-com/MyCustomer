@@ -30,6 +30,7 @@ import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
 import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Product;
+import ir.amingoli.mycoustomer.util.SetTextForSendSms;
 import ir.amingoli.mycoustomer.util.Tools;
 import ir.hamsaa.persiandatepicker.Listener;
 import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
@@ -56,6 +57,8 @@ public class ActivityAddOrder extends AppCompatActivity {
     private View boxCheckboxOrderIsReady,boxCheckBoxOrderIsWaiting,boxCheckBoxSendSmsToCustomer;
     private CheckBox checkboxOrderIsReady,checkBoxOrderIsWaiting,checkBoxSendSmsToCustomer;
     private Button submit;
+
+    private String customer_phone, customer_name;
 
     @Override
     protected void onResume() {
@@ -156,7 +159,9 @@ public class ActivityAddOrder extends AppCompatActivity {
     private void initCustomerDetail(){
         List<Customer> customerList = db.getCustomerById(ID_CUSTOMER);
         int size = 0;
-        customerName.setText(customerList.get(size).getName());
+        customer_name = customerList.get(size).getName();
+        customer_phone = customerList.get(size).getTel();
+        customerName.setText(customer_name);
         dateToDay.setText(Tools.getFormattedDate(CRATED_AT));
 
     }
@@ -200,13 +205,26 @@ public class ActivityAddOrder extends AppCompatActivity {
         if (boxCheckboxOrderIsReady.getVisibility() == View.GONE){
             if (checkBoxOrderIsWaiting.isChecked()){
                 order.setStatus(false);
+                if (checkBoxSendSmsToCustomer.isChecked()){
+                    sendSms(SetTextForSendSms.SEND_SMS_ORDER_IS_WAITING(
+                            this
+                            , customer_name
+                            , getAllPrice()
+                            , productsList));
+                }
             } else {
                 order.setStatus(true);
+                if (checkBoxSendSmsToCustomer.isChecked()){
+                    sendSms(SetTextForSendSms.SEND_SMS_ORDER_IS_PIED(customer_name));
+                }
             }
         } else {
             if (checkboxOrderIsReady.isChecked()){
                 order.setCreated_at(System.currentTimeMillis());
                 order.setStatus(true);
+                if (checkBoxSendSmsToCustomer.isChecked()){
+                    sendSms(SetTextForSendSms.SEND_SMS_ORDER_IS_WAITING_IS_PIED(customer_name));
+                }
             }else {
                 order.setStatus(false);
             }
@@ -230,6 +248,12 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
 //    Util
+    private void sendSms(String text){
+        Uri uri = Uri.parse("smsto:"+customer_phone);
+        Intent it = new Intent(Intent.ACTION_SENDTO, uri);
+        it.putExtra("sms_body", text);
+        startActivity(it);
+    }
     private void addProductInOrder(Product product) {
         if (productsList.size() == 0){
             productsList.add(product);
