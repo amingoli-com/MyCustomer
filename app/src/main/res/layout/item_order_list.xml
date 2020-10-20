@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_marginTop="@dimen/_5sdp"
     android:layout_marginStart="@dimen/_7sdp"
     android:layout_marginEnd="@dimen/_7sdp"
@@ -11,98 +11,89 @@
 
 
     <RelativeLayout
+        android:padding="@dimen/_3sdp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-        <ImageView
-            android:id="@+id/plusAmount"
-            android:layout_alignBottom="@+id/asd"
-            android:layout_alignTop="@id/asd"
-            android:background="#82125201"
-            android:padding="@dimen/_7sdp"
-            android:layout_alignParentStart="true"
-            android:src="@drawable/ic_baseline_add_24"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="wrap_content"/>
 
-        <RelativeLayout
-            android:id="@+id/asd"
-            android:layout_toEndOf="@+id/plusAmount"
-            android:layout_toStartOf="@+id/removeAmount"
-            android:padding="@dimen/_7sdp"
-            android:layout_marginStart="@dimen/_7sdp"
-            android:layout_marginEnd="@dimen/_7sdp"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/t"
+            android:layout_centerVertical="true"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_alignParentEnd="true"
+            android:layout_width="@dimen/_120sdp"
             android:layout_height="wrap_content">
 
-            <RelativeLayout
-                android:id="@+id/box_img"
-                android:layout_width="@dimen/_35sdp"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_centerVertical="true">
-                <ImageView
-                    android:id="@+id/img_coustomer"
-                    android:src="@drawable/ic_avatar"
+            <androidx.cardview.widget.CardView
+                android:layout_margin="@dimen/_5sdp"
+                app:cardCornerRadius="@dimen/_5sdp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_25sdp">
+                <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerInParent="true"/>
-                <TextView
-                    android:id="@+id/tv_id"
-                    android:text="@string/test_numer_on_avatar"
-                    android:textColor="@color/colorTitle"
-                    android:textStyle="bold"
-                    android:textSize="@dimen/_10ssp"
-                    android:layout_centerInParent="true"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-            </RelativeLayout>
-
-
-            <LinearLayout
+                    android:layout_height="match_parent">
+                    <ImageView
+                        android:id="@+id/plusAmount"
+                        android:layout_alignParentStart="true"
+                        android:background="#82125201"
+                        android:padding="@dimen/_7sdp"
+                        android:src="@drawable/ic_baseline_add_24"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="match_parent"/>
+                    <TextView
+                        android:id="@+id/tv_discount"
+                        android:text="@string/test_numer_on_avatar"
+                        android:textColor="@color/colorTitle"
+                        android:textStyle="bold"
+                        android:textSize="@dimen/_10ssp"
+                        android:layout_centerInParent="true"
+                        android:layout_toEndOf="@+id/plusAmount"
+                        android:layout_toStartOf="@+id/removeAmount"
+                        android:gravity="center"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"/>
+                    <ImageView
+                        android:id="@+id/removeAmount"
+                        android:layout_alignParentEnd="true"
+                        android:background="#6E6D0000"
+                        android:padding="@dimen/_7sdp"
+                        android:src="@drawable/ic_baseline_remove_24"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="match_parent"/>
+                </RelativeLayout>
+            </androidx.cardview.widget.CardView>
+            <TextView
+                android:id="@+id/textBlue"
+                android:text="جمع کل ۲۰٬۰۰۰ تومان"
+                android:textColor="@color/colorTextBlue"
+                android:textSize="@dimen/_10ssp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/_12sdp"
-                android:layout_toEndOf="@+id/box_img"
-                android:layout_centerVertical="true"
-                tools:ignore="RtlSymmetry">
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/name"
-                    android:text="@string/test_name_product"
-                    android:textColor="@color/colorTitle"
-                    android:textSize="@dimen/_10ssp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-                <TextView
-                    android:id="@+id/desc"
-                    android:text="قیمت هر عدد ۱٬۰۰۰ تومان"
-                    android:textColor="@color/colorDesc"
-                    android:textSize="@dimen/_10ssp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@+id/t"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/name"
+                android:text="@string/test_name_product"
+                android:textColor="@color/colorTitle"
+                android:textSize="@dimen/_10ssp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/desc"
+                android:text="قیمت هر عدد ۱٬۰۰۰ تومان"
+                android:textColor="@color/colorDesc"
+                android:textSize="@dimen/_9ssp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
 
-                <TextView
-                    android:id="@+id/textBlue"
-                    android:text="جمع کل ۲۰٬۰۰۰ تومان"
-                    android:textColor="@color/colorTextBlue"
-                    android:textSize="@dimen/_10ssp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
 
-            </LinearLayout>
-
-        </RelativeLayout>
-
-        <ImageView
-            android:id="@+id/removeAmount"
-            android:layout_alignBottom="@+id/asd"
-            android:layout_alignTop="@id/asd"
-            android:background="#6E6D0000"
-            android:padding="@dimen/_7sdp"
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_baseline_remove_24"
-            android:layout_width="@dimen/_32sdp"
-            android:layout_height="wrap_content"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

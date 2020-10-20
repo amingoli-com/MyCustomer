@@ -77,4 +77,6 @@
     <string name="yes">بله</string>
     <string name="no">خیر</string>
     <string name="is_not_decimal">مقدار صحیح وارد کنید</string>
+    <string name="price_of_each_number">قیمت هر عدد %1$s</string>
+    <string name="total_price_of_each_number">جمع %1$s</string>
 </resources>

@@ -30,22 +30,18 @@ public class AdapterAddOrder extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public View boxAmount;
         public TextView name;
         public TextView desc;
-        public TextView tv_id;
+        public TextView tv_discount;
         public TextView textBlue;
-        public ImageView avatar;
         public ImageView plus,remove;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            boxAmount = itemView.findViewById(R.id.box_img);
             name = itemView.findViewById(R.id.name);
             desc = itemView.findViewById(R.id.desc);
-            tv_id = itemView.findViewById(R.id.tv_id);
+            tv_discount = itemView.findViewById(R.id.tv_discount);
             textBlue =  itemView.findViewById(R.id.textBlue);
-            avatar = itemView.findViewById(R.id.image);
             plus = itemView.findViewById(R.id.plusAmount);
             remove = itemView.findViewById(R.id.removeAmount);
         }
@@ -73,13 +69,14 @@ public class AdapterAddOrder extends RecyclerView.Adapter<RecyclerView.ViewHolde
             ViewHolder vItem = (ViewHolder) holder;
             final Product c = items.get(position);
             vItem.name.setText(c.getName());
-            vItem.desc.setText(" فی " + Tools.getFormattedPrice(c.getPrice(),ctx));
-            vItem.tv_id.setText(Tools.getFormattedDiscount(c.getAmount()));
-            vItem.textBlue.setText(" جمع " + Tools.getFormattedPrice(c.getPrice_all(),ctx));
-//            vItem.textBlue.setText(ctx.getResources().getString(R.string.edit));
+            vItem.desc.setText(ctx.getString(R.string.price_of_each_number,
+                    Tools.getFormattedPrice(c.getPrice(),ctx)));
+            vItem.tv_discount.setText(Tools.getFormattedDiscount(c.getAmount()));
+            vItem.textBlue.setText(ctx.getString(R.string.total_price_of_each_number,
+                    Tools.getFormattedPrice(c.getPrice_all(),ctx)));
             c.setPosition(position);
 
-            vItem.boxAmount.setOnClickListener(view -> listener.onClickChangeAmount(c,position));
+            vItem.tv_discount.setOnClickListener(view -> listener.onClickChangeAmount(c,position));
             vItem.plus.setOnClickListener(view -> listener.onClickPlus(c));
             vItem.remove.setOnClickListener(view -> listener.onClickRemove(c));
         }
