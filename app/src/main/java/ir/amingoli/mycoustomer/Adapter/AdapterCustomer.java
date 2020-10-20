@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
+import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,6 +22,7 @@ import java.util.List;
 
 import ir.amingoli.mycoustomer.R;
 import ir.amingoli.mycoustomer.model.Customer;
+import ir.amingoli.mycoustomer.util.Tools;
 
 public class AdapterCustomer extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
@@ -39,7 +41,6 @@ public class AdapterCustomer extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public TextView desc;
         public TextView telNumber;
         public ImageView avatar;
-        public ImageView tel;
 
         public ViewHolder(View v) {
             super(v);
@@ -48,7 +49,6 @@ public class AdapterCustomer extends RecyclerView.Adapter<RecyclerView.ViewHolde
             desc = (TextView) v.findViewById(R.id.desc);
             telNumber = (TextView) v.findViewById(R.id.tel_number);
             avatar = (ImageView) v.findViewById(R.id.image);
-            tel = (ImageView) v.findViewById(R.id.tel);
         }
     }
 
@@ -74,8 +74,8 @@ public class AdapterCustomer extends RecyclerView.Adapter<RecyclerView.ViewHolde
             final Customer c = items.get(position);
             vItem.name.setText(c.getName());
             vItem.desc.setText(c.getDesc());
-            vItem.telNumber.setText(c.getTel());
-            vItem.tel.setOnClickListener(view -> {
+            vItem.telNumber.setText(Tools.formatPhoneNumber(c.getTel()));
+            vItem.telNumber.setOnClickListener(view -> {
                 Intent dial = new Intent(Intent.ACTION_DIAL);
                 dial.setData(Uri.parse("tel:"+c.getTel()));
                 ctx.startActivity(dial);

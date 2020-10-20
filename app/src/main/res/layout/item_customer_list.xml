@@ -56,18 +56,12 @@
             android:orientation="vertical"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:gravity="center"
-            >
-            <ImageView
-                android:id="@+id/tel"
-                android:src="@drawable/ic_baseline_call_24"
-                android:padding="5dp"
-                android:layout_width="@dimen/_26sdp"
-                android:layout_height="@dimen/_26sdp"/>
+            android:gravity="center">
             <TextView
                 android:id="@+id/tel_number"
                 android:text="@string/test_tel_number"
-                android:textColor="@color/colorDesc"
+                android:textColor="@color/colorTextBlue"
+                android:textStyle="bold"
                 android:textSize="@dimen/_8ssp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>

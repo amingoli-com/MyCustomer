@@ -87,7 +87,7 @@ public class ActivityCustomerDetail extends AppCompatActivity {
         customerList = db.getCustomerById(CUSTOMER_ID);
         id.setText(CUSTOMER_ID+"");
         name.setText(customerList.get(0).getName());
-        tel.setText(customerList.get(0).getTel());
+        tel.setText(Tools.formatPhoneNumber(customerList.get(0).getTel()));
         desc.setText(customerList.get(0).getDesc());
     }
     /**

@@ -37,6 +37,12 @@ public class Tools {
         return df.format(price);
     }
 
+    public static String getFormattedString(String price) {
+        int i = Integer.parseInt(price);
+        DecimalFormat df = new DecimalFormat("### ### ## ##");
+        return df.format(i);
+    }
+
     public static String getFormattedDiscount(Double count) {
         DecimalFormat df = new DecimalFormat("#.##");
         return df.format(count);
@@ -69,6 +75,13 @@ public class Tools {
 
         }
         return string;
+    }
+
+    public static String formatPhoneNumber(String number){
+        number  =   number.substring(0, number.length()-4) + " " + number.substring(number.length()-4, number.length());
+        number  =   number.substring(0,number.length()-8)+" "+number.substring(number.length()-8,number.length());
+        number  =   number.substring(0, number.length()-12)+" "+number.substring(number.length()-12, number.length());
+        return number;
     }
 
 }
