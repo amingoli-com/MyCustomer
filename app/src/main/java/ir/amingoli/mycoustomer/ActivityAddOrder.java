@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -143,7 +145,9 @@ public class ActivityAddOrder extends AppCompatActivity {
 
             @Override
             public void onClickChangeAmount(Product product, int position) {
-                changeAmount(product,position);
+                if (!ORDER_STATUS_IS_PIED){
+                    changeAmount(product,position);
+                }
             }
         });
         recyclerView.setAdapter(adapter);
@@ -277,19 +281,29 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
 //    dialog
+    @SuppressLint("SetTextI18n")
     private void changeAmount(Product product , int i){
         View view = View.inflate(this, R.layout.item_dialog_change_amount, null);
         EditText amount = view.findViewById(R.id.amount);
+        if (product.getAmount() != 0 && product.getAmount() != null){
+            amount.setText(product.getAmount()+"");
+        }
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);
         builder.setTitle(getString(R.string.do_you_want_remove_this_order))
                 .setCancelable(true)
                 .setPositiveButton(getString(R.string.yes), (dialog, id) -> {
-                    product.setAmount(Double.valueOf(amount.getText().toString()));
-                    product.setPrice_all(product.getAmount()*product.getPrice());
-                    productsList.set(i,product);
-                    adapter.notifyDataSetChanged();
-                    setTextTotalPrice();
+                    if (!TextUtils.isEmpty(amount.getText().toString())
+                            && Double.valueOf(amount.getText().toString()) != 0){
+                        product.setAmount(Double.valueOf(amount.getText().toString()));
+                        product.setPrice_all(product.getAmount()*product.getPrice());
+                        productsList.set(i,product);
+                        adapter.notifyDataSetChanged();
+                        setTextTotalPrice();
+                    }else {
+                        Toast.makeText(this, amount.getText()+"", Toast.LENGTH_SHORT).show();
+                    }
+
                 })
                 .show();
     }
