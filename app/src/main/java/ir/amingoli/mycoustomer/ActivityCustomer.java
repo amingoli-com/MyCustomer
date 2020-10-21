@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.SearchView;
 
@@ -16,6 +17,7 @@ import java.util.List;
 import ir.amingoli.mycoustomer.Adapter.AdapterCustomer;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
+import ir.amingoli.mycoustomer.view.DialogAddCustomer;
 
 public class ActivityCustomer extends AppCompatActivity {
 
@@ -100,26 +102,12 @@ public class ActivityCustomer extends AppCompatActivity {
     }
 
     private void dialogAddCustomer(){
-        View itemView_DialogAddCustomer = View.inflate(this, R.layout.item_dialog_add_customer, null);
-        EditText customerName = itemView_DialogAddCustomer.findViewById(R.id.customerName);
-        EditText customerNumber = itemView_DialogAddCustomer.findViewById(R.id.customerNumber);
-        EditText customerDesc = itemView_DialogAddCustomer.findViewById(R.id.customerDesc);
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(getResources().getString(R.string.add_customer));
-        builder.setView(itemView_DialogAddCustomer)
-                .setCancelable(true)
-                .setPositiveButton(getResources().getString(R.string.add), (dialog, id) -> {
-                    Customer customer = new Customer();
-                    customer.setName(customerName.getText().toString());
-                    customer.setTel(customerNumber.getText().toString());
-                    customer.setDesc(customerDesc.getText().toString());
-                    db.saveCustomer(customer);
-                    loadCustomerListByNameOrTel("",false);
-                    recyclerView.scrollToPosition(arrayList.size()-1);
-                    dialog.dismiss();
-                });
-        builder.show();
+        DialogAddCustomer dialogAddCustomer = new DialogAddCustomer(this, customer -> {
+            db.saveCustomer(customer);
+            loadCustomerListByNameOrTel("",false);
+            recyclerView.scrollToPosition(arrayList.size()-1);
+        });
+        dialogAddCustomer.show();
     }
 
     private void goToActivityCustomerDetail(Customer item){

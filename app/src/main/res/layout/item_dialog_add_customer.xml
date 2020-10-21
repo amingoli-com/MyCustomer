@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:gravity="center"
     android:padding="@dimen/_15sdp"
@@ -9,6 +9,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_lyt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingClass">
@@ -26,6 +27,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/desc_lyt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingClass">
@@ -42,6 +44,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tel_lyt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingClass">
@@ -58,5 +61,18 @@
             android:maxLines="1"
             tools:ignore="TextFields" />
     </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/submit"
+        android:text="@string/add"
+        android:layout_gravity="end"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@android:color/transparent"
+        android:foreground="?attr/selectableItemBackground"
+        android:textColor="@color/colorTextBlue"
+        android:textSize="@dimen/_12ssp"
+        tools:ignore="UnusedAttribute" />
 
 </LinearLayout>

@@ -56,4 +56,10 @@ public class Customer {
         this.tel = tel;
         this.desc = desc;
     }
+
+    public Customer(String name, String desc, String tel) {
+        this.name = name;
+        this.desc = desc;
+        this.tel = tel;
+    }
 }
