@@ -1,13 +1,16 @@
 package ir.amingoli.mycoustomer.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.telephony.PhoneNumberUtils;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -32,6 +35,7 @@ public class AdapterCustomer extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public interface Listener{
         void onClick(Customer customer);
+        void edit(Customer customer);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -39,7 +43,7 @@ public class AdapterCustomer extends RecyclerView.Adapter<RecyclerView.ViewHolde
         public View view;
         public TextView name;
         public TextView desc;
-        public TextView telNumber;
+        public Button edit;
         public ImageView avatar;
 
         public ViewHolder(View v) {
@@ -47,7 +51,7 @@ public class AdapterCustomer extends RecyclerView.Adapter<RecyclerView.ViewHolde
             view = (View) v;
             name = (TextView) v.findViewById(R.id.name);
             desc = (TextView) v.findViewById(R.id.desc);
-            telNumber = (TextView) v.findViewById(R.id.tel_number);
+            edit = (Button) v.findViewById(R.id.edit);
             avatar = (ImageView) v.findViewById(R.id.image);
         }
     }
@@ -67,20 +71,21 @@ public class AdapterCustomer extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
             ViewHolder vItem = (ViewHolder) holder;
             final Customer c = items.get(position);
             vItem.name.setText(c.getName());
-            vItem.desc.setText(c.getDesc());
-            vItem.telNumber.setText(Tools.formatPhoneNumber(c.getTel()));
-            vItem.telNumber.setOnClickListener(view -> {
-                Intent dial = new Intent(Intent.ACTION_DIAL);
-                dial.setData(Uri.parse("tel:"+c.getTel()));
-                ctx.startActivity(dial);
-            });
+
+            String desc = "" ;
+            if (!TextUtils.isEmpty(c.getDesc())) desc = desc + c.getDesc() + " - ";
+            desc = desc + Tools.formatPhoneNumber(c.getTel());
+            vItem.desc.setText(desc);
+
             vItem.view.setOnClickListener(view -> listener.onClick(c));
+            vItem.edit.setOnClickListener(view -> listener.edit(c));
         }
 
     }

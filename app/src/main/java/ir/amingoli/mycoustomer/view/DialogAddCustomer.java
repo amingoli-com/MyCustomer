@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -24,7 +25,7 @@ public class DialogAddCustomer extends AlertDialog implements
     private EditText name, desc, tel;
     private TextInputLayout name_lyt, desc_lyt, tel_lyt;
     private Button submit;
-    private boolean auto_cancelable = true;
+    private Customer customer = null;
 
     public DialogAddCustomer(Activity a, listener listeners) {
         super(a);
@@ -33,12 +34,12 @@ public class DialogAddCustomer extends AlertDialog implements
         this.listener = listeners;
     }
 
-    public DialogAddCustomer(Activity a, listener listeners , boolean autoCancelable) {
+    public DialogAddCustomer(Activity a, Customer customer, listener listeners) {
         super(a);
         // TODO Auto-generated constructor stub
         this.ac = a;
         this.listener = listeners;
-        this.auto_cancelable = autoCancelable;
+        this.customer = customer;
     }
 
     @Override
@@ -46,22 +47,22 @@ public class DialogAddCustomer extends AlertDialog implements
         super.onCreate(savedInstanceState);
         Objects.requireNonNull(getWindow()).clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         setContentView(R.layout.item_dialog_add_customer);
-        name = findViewById(R.id.customerName);
-        desc = findViewById(R.id.customerDesc);
-        tel = findViewById(R.id.customerNumber);
 
         name_lyt = findViewById(R.id.name_lyt);
         desc_lyt = findViewById(R.id.desc_lyt);
         tel_lyt = findViewById(R.id.tel_lyt);
+        name = findViewById(R.id.customerName);
+        desc = findViewById(R.id.customerDesc);
+        tel = findViewById(R.id.customerNumber);
+        submit = findViewById(R.id.submit);
 
+        if (customer != null) setValue(customer);
 
         name.requestFocus();
         if (name.hasFocusable()){
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
-        submit = findViewById(R.id.submit);
         submit.setOnClickListener(this);
-        setCancelable(auto_cancelable);
     }
 
     @Override
@@ -75,7 +76,13 @@ public class DialogAddCustomer extends AlertDialog implements
             requestFocus(tel);
         } else {
             tel_lyt.setErrorEnabled(false);
-            Customer customer = new Customer(getText(name),getText(desc),getText(tel));
+            if (customer == null){
+                customer = new Customer(getText(name),getText(desc),getText(tel));
+            }else {
+                customer.setName(getText(name));
+                customer.setDesc(getText(desc));
+                customer.setTel(getText(tel));
+            }
             listener.result(customer);
             dismiss();
         }
@@ -87,12 +94,19 @@ public class DialogAddCustomer extends AlertDialog implements
     }
 
     private String getText(EditText editText){
-        return editText.getText().toString();
+        return editText.getText().toString().trim();
     }
 
     private void requestFocus(View view) {
         if (view.requestFocus()) {
             getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
+    }
+
+    private void setValue(Customer customer){
+        name.setText(customer.getName());
+        desc.setText(customer.getDesc());
+        tel.setText(customer.getTel());
+        submit.setText(ac.getResources().getString(R.string.update));
     }
 }

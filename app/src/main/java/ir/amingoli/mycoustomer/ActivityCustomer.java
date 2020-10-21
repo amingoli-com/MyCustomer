@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -58,7 +59,17 @@ public class ActivityCustomer extends AppCompatActivity {
     }
 
     private void initAdapter(){
-        adapter = new AdapterCustomer(this, arrayList, this::goToActivityCustomerDetail);
+        adapter = new AdapterCustomer(this, arrayList, new AdapterCustomer.Listener() {
+            @Override
+            public void onClick(Customer customer) {
+                goToActivityCustomerDetail(customer);
+            }
+
+            @Override
+            public void edit(Customer customer) {
+                dialogAddCustomer(customer);
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
@@ -101,11 +112,10 @@ public class ActivityCustomer extends AppCompatActivity {
             include_empty.setVisibility(View.VISIBLE); else include_empty.setVisibility(View.GONE);
     }
 
-    private void dialogAddCustomer(){
-        DialogAddCustomer dialogAddCustomer = new DialogAddCustomer(this, customer -> {
-            db.saveCustomer(customer);
+    private void dialogAddCustomer(Customer c){
+        DialogAddCustomer dialogAddCustomer = new DialogAddCustomer(this,c, value -> {
+            db.saveCustomer(value);
             loadCustomerListByNameOrTel("",false);
-            recyclerView.scrollToPosition(arrayList.size()-1);
         });
         dialogAddCustomer.show();
     }
@@ -122,6 +132,6 @@ public class ActivityCustomer extends AppCompatActivity {
     }
 
     public void addCustomer(View view) {
-        dialogAddCustomer();
+        dialogAddCustomer(null);
     }
 }
