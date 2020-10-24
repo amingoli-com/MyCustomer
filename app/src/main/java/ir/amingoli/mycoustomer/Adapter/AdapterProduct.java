@@ -23,6 +23,7 @@ public class AdapterProduct extends RecyclerView.Adapter<RecyclerView.ViewHolder
 
     public interface Listener {
         void onClick(Product product);
+        void onClickEdit(Product product);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -71,6 +72,7 @@ public class AdapterProduct extends RecyclerView.Adapter<RecyclerView.ViewHolder
 //            vItem.textBlue.setText(c.getAmount()+"");
             vItem.textBlue.setText(ctx.getResources().getString(R.string.edit));
             vItem.view.setOnClickListener(view -> listener.onClick(c));
+            vItem.textBlue.setOnClickListener(view -> listener.onClickEdit(c));
         }
 
     }

@@ -61,7 +61,24 @@ public class ActivityProduct extends AppCompatActivity {
     }
 
     private void initAdapter(){
-        adapter = new AdapterProduct(this, arrayList, this::dialogAddOrEditProduct);
+        adapter = new AdapterProduct(this, arrayList, new AdapterProduct.Listener() {
+            @Override
+            public void onClick(Product product) {
+                if (GET_PRODUCT && product != null){
+                    Intent resultIntent = new Intent();
+                    resultIntent.putExtra("product_id", product.getId());
+                    resultIntent.putExtra("product_name", product.getName());
+                    resultIntent.putExtra("product_price", product.getPrice());
+                    setResult(Activity.RESULT_OK, resultIntent);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onClickEdit(Product product) {
+                dialogAddOrEditProduct(product);
+            }
+        });
         recyclerView.setAdapter(adapter);
     }
 
