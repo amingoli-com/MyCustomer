@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -68,11 +67,11 @@ public class DialogAddCustomer extends AlertDialog implements
     @Override
     public void onClick(View v) {
         if (TextUtils.isEmpty(getText(name))){
-            name_lyt.setError(ac.getString(R.string.error_name_customer));
+            name_lyt.setError(ac.getString(R.string.error_name));
             requestFocus(name);
         } else if (getText(tel).length() < 7){
             name_lyt.setErrorEnabled(false);
-            tel_lyt.setError(ac.getString(R.string.error_tel_customer));
+            tel_lyt.setError(ac.getString(R.string.error_tel));
             requestFocus(tel);
         } else {
             tel_lyt.setErrorEnabled(false);
