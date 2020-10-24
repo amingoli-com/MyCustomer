@@ -9,6 +9,7 @@
     android:layout_height="wrap_content">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/name_lyt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingClass">
@@ -26,6 +27,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/price_lyt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingClass">
@@ -41,7 +43,9 @@
             android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <!--<com.google.android.material.textfield.TextInputLayout
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/amount_lyt"
+        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingClass">
@@ -57,6 +61,36 @@
             android:maxLength="100"
             android:maxLines="1"
             tools:ignore="TextFields" />
-    </com.google.android.material.textfield.TextInputLayout>-->
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <LinearLayout
+        android:layout_gravity="end"
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/remove"
+            android:visibility="gone"
+            android:text="@string/remove"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:foreground="?attr/selectableItemBackground"
+            android:textColor="@color/colorTextRed"
+            android:textSize="@dimen/_12ssp"
+            tools:ignore="UnusedAttribute" />
+        <Button
+            android:id="@+id/submit"
+            android:text="@string/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:background="@android:color/transparent"
+            android:foreground="?attr/selectableItemBackground"
+            android:textColor="@color/colorTextBlue"
+            android:textSize="@dimen/_12ssp"
+            tools:ignore="UnusedAttribute" />
+    </LinearLayout>
 
 </LinearLayout>

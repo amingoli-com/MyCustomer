@@ -7,5 +7,6 @@
     <color name="colorDesc">#9A333333</color>
     <color name="colorTextBlue">#008AFF</color>
     <color name="colorTextGreen">#00861E</color>
+    <color name="colorTextRed">#D30000</color>
     <color name="transparent">#0C000000</color>
 </resources>

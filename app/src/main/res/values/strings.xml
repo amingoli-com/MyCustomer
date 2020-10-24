@@ -80,7 +80,8 @@
     <string name="price_of_each_number">قیمت %1$s</string>
     <string name="total_price_of_each_number">جمع %1$s</string>
 
-    <string name="error_name_customer">نام نامعتبر است</string>
-    <string name="error_tel_customer">تلفن وارد شده نامعتبر است</string>
+    <string name="error_name">نام نامعتبر است</string>
+    <string name="error_tel">تلفن وارد شده نامعتبر است</string>
+    <string name="error_price">مبلغ وارد شده نامعتبر است</string>
 
 </resources>

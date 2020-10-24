@@ -20,6 +20,7 @@ import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Product;
 import ir.amingoli.mycoustomer.util.PriceNumberTextWatcher;
 import ir.amingoli.mycoustomer.util.Tools;
+import ir.amingoli.mycoustomer.view.DialogAddProduct;
 
 public class ActivityProduct extends AppCompatActivity {
 
@@ -105,53 +106,20 @@ public class ActivityProduct extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void dialogAddOrEditProduct(Product value){
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        String title_dialog = getResources().getString(R.string.add_product);
-        String title_button_add = getResources().getString(R.string.add);
-        if (GET_PRODUCT && value != null){
-            Intent resultIntent = new Intent();
-            resultIntent.putExtra("product_id", value.getId());
-            resultIntent.putExtra("product_name", value.getName());
-            resultIntent.putExtra("product_price", value.getPrice());
-            setResult(Activity.RESULT_OK, resultIntent);
-            finish();
-        }else {
-            View itemView_DialogAddProduct = View.inflate(this, R.layout.item_dialog_add_product, null);
-            EditText name = itemView_DialogAddProduct.findViewById(R.id.name);
-            EditText price = itemView_DialogAddProduct.findViewById(R.id.price);
-            price.addTextChangedListener(new PriceNumberTextWatcher(price));
-//            EditText amount = itemView_DialogAddProduct.findViewById(R.id.amount);
-            builder.setView(itemView_DialogAddProduct);
-
-            if (value !=null){
-                name.setText(value.getName());
-                price.setText(Tools.getFormattedPrice(value.getPrice(),this));
-//                amount.setText(value.getAmount()+"");
-                title_dialog = getResources().getString(R.string.update_product);
-                title_button_add = getResources().getString(R.string.update);
-                builder.setNegativeButton(getString(R.string.remove), (dialogInterface, i) -> {
-                    dialogDoYouWantToRemoveThisProduct(value);
-                });
+        DialogAddProduct dialogAddProduct = new DialogAddProduct(this, value, new DialogAddProduct.listener() {
+            @Override
+            public void addOrUpdate(Product product) {
+                db.saveProduct(product);
+                loadProductListByNameOrPrice("",false);
+                recyclerView.scrollToPosition(arrayList.size()-1);
             }
-            builder.setTitle(title_dialog)
-                    .setCancelable(true)
-                    .setPositiveButton(title_button_add, (dialog, id) -> {
-                        Product product = new Product();
-                        product.setName(name.getText().toString());
-                        product.setPrice(
-                                Double.valueOf(Tools.convertNumberToEN(price.getText().toString())));
-                        product.setAmount(0.0);
-//                        product.setAmount(Double.valueOf(amount.getText().toString()));
-                        if (value != null) product.setId(value.getId());
-                        db.saveProduct(product);
-                        loadProductListByNameOrPrice("",false);
-                        recyclerView.scrollToPosition(arrayList.size()-1);
-                        dialog.dismiss();
-                    }).show();
-        }
-    }
-    private void dialogAddOrEditProduct(){
-        dialogAddOrEditProduct(null);
+
+            @Override
+            public void remove(Product product) {
+                dialogDoYouWantToRemoveThisProduct(product);
+            }
+        });
+        dialogAddProduct.show();
     }
     private void dialogDoYouWantToRemoveThisProduct(Product product){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -167,7 +135,7 @@ public class ActivityProduct extends AppCompatActivity {
     }
 
     public void addCustomer(View view) {
-        dialogAddOrEditProduct();
+        dialogAddOrEditProduct(null);
     }
 
     @Override
