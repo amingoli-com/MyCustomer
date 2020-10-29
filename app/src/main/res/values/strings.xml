@@ -83,5 +83,7 @@
     <string name="error_name">نام نامعتبر است</string>
     <string name="error_tel">تلفن وارد شده نامعتبر است</string>
     <string name="error_price">مبلغ وارد شده نامعتبر است</string>
+    <string name="for_add_customer_click_on_item_pluse">برای افزودن مشتری \n علامت + را در بالا لمس کنید</string>
+    <string name="for_add_product_click_on_item_pluse">برای افزودن محصول \n علامت + را در بالا لمس کنید</string>
 
 </resources>
