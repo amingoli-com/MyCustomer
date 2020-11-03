@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "836891450600",
+    "firebase_url": "https://my-customer-1399.firebaseio.com",
+    "project_id": "my-customer-1399",
+    "storage_bucket": "my-customer-1399.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:836891450600:android:bb0172b572c024630bbd5d",
+        "android_client_info": {
+          "package_name": "ir.amingoli.mycoustomer"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "836891450600-hkght3s6qucihn3dfunjrcs4jeokmqsf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMLPvpS400d5WMkFqs5aBbSuGZUuZZ5Qk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "836891450600-hkght3s6qucihn3dfunjrcs4jeokmqsf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
