@@ -1,150 +1,137 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="vertical"
     android:background="@drawable/banear">
 
-    <RelativeLayout
-        android:paddingTop="@dimen/_10sdp"
-        android:paddingStart="@dimen/_15sdp"
-        android:paddingEnd="@dimen/_15sdp"
-        android:orientation="horizontal"
+    <include
+        layout="@layout/include_toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <TextView
-            android:layout_alignParentStart="true"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_14ssp"
-            android:text="داشبورد"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
-
-        <ImageView
-            android:layout_alignParentEnd="true"
-            android:src="@drawable/ic_avatar"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"/>
-
-    </RelativeLayout>
+        android:layout_height="wrap_content"/>
 
     <androidx.cardview.widget.CardView
-        android:layout_marginTop="@dimen/_50sdp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_50sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"
-        app:cardCornerRadius="@dimen/_15sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        app:cardCornerRadius="@dimen/_10sdp">
 
         <LinearLayout
-            android:orientation="vertical"
+            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
             <LinearLayout
-                android:padding="@dimen/_15sdp"
+                android:onClick="goToActivityOrderIsPied"
+                android:tag="30"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:padding="@dimen/_15sdp">
                 <TextView
-                    android:text="تعداد سفارشات در حال انتظار"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/text_sales_this_month"
                     android:textColor="@color/textGray"
-                    android:textSize="@dimen/_10ssp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
-
+                    android:textSize="@dimen/_10ssp" />
                 <TextView
-                    android:textColor="@color/textBlue"
-                    android:text="۸۰"
-                    android:textSize="@dimen/_16ssp"
+                    android:id="@+id/salesThisMonth"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:text="۰"
+                    android:textColor="@color/textBlue"
+                    android:textSize="@dimen/_16ssp" />
             </LinearLayout>
 
             <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
                 android:layout_marginStart="@dimen/_15sdp"
                 android:layout_marginEnd="@dimen/_15sdp"
-                android:background="@color/line"
-                android:layout_width="match_parent"
-                android:layout_height="2dp"/>
+                android:background="@color/line" />
 
             <LinearLayout
-                android:gravity="center"
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
                 <LinearLayout
-                    android:padding="@dimen/_15sdp"
+                    android:onClick="goToActitvityCustomer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:padding="@dimen/_15sdp">
                     <TextView
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_16ssp"
+                        android:id="@+id/totalCustomers"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="۰"
                         android:textColor="@color/textBlack"
-                        android:text="۲,۲۹۲"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/_16ssp"
+                        android:textStyle="bold" />
                     <TextView
-                        android:text="مشتری"
-                        android:textColor="@color/textGray"
-                        android:textSize="@dimen/_10ssp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="@string/customer"
+                        android:textColor="@color/textGray"
+                        android:textSize="@dimen/_10ssp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:padding="@dimen/_15sdp"
+                    android:onClick="goToActivityOrderIsPied"
+                    android:tag="30"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:padding="@dimen/_15sdp">
                     <TextView
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_16ssp"
+                        android:id="@+id/totalOrderIsPiedThisMonth"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="۰"
                         android:textColor="@color/textBlack"
-                        android:text="۹,۲۸۷"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/_16ssp"
+                        android:textStyle="bold" />
                     <TextView
-                        android:text="سفارش"
-                        android:textColor="@color/textGray"
-                        android:textSize="@dimen/_10ssp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="@string/order"
+                        android:textColor="@color/textGray"
+                        android:textSize="@dimen/_10ssp" />
                 </LinearLayout>
 
                 <LinearLayout
-                    android:padding="@dimen/_15sdp"
+                    android:onClick="goToActitvityProduct"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
                     android:orientation="vertical"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:padding="@dimen/_15sdp">
                     <TextView
-                        android:textStyle="bold"
-                        android:textSize="@dimen/_16ssp"
+                        android:id="@+id/totalProducts"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="۰"
                         android:textColor="@color/textBlack"
-                        android:text="۸۹۸"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:textSize="@dimen/_16ssp"
+                        android:textStyle="bold" />
                     <TextView
-                        android:text="محصول"
-                        android:textColor="@color/textGray"
-                        android:textSize="@dimen/_10ssp"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"/>
+                        android:layout_height="wrap_content"
+                        android:text="@string/product"
+                        android:textColor="@color/textGray"
+                        android:textSize="@dimen/_10ssp" />
                 </LinearLayout>
-
             </LinearLayout>
 
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
 
 </LinearLayout>

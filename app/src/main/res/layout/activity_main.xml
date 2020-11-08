@@ -4,10 +4,28 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/_5sdp"
     tools:context=".MainActivity">
 
+    <ScrollView
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <include
+                android:id="@+id/include_info_app"
+                layout="@layout/include_info_app"/>
+            <include
+                android:id="@+id/include_order"
+                layout="@layout/include_order"/>
+        </LinearLayout>
+    </ScrollView>
+
+
     <LinearLayout
+        android:visibility="gone"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_width="match_parent"
