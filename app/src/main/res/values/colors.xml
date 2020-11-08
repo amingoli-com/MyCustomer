@@ -9,4 +9,9 @@
     <color name="colorTextGreen">#00861E</color>
     <color name="colorTextRed">#D30000</color>
     <color name="transparent">#0C000000</color>
+    <color name="blue">#2861cb</color>
+    <color name="textBlack">#333333</color>
+    <color name="textBlue">#3e7aed</color>
+    <color name="textGray">#b3b4b8</color>
+    <color name="line">#f5f5f5</color>
 </resources>
