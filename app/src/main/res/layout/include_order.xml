@@ -6,7 +6,7 @@
 
 
     <androidx.cardview.widget.CardView
-        app:cardBackgroundColor="@color/blue"
+        app:cardBackgroundColor="#29885E"
         android:layout_marginStart="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
         android:layout_marginBottom="@dimen/_20sdp"

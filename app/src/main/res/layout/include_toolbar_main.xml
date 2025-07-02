@@ -5,32 +5,45 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingStart="@dimen/_15sdp"
+    android:paddingEnd="@dimen/_15sdp"
     android:paddingTop="@dimen/_10sdp"
-    android:paddingEnd="@dimen/_15sdp">
-    <LinearLayout
+    android:paddingBottom="@dimen/_10sdp">
+
+    <TextView
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:orientation="horizontal">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="داشبورد"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_14ssp" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingStart="@dimen/_10sdp"
-            android:paddingEnd="@dimen/_10sdp"
-            android:text="گالری مشکات"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_10ssp" />
-    </LinearLayout>
+        android:text="داشبورد"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_14ssp" />
 
     <ImageView
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_alignParentEnd="true"
+        android:id="@+id/logo"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/_5sdp"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
         android:src="@drawable/ic_avatar" />
+
+    <TextView
+        android:id="@+id/bisnesTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/logo"
+        android:paddingStart="@dimen/_15sdp"
+        android:paddingEnd="@dimen/_15sdp"
+        android:text="گالری مشکات"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/_10ssp" />
+
+    <ImageView
+        android:id="@+id/setting"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:padding="@dimen/_10sdp"
+        android:layout_width="@dimen/_45sdp"
+        android:layout_height="@dimen/_45sdp"
+        android:src="@drawable/ic_settings_24" />
 </RelativeLayout>

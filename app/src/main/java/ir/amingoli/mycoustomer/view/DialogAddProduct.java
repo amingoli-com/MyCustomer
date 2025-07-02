@@ -58,6 +58,7 @@ public class DialogAddProduct extends AlertDialog {
         submit = findViewById(R.id.submit);
 
         price.addTextChangedListener(new PriceNumberTextWatcher(price));
+        amount.addTextChangedListener(new PriceNumberTextWatcher(amount,true));
 
         if (product != null) setValue(product);
 
@@ -77,17 +78,18 @@ public class DialogAddProduct extends AlertDialog {
             name_lyt.setErrorEnabled(false);
             price_lyt.setError(ac.getString(R.string.error_price));
             requestFocus(price);
-        } else {
+        }else if (getText(amount).length() < 1){
+            amount.setError("موجودی باید حداقل صفر باشد");
+            amount.setText("0");
+            requestFocus(amount);
+        }  else {
             price_lyt.setErrorEnabled(false);
             if (product == null){
                 product = new Product();
-                product.setName(getText(name));
-                product.setPrice(Double.parseDouble(Tools.convertNumberToEN(getText(price))));
-                product.setAmount(0.0);
-            }else {
-                product.setName(getText(name));
-                product.setPrice(Double.parseDouble(Tools.convertNumberToEN(getText(price))));
             }
+            product.setName(getText(name));
+            product.setPrice(Double.parseDouble(Tools.convertNumberToEN(getText(price))));
+            product.setAmount(Double.parseDouble(Tools.convertNumberToEN(getText(amount))));
             listener.addOrUpdate(product);
             dismiss();
         }

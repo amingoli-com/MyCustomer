@@ -15,11 +15,18 @@ public class PriceNumberTextWatcher implements TextWatcher {
 
     private EditText et;
 
-    public PriceNumberTextWatcher(EditText et)
-    {
+    public PriceNumberTextWatcher(EditText et) {
         df = new DecimalFormat("###,###,###");
         df.setDecimalSeparatorAlwaysShown(true);
         dfnd = new DecimalFormat("###,###");
+        this.et = et;
+        hasFractionalPart = false;
+    }
+
+    public PriceNumberTextWatcher(EditText et, boolean decimal) {
+        df = new DecimalFormat("#.##");
+        df.setDecimalSeparatorAlwaysShown(false);
+        dfnd = new DecimalFormat("#.##");
         this.et = et;
         hasFractionalPart = false;
     }

@@ -56,6 +56,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_ORDER_ID_CUSTOMER = "COL_ORDER_ID_CUSTOMER";
     private static final String COL_ORDER_ID_ORDER_DETAIL = "COL_ORDER_ID_ORDER_DETAIL";
     private static final String COL_ORDER_PRICE = "COL_ORDER_PRICE";
+    private static final String COL_ORDER_PRICE_DISCOUNT = "COL_ORDER_PRICE_DISCOUNT";
+    private static final String COL_ORDER_PRICE_DEBIT = "COL_ORDER_PRICE_DEBIT";
     private static final String COL_ORDER_DESC = "COL_ORDER_DESC";
     private static final String COL_ORDER_CREATED_AT = "COL_ORDER_CREATED_AT";
     private static final String COL_ORDER_STATUS = "COL_ORDER_STATUS";
@@ -119,6 +121,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_ORDER_STATUS + " INTEGER DEFAULT 0 "
                 + ")";
         db.execSQL(CREATE_TABLE);
+    }
+
+    private void updateTableOrder(SQLiteDatabase db){
+        String UPDATE_TABLE = "";
     }
 
     private void createTableCart(SQLiteDatabase db) {

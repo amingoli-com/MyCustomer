@@ -66,7 +66,7 @@ public class AdapterProduct extends RecyclerView.Adapter<RecyclerView.ViewHolder
         if (holder instanceof ViewHolder) {
             ViewHolder vItem = (ViewHolder) holder;
             final Product c = items.get(position);
-            vItem.name.setText(c.getName());
+            vItem.name.setText(c.getName() +" (موجودی " +Tools.getFormattedDiscount(c.getAmount())+")");
             vItem.desc.setText(Tools.getFormattedPrice(c.getPrice(),ctx));
             vItem.tv_id.setText(c.getId()+"");
 //            vItem.textBlue.setText(c.getAmount()+"");

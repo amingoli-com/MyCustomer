@@ -1,2 +1,13 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+        jcenter()
+        maven { url 'https://jitpack.io' }
+        maven { url "https://repo.spring.io/release" }
+        maven { url "https://repository.jboss.org/maven2" }
+    }
+}
 include ':app'
 rootProject.name = "My Coustomer"

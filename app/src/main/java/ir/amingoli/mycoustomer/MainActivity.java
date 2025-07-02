@@ -43,22 +43,26 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void initId(){
-        View include_info_app = findViewById(R.id.include_info_app);
-        View include_order = findViewById(R.id.include_order);
+//        View include_info_app = findViewById(R.id.include_info_app);
+//        View include_order = findViewById(R.id.include_order);
         salesAll = findViewById(R.id.salesAll);
         salesToday = findViewById(R.id.salesToday);
         salesThisWeek = findViewById(R.id.salesThisWeek);
-        salesThisMonth = include_info_app.findViewById(R.id.salesThisMonth);
+//        salesThisMonth = include_info_app.findViewById(R.id.salesThisMonth);
+        salesThisMonth = findViewById(R.id.salesThisMonth);
 
         live_salesAll = findViewById(R.id.live_salesAll);
         live_salesToday = findViewById(R.id.live_salesToday);
         live_salesThisWeek = findViewById(R.id.live_salesThisWeek);
         live_salesThisMonth = findViewById(R.id.live_salesThisMonth);
 
-        totalOrderIsPiedThisMonth = include_info_app.findViewById(R.id.totalOrderIsPiedThisMonth);
-        totalCustomers = include_info_app.findViewById(R.id.totalCustomers);
-        totalProduct = include_info_app.findViewById(R.id.totalProducts);
-        totalOrder = include_order.findViewById(R.id.totalOrders);
+//        totalOrderIsPiedThisMonth = include_info_app.findViewById(R.id.totalOrderIsPiedThisMonth);
+//        totalCustomers = include_info_app.findViewById(R.id.totalCustomers);
+//        totalProduct = include_info_app.findViewById(R.id.totalProducts);
+//        totalOrder = include_order.findViewById(R.id.totalOrders);//
+        totalCustomers = findViewById(R.id.totalCustomers);
+        totalProduct = findViewById(R.id.totalProducts);
+        totalOrder = findViewById(R.id.totalOrders);
         totalDetailOrder = findViewById(R.id.totalDetailOrder);
 
     }
@@ -94,8 +98,8 @@ public class MainActivity extends AppCompatActivity {
             salesThisWeek.setText(getString(R.string.no_data_sales_this_week));
         }
         if (thisMonth != null) {
-            salesThisMonth.setText(Tools.getFormattedPrice(thisMonth.getTotalSales(), this));
-            totalOrderIsPiedThisMonth.setText(Tools.getFormattedInteger(thisMonth.getSalesCount()));
+            salesThisMonth.setText("فروش این ماه "+Tools.getFormattedPrice(thisMonth.getTotalSales(), this));
+//            totalOrderIsPiedThisMonth.setText(Tools.getFormattedInteger(thisMonth.getSalesCount()));
         } else {
             live_salesThisMonth.setVisibility(View.GONE);
             salesThisMonth.setText(getString(R.string.no_data_sales_this_month));

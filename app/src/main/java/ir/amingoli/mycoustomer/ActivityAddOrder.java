@@ -32,9 +32,6 @@ import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Product;
 import ir.amingoli.mycoustomer.util.SetTextForSendSms;
 import ir.amingoli.mycoustomer.util.Tools;
-import ir.hamsaa.persiandatepicker.Listener;
-import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
-import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class ActivityAddOrder extends AppCompatActivity {
     String TAG = "amingoli78888";
@@ -182,11 +179,11 @@ public class ActivityAddOrder extends AppCompatActivity {
         List<OrderDetail> item = db.getOrderDetailListById(ID_ORDER_DETAIL);
         for (int i = 0; i < item.size(); i++) {
             Product product = new Product();
-            product.setId(item.get(i).getId());
+            product.setId(item.get(i).getId_product());
             product.setName(item.get(i).getName());
             product.setPrice(item.get(i).getPrice_item());
-            product.setAmount(item.get(i).getAmount());
             product.setPrice_all(item.get(i).getPrice_all());
+            product.setAmount(item.get(i).getAmount());
             addProductInOrder(product);
         }
         adapter.notifyDataSetChanged();
@@ -194,8 +191,9 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
 //    Save Order
+    Order order;
     private void saveOrder(){
-        Order order = new Order();
+        order = new Order();
         if (ID_ORDER != 0) order.setId(ID_ORDER);
         order.setCreated_at(CRATED_AT);
         order.setId_coustomer(ID_CUSTOMER);
@@ -243,6 +241,16 @@ public class ActivityAddOrder extends AppCompatActivity {
             orderDetail.setPrice_item(productsList.get(i).getPrice());
             orderDetail.setPrice_all(productsList.get(i).getPrice_all());
             db.saveOrderDetail(orderDetail);
+
+            double amount = 0;
+            if (db.getProduct(productsList.get(i).getId()) != null){
+                amount = db.getProduct(productsList.get(i).getId()).getAmount() - productsList.get(i).getAmount();
+            }
+            if (amount < 0) amount = 0;
+            productsList.get(i).amount = amount;
+            if (order.getStatus()){
+                db.saveProduct(productsList.get(i));
+            }
         }
 
     }
@@ -345,7 +353,7 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
     public void setDate(View view) {
-        PersianDatePickerDialog picker = new PersianDatePickerDialog(this)
+        /*PersianDatePickerDialog picker = new PersianDatePickerDialog(this)
                 .setPositiveButtonString(getString(R.string.save))
                 .setNegativeButton(getString(R.string.cancel))
                 .setTodayButton(getString(R.string.today))
@@ -376,6 +384,6 @@ public class ActivityAddOrder extends AppCompatActivity {
 
                     }
                 });
-        picker.show();
+        picker.show();*/
     }
 }

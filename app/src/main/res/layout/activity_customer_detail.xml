@@ -8,5 +8,6 @@
     android:descendantFocusability="beforeDescendants"
     android:fitsSystemWindows="true"
     tools:context=".ActivityCustomerDetail">
-    <include layout="@layout/item_customer_details"/>
+
+    <include layout="@layout/item_customer_details" />
 </RelativeLayout>

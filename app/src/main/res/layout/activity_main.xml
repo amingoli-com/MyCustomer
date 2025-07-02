@@ -6,26 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <ScrollView
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <include
-                android:id="@+id/include_info_app"
-                layout="@layout/include_info_app"/>
-            <include
-                android:id="@+id/include_order"
-                layout="@layout/include_order"/>
-        </LinearLayout>
-    </ScrollView>
+<!--    <ScrollView-->
+<!--        android:visibility="gone"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent">-->
+<!--        <LinearLayout-->
+<!--            android:orientation="vertical"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content">-->
+<!--            <include-->
+<!--                android:id="@+id/include_info_app"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                layout="@layout/include_info_app"/>-->
+<!--            <include-->
+<!--                android:id="@+id/include_order"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                layout="@layout/include_order"/>-->
 
+<!--            <include-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                layout="@layout/include_order"/>-->
+<!--            <include-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                layout="@layout/include_order"/>-->
+<!--        </LinearLayout>-->
+<!--    </ScrollView>-->
 
     <LinearLayout
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="vertical"
         android:layout_marginTop="@dimen/_20sdp"
         android:layout_width="match_parent"
@@ -45,15 +57,16 @@
                     style="@style/RelativeLayout_ww"
                     android:layout_width="match_parent"
                     android:background="#530fec">
+
                     <TextView
                         android:id="@+id/addOrder"
-                        android:layout_centerInParent="true"
-                        android:text="افزودن سفارش جدید"
-                        android:textSize="@dimen/_16ssp"
-                        android:textColor="@android:color/white"
+                        style="@style/ActivityMainTitle_sales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/ActivityMainTitle_sales"/>
+                        android:layout_centerInParent="true"
+                        android:text="افزودن سفارش جدید"
+                        android:textColor="@android:color/white"
+                        android:textSize="@dimen/_16ssp" />
                     <com.airbnb.lottie.LottieAnimationView
                         android:layout_toStartOf="@+id/addOrder"
                         android:layout_centerVertical="true"
@@ -152,11 +165,12 @@
                 android:layout_width="match_parent">
                 <RelativeLayout
                     style="@style/RelativeLayout_ww">
+
                     <TextView
                         android:id="@+id/salesThisMonth"
+                        style="@style/ActivityMainTitle_sales"
                         android:layout_centerInParent="true"
-                        android:text="@string/no_data_sales_this_month"
-                        style="@style/ActivityMainTitle_sales"/>
+                        android:text="@string/no_data_sales_this_month" />
                     <com.airbnb.lottie.LottieAnimationView
                         android:id="@+id/live_salesThisMonth"
                         android:layout_width="@dimen/_10sdp"

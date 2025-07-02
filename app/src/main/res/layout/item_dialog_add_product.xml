@@ -46,7 +46,6 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/amount_lyt"
-        android:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:ignore="MissingClass">
@@ -56,12 +55,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/amount"
+            android:digits="0123456789."
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-            android:inputType="number"
-            android:digits="0123456789"
-            android:maxLength="100"
-            android:maxLines="1"
-            tools:ignore="TextFields" />
+            android:inputType="numberDecimal"
+            android:maxLength="9"
+            android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <LinearLayout
