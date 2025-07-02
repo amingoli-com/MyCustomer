@@ -15,6 +15,7 @@ import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
 import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Product;
+import ir.amingoli.mycoustomer.model.Transaction;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
@@ -22,7 +23,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private Context context;
 
     // Database Version
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
 
     // Database Name
     private static final String DATABASE_NAME = "markeet.db";
@@ -32,6 +33,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String TABLE_ORDER_DETAIL = "order_detail";
     private static final String TABLE_ORDER = "table_order";
     private static final String TABLE_PRODUCT = "product";
+    private static final String TABLE_TRANSACTION = "table_transaction";
 
     // Table Columns names TABLE_CUSTOMER
     private static final String COL_CUSTOMER_ID = "COL_CUSTOMER_ID";
@@ -69,6 +71,15 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String COL_PRODUCT_AMOUNT = "COL_PRODUCT_AMOUNT";
     private static final String COL_PRODUCT_CREATED_AT = "COL_PRODUCT_CREATED_AT";
 
+    // Table Columns names table_transaction
+    private static final String COL_TRANSACTION_ID = "COL_TRANSACTION_ID";
+    private static final String COL_TRANSACTION_ID_CUSTOMER = "COL_TRANSACTION_ID_CUSTOMER";
+    private static final String COL_TRANSACTION_ID_ORDER = "COL_TRANSACTION_ID_ORDER";
+    private static final String COL_TRANSACTION_TYPE = "COL_TRANSACTION_TYPE";
+    private static final String COL_TRANSACTION_AMOUNT = "COL_TRANSACTION_AMOUNT";
+    private static final String COL_TRANSACTION_DESC = "COL_TRANSACTION_DESC";
+    private static final String COL_TRANSACTION_CREATED_AT = "COL_TRANSACTION_CREATED_AT";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -82,6 +93,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         createTableOrderDetail(d);
         createTableOrder(d);
         createTableCart(d);
+        createTableTransaction(d);
     }
 
     private void createTableCustomer(SQLiteDatabase db) {
@@ -138,6 +150,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE);
     }
 
+    private void createTableTransaction(SQLiteDatabase db) {
+        String CREATE_TABLE = "CREATE TABLE " + TABLE_TRANSACTION + " ("
+                + COL_TRANSACTION_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + COL_TRANSACTION_ID_CUSTOMER + " INTEGER, "
+                + COL_TRANSACTION_ID_ORDER + " INTEGER, "
+                + COL_TRANSACTION_TYPE + " INTEGER, "
+                + COL_TRANSACTION_AMOUNT + " INTEGER, "
+                + COL_TRANSACTION_DESC + " TEXT, "
+                + COL_TRANSACTION_CREATED_AT  + " NUMERIC "
+                + ")";
+        db.execSQL(CREATE_TABLE);
+    }
+
     // Upgrading database
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
@@ -180,6 +205,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = getProductValue(product);
         // Inserting or Update Row
         db.insertWithOnConflict(TABLE_PRODUCT, null, values, SQLiteDatabase.CONFLICT_REPLACE);
+    }
+
+    public void saveTransaction(Transaction transaction) {
+        ContentValues values = getTransactionValue(transaction);
+        // Inserting or Update Row
+        db.insertWithOnConflict(TABLE_TRANSACTION, null, values, SQLiteDatabase.CONFLICT_REPLACE);
     }
 
     public void updateStatusOrder(String code, String status) {
@@ -232,6 +263,18 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         values.put(COL_PRODUCT_PRICE, model.price);
         values.put(COL_PRODUCT_AMOUNT, model.amount);
         values.put(COL_PRODUCT_CREATED_AT, model.created_at);
+        return values;
+    }
+
+    private ContentValues getTransactionValue(Transaction model) {
+        ContentValues values = new ContentValues();
+        values.put(COL_TRANSACTION_ID, model.id);
+        values.put(COL_TRANSACTION_ID_CUSTOMER, model.id_customer);
+        values.put(COL_TRANSACTION_ID_ORDER, model.id_order);
+        values.put(COL_TRANSACTION_TYPE, model.type);
+        values.put(COL_TRANSACTION_AMOUNT, model.amount);
+        values.put(COL_TRANSACTION_DESC, model.desc);
+        values.put(COL_TRANSACTION_CREATED_AT, model.created_at);
         return values;
     }
 
