@@ -44,6 +44,19 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true">
 
+      <TextView
+        android:id="@+id/textLogo"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:textColor="#333"
+        android:textStyle="bold"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_40sdp"
+        android:textSize="@dimen/_20ssp"
+        android:text="نام کسب‌وکار شما"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"/>
+
         <LinearLayout
             android:onClick="addOrder"
             android:layout_width="match_parent"

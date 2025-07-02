@@ -86,5 +86,8 @@
     <string name="error_price">مبلغ وارد شده نامعتبر است</string>
     <string name="for_add_customer_click_on_item_pluse">برای افزودن مشتری \n علامت + را در بالا لمس کنید</string>
     <string name="for_add_product_click_on_item_pluse">برای افزودن محصول \n علامت + را در بالا لمس کنید</string>
+  <string name = "business_name">نام کسب‌وکار</string>
+  <string name = "business_name_you">نام کسب‌وکار شما</string>
+  <string name = "submit">ذخیره</string>
 
 </resources>

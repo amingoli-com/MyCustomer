@@ -15,13 +15,15 @@ import java.util.List;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.GetTotalSales;
 import ir.amingoli.mycoustomer.model.Order;
+import ir.amingoli.mycoustomer.util.Session;
 import ir.amingoli.mycoustomer.util.Tools;
+import ir.amingoli.mycoustomer.view.DialogBusinessInfo;
 
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler db;
     TextView salesAll, salesToday, salesThisWeek, salesThisMonth ,
-             totalCustomers, totalProduct, totalOrder, totalDetailOrder, totalOrderIsPiedThisMonth;
+             totalCustomers, totalProduct, totalOrder, totalDetailOrder,textLogo, totalOrderIsPiedThisMonth;
     View live_salesAll,live_salesToday,live_salesThisWeek,live_salesThisMonth;
     
     @Override
@@ -64,10 +66,11 @@ public class MainActivity extends AppCompatActivity {
         totalProduct = findViewById(R.id.totalProducts);
         totalOrder = findViewById(R.id.totalOrders);
         totalDetailOrder = findViewById(R.id.totalDetailOrder);
+        textLogo = findViewById(R.id.textLogo);
 
     }
 
-    @SuppressLint("StringFormatMatches")
+    @SuppressLint({"StringFormatMatches", "SetTextI18n"})
     private void initValue(){
         GetTotalSales all = getTotalSales(0);
         GetTotalSales today = getTotalSales(1);
@@ -113,6 +116,9 @@ public class MainActivity extends AppCompatActivity {
                 Tools.getFormattedInteger(db.getOrderIsWaitingSize())));
         totalProduct.setText(getString(R.string.total_product ,
                 Tools.getFormattedInteger(db.getProductSize())));
+
+        populateBusinessName();
+        textLogo.setOnClickListener(view -> dialogBusinessInfo());
     }
 
     private GetTotalSales getTotalSales(int howDays){
@@ -167,5 +173,19 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this,ActivityCustomer.class);
         intent.putExtra("add_order",true);
         startActivity(intent);
+    }
+
+    private void dialogBusinessInfo(){
+        DialogBusinessInfo dialogBusinessInfo = new DialogBusinessInfo(this, value -> {
+            populateBusinessName();
+        });
+        dialogBusinessInfo.show();
+    }
+
+    private void populateBusinessName(){
+        if (Session.getInstance(this).getString("bn") != null
+                && !Session.getInstance(this).getString("bn").isEmpty()){
+            textLogo.setText(Session.getInstance(this).getString("bn"));
+        }
     }
 }
