@@ -32,6 +32,9 @@ import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Product;
 import ir.amingoli.mycoustomer.util.SetTextForSendSms;
 import ir.amingoli.mycoustomer.util.Tools;
+import ir.hamsaa.persiandatepicker.Listener;
+import ir.hamsaa.persiandatepicker.PersianDatePickerDialog;
+import ir.hamsaa.persiandatepicker.util.PersianCalendar;
 
 public class ActivityAddOrder extends AppCompatActivity {
     String TAG = "amingoli78888";
@@ -353,7 +356,7 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
     public void setDate(View view) {
-        /*PersianDatePickerDialog picker = new PersianDatePickerDialog(this)
+        PersianDatePickerDialog picker = new PersianDatePickerDialog(this)
                 .setPositiveButtonString(getString(R.string.save))
                 .setNegativeButton(getString(R.string.cancel))
                 .setTodayButton(getString(R.string.today))
@@ -364,7 +367,7 @@ public class ActivityAddOrder extends AppCompatActivity {
                 .setActionTextColor(Color.GRAY)
                 .setTypeFace(ResourcesCompat.getFont(this, R.font.iranyekan_regular))
                 .setTitleType(PersianDatePickerDialog.WEEKDAY_DAY_MONTH_YEAR)
-                .setShowInBottomSheet(true)
+//                .setShowInBottomSheet(true)
                 .setListener(new Listener() {
                     @Override
                     public void onDateSelected(PersianCalendar persianCalendar) {
@@ -384,6 +387,6 @@ public class ActivityAddOrder extends AppCompatActivity {
 
                     }
                 });
-        picker.show();*/
+        picker.show();
     }
 }

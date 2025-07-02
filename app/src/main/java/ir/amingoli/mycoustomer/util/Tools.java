@@ -6,6 +6,8 @@ import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
 import ir.amingoli.mycoustomer.data.AppConfig;
+import saman.zamani.persiandate.PersianDate;
+import saman.zamani.persiandate.PersianDateFormat;
 
 public class Tools {
     public static String getFormattedPrice(Double price, Context ctx) {
@@ -45,11 +47,10 @@ public class Tools {
     }
 
     public static String getFormattedDate(Long dateTime) {
-//        PersianDateFormat pdformater;
-//        pdformater = new PersianDateFormat("l j F Y");
+        PersianDateFormat pdformater;
+        pdformater = new PersianDateFormat("l j F Y");
 //        pdformater = new PersianDateFormat("l j F Y ساعت H:i");
-//        return pdformater.format(new PersianDate(dateTime));
-        return "";
+        return pdformater.format(new PersianDate(dateTime));
     }
 
     public static long dayToMillis(int howBeforeDay){
