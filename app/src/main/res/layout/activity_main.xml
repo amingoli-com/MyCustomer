@@ -6,283 +6,258 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<!--    <ScrollView-->
-<!--        android:visibility="gone"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent">-->
-<!--        <LinearLayout-->
-<!--            android:orientation="vertical"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content">-->
-<!--            <include-->
-<!--                android:id="@+id/include_info_app"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                layout="@layout/include_info_app"/>-->
-<!--            <include-->
-<!--                android:id="@+id/include_order"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                layout="@layout/include_order"/>-->
+<ScrollView
+  android:layout_width = "match_parent"
+  android:layout_height = "match_parent">
+  <LinearLayout
+    android:visibility="visible"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/_20sdp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_centerInParent="true">
 
-<!--            <include-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                layout="@layout/include_order"/>-->
-<!--            <include-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                layout="@layout/include_order"/>-->
-<!--        </LinearLayout>-->
-<!--    </ScrollView>-->
+    <TextView
+      android:id="@+id/textLogo"
+      android:textAlignment="center"
+      android:gravity="center"
+      android:textColor="#333"
+      android:textStyle="bold"
+      android:paddingHorizontal="@dimen/_10sdp"
+      android:paddingVertical="@dimen/_40sdp"
+      android:textSize="@dimen/_20ssp"
+      android:text="نام کسب‌وکار شما"
+      android:layout_width = "match_parent"
+      android:layout_height = "wrap_content"/>
 
     <LinearLayout
-        android:visibility="visible"
-        android:orientation="vertical"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true">
+      android:onClick="addOrder"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="1">
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity"
+        android:layout_width="match_parent">
+        <RelativeLayout
+          style="@style/RelativeLayout_ww"
+          android:layout_width="match_parent"
+          android:background="#530fec">
 
-      <TextView
-        android:id="@+id/textLogo"
-        android:textAlignment="center"
-        android:gravity="center"
-        android:textColor="#333"
-        android:textStyle="bold"
-        android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_40sdp"
-        android:textSize="@dimen/_20ssp"
-        android:text="نام کسب‌وکار شما"
-        android:layout_width = "match_parent"
-        android:layout_height = "wrap_content"/>
-
-        <LinearLayout
-            android:onClick="addOrder"
-            android:layout_width="match_parent"
+          <TextView
+            android:id="@+id/addOrder"
+            style="@style/ActivityMainTitle_sales"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <androidx.cardview.widget.CardView
-                style="@style/CardView_MainActivity"
-                android:layout_width="match_parent">
-                <RelativeLayout
-                    style="@style/RelativeLayout_ww"
-                    android:layout_width="match_parent"
-                    android:background="#530fec">
-
-                    <TextView
-                        android:id="@+id/addOrder"
-                        style="@style/ActivityMainTitle_sales"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:text="افزودن سفارش جدید"
-                        android:textColor="@android:color/white"
-                        android:textSize="@dimen/_16ssp" />
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:layout_toStartOf="@+id/addOrder"
-                        android:layout_centerVertical="true"
-                        android:layout_width="@dimen/_25sdp"
-                        android:layout_height="@dimen/_25sdp"
-                        android:scaleType="centerCrop"
-                        app:lottie_rawRes="@raw/add"
-                        app:lottie_loop="true"
-                        app:lottie_autoPlay="true" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="1">
-            <androidx.cardview.widget.CardView
-                android:onClick="goToActivityOrderIsPied"
-                android:tag="0"
-                style="@style/CardView_MainActivity"
-                android:layout_width="match_parent">
-                <RelativeLayout
-                    style="@style/RelativeLayout_ww">
-                    <TextView
-                        android:id="@+id/salesAll"
-                        android:layout_centerInParent="true"
-                        android:text="@string/no_data_sales_all"
-                        style="@style/ActivityMainTitle_sales"/>
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/live_salesAll"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:scaleType="centerCrop"
-                        app:lottie_rawRes="@raw/live"
-                        app:lottie_loop="true"
-                        app:lottie_autoPlay="true" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <androidx.cardview.widget.CardView
-                android:onClick="goToActivityOrderIsPied"
-                android:tag="1"
-                style="@style/CardView_MainActivity"
-                android:layout_width="match_parent">
-                <RelativeLayout
-                    style="@style/RelativeLayout_ww">
-                    <TextView
-                        android:id="@+id/salesToday"
-                        android:layout_centerInParent="true"
-                        android:text="@string/no_data_sales_today"
-                        style="@style/ActivityMainTitle_sales"/>
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/live_salesToday"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:scaleType="centerCrop"
-                        app:lottie_rawRes="@raw/live"
-                        app:lottie_loop="true"
-                        app:lottie_autoPlay="true" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                android:onClick="goToActivityOrderIsPied"
-                android:tag="30"
-                style="@style/CardView_MainActivity"
-                android:layout_width="match_parent">
-                <RelativeLayout
-                    style="@style/RelativeLayout_ww">
-
-                    <TextView
-                        android:id="@+id/salesThisMonth"
-                        style="@style/ActivityMainTitle_sales"
-                        android:layout_centerInParent="true"
-                        android:text="@string/no_data_sales_this_month" />
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/live_salesThisMonth"
-                        android:layout_width="@dimen/_10sdp"
-                        android:layout_height="@dimen/_10sdp"
-                        android:scaleType="centerCrop"
-                        app:lottie_rawRes="@raw/live"
-                        app:lottie_loop="true"
-                        app:lottie_autoPlay="true" />
-                </RelativeLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-      <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
-
-        <androidx.cardview.widget.CardView
-          android:onClick="goToActivityBedehkaran"
-          style="@style/CardView_MainActivity"
-          android:layout_width="match_parent">
-          <RelativeLayout
-            style="@style/RelativeLayout_ww">
-            <TextView
-              android:id="@+id/textBedehkaran"
-              android:layout_centerInParent="true"
-              android:text="هیچ طلبی ندارید"
-              style="@style/ActivityMainTitle_sales"/>
-            <com.airbnb.lottie.LottieAnimationView
-              android:id="@+id/live_salesThisWeek"
-              android:layout_width="@dimen/_10sdp"
-              android:layout_height="@dimen/_10sdp"
-              android:scaleType="centerCrop"
-              app:lottie_rawRes="@raw/live"
-              app:lottie_loop="true"
-              app:lottie_autoPlay="true" />
-          </RelativeLayout>
-        </androidx.cardview.widget.CardView>
-
-      </LinearLayout>
-
-
-      <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <androidx.cardview.widget.CardView
-                style="@style/CardView_MainActivity">
-                <LinearLayout
-                    style="@style/LinearLayout_vmw_padding"
-                    android:onClick="goToActitvityProduct">
-                    <TextView
-                        android:id="@+id/totalProducts"
-                        android:text="@string/add_product_now"
-                        style="@style/ActivityMainTitle"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                style="@style/CardView_MainActivity">
-                <LinearLayout
-                    style="@style/LinearLayout_vmw_padding"
-                    android:onClick="goToActitvityCustomer">
-                    <TextView
-                        android:id="@+id/totalCustomers"
-                        android:text="@string/add_customer_now"
-                        style="@style/ActivityMainTitle"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <androidx.cardview.widget.CardView
-                style="@style/CardView_MainActivity">
-                <LinearLayout
-                    android:onClick="goToActivityOrderIsNotPied"
-                    style="@style/LinearLayout_vmw_padding">
-                    <TextView
-                        android:id="@+id/totalOrders"
-                        android:text="@string/no_order"
-                        style="@style/ActivityMainTitle"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <androidx.cardview.widget.CardView
-                style="@style/CardView_MainActivity">
-                <LinearLayout
-                    android:onClick="goToActivityProductsOrdered"
-                    style="@style/LinearLayout_vmw_padding">
-                    <TextView
-                        android:id="@+id/totalDetailOrder"
-                        android:text="@string/no_order"
-                        style="@style/ActivityMainTitle"/>
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-        </LinearLayout>
-
-        <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="1">
-        <androidx.cardview.widget.CardView
-          style="@style/CardView_MainActivity">
-          <LinearLayout
-            android:onClick="goToActivityProductsOrdered"
-            style="@style/LinearLayout_vmw_padding">
-            <TextView
-              android:id="@+id/setting"
-              android:text="@string/setting"
-              style="@style/ActivityMainTitle"/>
-          </LinearLayout>
-        </androidx.cardview.widget.CardView>
-      </LinearLayout>
+            android:layout_centerInParent="true"
+            android:text="افزودن سفارش جدید"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_16ssp" />
+          <com.airbnb.lottie.LottieAnimationView
+            android:layout_toStartOf="@+id/addOrder"
+            android:layout_centerVertical="true"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/add"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+        </RelativeLayout>
+      </androidx.cardview.widget.CardView>
     </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="1">
+      <androidx.cardview.widget.CardView
+        android:onClick="goToActivityOrderIsPied"
+        android:tag="0"
+        style="@style/CardView_MainActivity"
+        android:layout_width="match_parent">
+        <RelativeLayout
+          style="@style/RelativeLayout_ww">
+          <TextView
+            android:id="@+id/salesAll"
+            android:layout_centerInParent="true"
+            android:text="@string/no_data_sales_all"
+            style="@style/ActivityMainTitle_sales"/>
+          <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/live_salesAll"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/live"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+        </RelativeLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="2">
+      <androidx.cardview.widget.CardView
+        android:onClick="goToActivityOrderIsPied"
+        android:tag="1"
+        style="@style/CardView_MainActivity"
+        android:layout_width="match_parent">
+        <RelativeLayout
+          style="@style/RelativeLayout_ww">
+          <TextView
+            android:id="@+id/salesToday"
+            android:layout_centerInParent="true"
+            android:text="@string/no_data_sales_today"
+            style="@style/ActivityMainTitle_sales"/>
+          <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/live_salesToday"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/live"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+        </RelativeLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+        android:onClick="goToActivityOrderIsPied"
+        android:tag="30"
+        style="@style/CardView_MainActivity"
+        android:layout_width="match_parent">
+        <RelativeLayout
+          style="@style/RelativeLayout_ww">
+
+          <TextView
+            android:id="@+id/salesThisMonth"
+            style="@style/ActivityMainTitle_sales"
+            android:layout_centerInParent="true"
+            android:text="@string/no_data_sales_this_month" />
+          <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/live_salesThisMonth"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/live"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+        </RelativeLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="1">
+
+      <androidx.cardview.widget.CardView
+        android:onClick="goToActivityBedehkaran"
+        style="@style/CardView_MainActivity"
+        android:layout_width="match_parent">
+        <RelativeLayout
+          style="@style/RelativeLayout_ww">
+          <TextView
+            android:id="@+id/textBedehkaran"
+            android:layout_centerInParent="true"
+            android:text="هیچ طلبی ندارید"
+            android:padding="@dimen/_10sdp"
+            style="@style/ActivityMainTitle"/>
+          <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/live_salesThisWeek"
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            app:lottie_rawRes="@raw/live"
+            app:lottie_loop="true"
+            app:lottie_autoPlay="true" />
+        </RelativeLayout>
+      </androidx.cardview.widget.CardView>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="2">
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity">
+        <LinearLayout
+          style="@style/LinearLayout_vmw_padding"
+          android:onClick="goToActitvityProduct">
+          <TextView
+            android:id="@+id/totalProducts"
+            android:text="@string/add_product_now"
+            style="@style/ActivityMainTitle"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity">
+        <LinearLayout
+          style="@style/LinearLayout_vmw_padding"
+          android:onClick="goToActitvityCustomer">
+          <TextView
+            android:id="@+id/totalCustomers"
+            android:text="@string/add_customer_now"
+            style="@style/ActivityMainTitle"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="2">
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity">
+        <LinearLayout
+          android:onClick="goToActivityOrderIsNotPied"
+          style="@style/LinearLayout_vmw_padding">
+          <TextView
+            android:id="@+id/totalOrders"
+            android:text="@string/no_order"
+            style="@style/ActivityMainTitle"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity">
+        <LinearLayout
+          android:onClick="goToActivityProductsOrdered"
+          style="@style/LinearLayout_vmw_padding">
+          <TextView
+            android:id="@+id/totalDetailOrder"
+            android:text="@string/no_order"
+            style="@style/ActivityMainTitle"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="1">
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity">
+        <LinearLayout
+          android:onClick="goToActivityProductsOrdered"
+          style="@style/LinearLayout_vmw_padding">
+          <TextView
+            android:id="@+id/setting"
+            android:text="@string/setting"
+            style="@style/ActivityMainTitle"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+  </LinearLayout>
+</ScrollView>
 
 </RelativeLayout>
