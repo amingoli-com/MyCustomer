@@ -61,7 +61,7 @@
     <string name="total_customer">%1$s مشتری</string>//
     <string name="total_product">%1$s محصول/خدمات</string>//
     <string name="total_order">%1$s سفارش</string>//
-    <string name="total_detail_order">%1$s محصول سفارش داده شده</string>//
+    <string name="total_detail_order">%1$s محصول/خدمت سفارش داده شده</string>//
 
     <string name="no_data_sales_all">فروشی ثبت نشده</string>//
     <string name="no_data_sales_today">⚠️ \n برای امروز فروشی ثبت نشده</string>//

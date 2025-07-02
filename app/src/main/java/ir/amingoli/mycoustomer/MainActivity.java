@@ -22,7 +22,7 @@ import ir.amingoli.mycoustomer.view.DialogBusinessInfo;
 public class MainActivity extends AppCompatActivity {
 
     DatabaseHandler db;
-    TextView salesAll, salesToday, salesThisWeek, salesThisMonth ,
+    TextView salesAll, salesToday, salesThisMonth ,
              totalCustomers, totalProduct, totalOrder, totalDetailOrder,textLogo, totalOrderIsPiedThisMonth;
     View live_salesAll,live_salesToday,live_salesThisWeek,live_salesThisMonth;
     
@@ -49,7 +49,6 @@ public class MainActivity extends AppCompatActivity {
 //        View include_order = findViewById(R.id.include_order);
         salesAll = findViewById(R.id.salesAll);
         salesToday = findViewById(R.id.salesToday);
-        salesThisWeek = findViewById(R.id.salesThisWeek);
 //        salesThisMonth = include_info_app.findViewById(R.id.salesThisMonth);
         salesThisMonth = findViewById(R.id.salesThisMonth);
 
@@ -91,14 +90,6 @@ public class MainActivity extends AppCompatActivity {
         } else {
             live_salesToday.setVisibility(View.GONE);
             salesToday.setText(getString(R.string.no_data_sales_today));
-        }
-        if (thisWeek != null) {
-            salesThisWeek.setText(getString(R.string.sales_this_week,
-                    Tools.getFormattedPrice(thisWeek.getTotalSales(), this),
-                    Tools.getFormattedInteger(thisWeek.getSalesCount())));
-        } else {
-            live_salesThisWeek.setVisibility(View.GONE);
-            salesThisWeek.setText(getString(R.string.no_data_sales_this_week));
         }
         if (thisMonth != null) {
             salesThisMonth.setText("فروش این ماه "+Tools.getFormattedPrice(thisMonth.getTotalSales(), this));
