@@ -59,7 +59,7 @@
     <string name="update">بروزرسانی</string>//
     <string name="update_product">بروزرسانی محصول</string>//
     <string name="total_customer">%1$s مشتری</string>//
-    <string name="total_product">%1$s محصول</string>//
+    <string name="total_product">%1$s محصول/خدمات</string>//
     <string name="total_order">%1$s سفارش</string>//
     <string name="total_detail_order">%1$s محصول سفارش داده شده</string>//
 
@@ -68,7 +68,7 @@
     <string name="no_data_sales_this_week">⚠️ \n برای این هفته فروشی ثبت نشده</string>//
     <string name="no_data_sales_this_month">فروشی ثبت کنید</string>//
     <string name="text_sales_this_month">فروش ۳۰ روز گذشته</string>//
-    <string name="add_product_now">محصولی ثبت کنید!</string>//
+    <string name="add_product_now">محصول یا خدمتی ثبت کنید!</string>//
     <string name="add_customer_now">متشری اضافه کنید!</string>//
     <string name="no_order">سفارشی نداریم</string>
     <string name="remove">حذف</string>
@@ -89,5 +89,7 @@
   <string name = "business_name">نام کسب‌وکار</string>
   <string name = "business_name_you">نام کسب‌وکار شما</string>
   <string name = "submit">ذخیره</string>
+  <string name = "no_bedehkar">طلبی نداری</string>
+  <string name = "setting">تنظیمات</string>
 
 </resources>
