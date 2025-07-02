@@ -1,237 +1,284 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  tools:context=".ActivityAddOrder">
+
+  <ScrollView
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ActivityAddOrder">
-
-    <ScrollView
+    android:layout_height="match_parent">
+    <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+      <LinearLayout
+        android:id="@+id/box_customer_info"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <RelativeLayout
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        android:padding="@dimen/_10sdp">
+
+        <TextView
+          android:id="@+id/customerName"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:textColor="@color/colorTitle"
+          android:textSize="@dimen/_14ssp"
+          android:textStyle="bold" />
+
+        <TextView
+          android:id="@+id/dateToDay"
+          android:onClick="setDate"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:textAlignment="center"
+          android:textColor="@color/colorTitle"
+          android:textSize="@dimen/_10ssp"
+          android:textStyle="normal" />
+      </LinearLayout>
+      <androidx.cardview.widget.CardView
+        android:id="@+id/box_order"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/box_customer_info"
+        android:layout_marginStart="@dimen/_7sdp"
+        android:layout_marginTop="@dimen/_7sdp"
+        android:layout_marginEnd="@dimen/_7sdp">
+
+        <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_margin="@dimen/_5sdp"
+          android:orientation="vertical">
+
+          <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:id="@+id/box_customer_info"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:orientation="vertical"
-                android:padding="@dimen/_10sdp">
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_5sdp">
 
-                <TextView
-                    android:id="@+id/customerName"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorTitle"
-                    android:textSize="@dimen/_14ssp"
-                    android:textStyle="bold" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:text="@string/product_list"
+              android:textColor="@color/colorTitle"
+              android:textSize="@dimen/_10ssp" />
 
-                <TextView
-                    android:id="@+id/dateToDay"
-                    android:onClick="setDate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:textColor="@color/colorTitle"
-                    android:textSize="@dimen/_10ssp"
-                    android:textStyle="normal" />
-            </LinearLayout>
-            <androidx.cardview.widget.CardView
-                android:id="@+id/box_order"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/box_customer_info"
-                android:layout_marginStart="@dimen/_7sdp"
-                android:layout_marginTop="@dimen/_7sdp"
-                android:layout_marginEnd="@dimen/_7sdp">
+            <TextView
+              android:id="@+id/addProduct"
+              android:onClick="addProduct"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:text="@string/add_product"
+              android:textColor="@color/colorTextBlue"
+              android:textSize="@dimen/_10ssp" />
+          </RelativeLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/_5sdp"
-                    android:orientation="vertical">
+          <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_5sdp">
+          <TextView
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            tools:text="مبلغ ۵۰۰ تومان بابت این فاکتور باقی مانده که به عنوان طلب شما از امین گلی در سیستم ثبت میگردد"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold" />
+          
+          <RelativeLayout
+            android:layout_marginTop="@dimen/_10sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_10sdp">
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="@string/product_list"
-                            android:textColor="@color/colorTitle"
-                            android:textSize="@dimen/_10ssp" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:text="جمع فاکتور"
+              android:textColor="@color/colorTitle"
+              android:textSize="@dimen/_12ssp"
+              android:textStyle="bold" />
 
-                        <TextView
-                            android:id="@+id/addProduct"
-                            android:onClick="addProduct"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:text="@string/add_product"
-                            android:textColor="@color/colorTextBlue"
-                            android:textSize="@dimen/_10ssp" />
-                    </RelativeLayout>
+            <TextView
+              android:id="@+id/all_price"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:textColor="@color/colorTextGreen"
+              tools:text="500 تومان"
+              android:textSize="@dimen/_12ssp"
+              android:textStyle="bold" />
+          </RelativeLayout>
 
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_10sdp">
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/_10sdp">
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:text="تخفیف"
+              android:textColor="@color/colorTitle"
+              android:textSize="@dimen/_12ssp"
+              android:textStyle="bold" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentStart="true"
-                            android:text="@string/total_price"
-                            android:textColor="@color/colorTitle"
-                            android:textSize="@dimen/_12ssp"
-                            android:textStyle="bold" />
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:textColor="@color/colorTextGreen"
+              android:textSize="@dimen/_12ssp"
+              tools:text="500 تومان"
+              android:textStyle="bold" />
+          </RelativeLayout>
 
-                        <TextView
-                            android:id="@+id/all_price"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentEnd="true"
-                            android:textColor="@color/colorTextGreen"
-                            android:textSize="@dimen/_12ssp"
-                            android:textStyle="bold" />
-                    </RelativeLayout>
+          <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="@dimen/_10sdp">
 
-                </LinearLayout>
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:text="مبلغ پرداختی"
+              android:textColor="@color/colorTitle"
+              android:textSize="@dimen/_12ssp"
+              android:textStyle="bold" />
 
-            </androidx.cardview.widget.CardView>
-            <LinearLayout
-                android:layout_below="@+id/box_order"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:paddingTop="@dimen/_7sdp"
-                android:paddingStart="@dimen/_7sdp"
-                android:paddingEnd="@dimen/_7sdp"
-                android:paddingBottom="@dimen/_80sdp">
+            <TextView
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentEnd="true"
+              android:textColor="@color/colorTextGreen"
+              android:textSize="@dimen/_12ssp"
+              tools:text="500 تومان"
+              android:textStyle="bold" />
+          </RelativeLayout>
 
-                <LinearLayout
-                    android:id="@+id/boxCheckboxOrderIsReady"
-                    android:visibility="gone"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|start"
-                    android:orientation="horizontal">
+        </LinearLayout>
 
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/checkboxOrderIsReady"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
-                        android:text="@string/order_is_ready"
-                        android:textColor="@color/colorTitle"
-                        android:textSize="@dimen/_10ssp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/boxCheckBoxOrderIsWaiting"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|start"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/checkboxOrderIsWaiting"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
-                        android:text="@string/save_wating_order"
-                        android:textColor="@color/colorTitle"
-                        android:textSize="@dimen/_10ssp" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/boxCheckBoxSendSmsToCustomer"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|start"
-                    android:orientation="horizontal">
-
-                    <androidx.appcompat.widget.AppCompatCheckBox
-                        android:id="@+id/checkboxSendSmsToCustomer"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:paddingStart="@dimen/_5sdp"
-                        android:paddingEnd="@dimen/_5sdp"
-                        android:text="@string/send_sms_to_customer"
-                        android:textColor="@color/colorTitle"
-                        android:textSize="@dimen/_10ssp" />
-                </LinearLayout>
-            </LinearLayout>
-        </RelativeLayout>
-    </ScrollView>
-
-    <LinearLayout
-        android:layout_alignParentBottom="true"
-        android:layout_centerVertical="true"
-        android:orientation="horizontal"
-        android:gravity="center"
+      </androidx.cardview.widget.CardView>
+      <LinearLayout
+        android:layout_below="@+id/box_order"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <Button
-            android:id="@+id/submit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            android:background="@android:color/transparent"
-            android:fontFamily="sans-serif-condensed"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="submit"
-            android:paddingLeft="@dimen/_7sdp"
-            android:paddingRight="@dimen/_7sdp"
-            android:text="@string/save"
-            android:textColor="@color/colorTextBlue"
-            android:textSize="@dimen/_18ssp"
-            tools:ignore="UnusedAttribute" />
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/_7sdp"
+        android:paddingStart="@dimen/_7sdp"
+        android:paddingEnd="@dimen/_7sdp"
+        android:paddingBottom="@dimen/_80sdp">
 
-        <Button
-            android:id="@+id/remove"
-            android:visibility="gone"
+        <LinearLayout
+          android:id="@+id/boxCheckboxOrderIsReady"
+          android:visibility="gone"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center|start"
+          android:orientation="horizontal">
+
+          <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkboxOrderIsReady"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+          <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/_10sdp"
-            android:background="@android:color/transparent"
-            android:fontFamily="sans-serif-condensed"
-            android:foreground="?attr/selectableItemBackground"
-            android:onClick="remove"
-            android:paddingLeft="@dimen/_7sdp"
-            android:paddingRight="@dimen/_7sdp"
-            android:text="@string/remove"
-            android:textColor="@android:color/holo_red_dark"
-            android:textSize="@dimen/_18ssp"
-            tools:ignore="UnusedAttribute" />
-    </LinearLayout>
+            android:paddingStart="@dimen/_5sdp"
+            android:paddingEnd="@dimen/_5sdp"
+            android:text="@string/order_is_ready"
+            android:textColor="@color/colorTitle"
+            android:textSize="@dimen/_10ssp" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/boxCheckBoxOrderIsWaiting"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center|start"
+          android:orientation="horizontal">
+
+          <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkboxOrderIsWaiting"
+            android:layout_width="wrap_content"
+            android:text="@string/save_wating_order"
+            android:layout_height="wrap_content" />
+        </LinearLayout>
+
+        <LinearLayout
+          android:id="@+id/boxCheckBoxSendSmsToCustomer"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:gravity="center|start"
+          android:orientation="horizontal">
+
+          <androidx.appcompat.widget.AppCompatCheckBox
+            android:id="@+id/checkboxSendSmsToCustomer"
+            android:layout_width="wrap_content"
+            android:text="@string/send_sms_to_customer"
+            android:layout_height="wrap_content" />
+
+        </LinearLayout>
+      </LinearLayout>
+    </RelativeLayout>
+  </ScrollView>
+
+  <LinearLayout
+    android:layout_alignParentBottom="true"
+    android:layout_centerVertical="true"
+    android:orientation="horizontal"
+    android:gravity="center"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+      android:id="@+id/submit"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/_10sdp"
+      android:background="@android:color/transparent"
+      android:fontFamily="sans-serif-condensed"
+      android:foreground="?attr/selectableItemBackground"
+      android:onClick="submit"
+      android:paddingLeft="@dimen/_7sdp"
+      android:paddingRight="@dimen/_7sdp"
+      android:text="@string/save"
+      android:textColor="@color/colorTextBlue"
+      android:textSize="@dimen/_18ssp"
+      tools:ignore="UnusedAttribute" />
+
+    <Button
+      android:id="@+id/remove"
+      android:visibility="gone"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_margin="@dimen/_10sdp"
+      android:background="@android:color/transparent"
+      android:fontFamily="sans-serif-condensed"
+      android:foreground="?attr/selectableItemBackground"
+      android:onClick="remove"
+      android:paddingLeft="@dimen/_7sdp"
+      android:paddingRight="@dimen/_7sdp"
+      android:text="@string/remove"
+      android:textColor="@android:color/holo_red_dark"
+      android:textSize="@dimen/_18ssp"
+      tools:ignore="UnusedAttribute" />
+  </LinearLayout>
 
 </RelativeLayout>
