@@ -60,6 +60,7 @@
     <string name="update_product">بروزرسانی محصول</string>//
     <string name="total_customer">%1$s مشتری</string>//
     <string name="total_product">%1$s محصول/خدمات</string>//
+    <string name="total_order_waitting">%1$s سفارش درانتظار</string>//
     <string name="total_order">%1$s سفارش</string>//
     <string name="total_detail_order">%1$s محصول/خدمت سفارش داده شده</string>//
 

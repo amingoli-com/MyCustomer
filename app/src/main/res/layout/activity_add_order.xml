@@ -167,6 +167,8 @@
 
           <RelativeLayout
             android:id="@+id/viewBedehi"
+            android:visibility="gone"
+            tools:visibility="visible"
             android:paddingVertical="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

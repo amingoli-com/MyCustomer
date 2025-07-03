@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         totalCustomers.setText(getString(R.string.total_customer ,
                 Tools.getFormattedInteger(db.getCustomerSize())));
-        totalOrder.setText(getString(R.string.total_order ,
+        totalOrder.setText(getString(R.string.total_order_waitting ,
                 Tools.getFormattedInteger(db.getOrderIsWaitingSize())));
         totalDetailOrder.setText(getString(R.string.total_detail_order ,
                 Tools.getFormattedInteger(db.getOrderIsWaitingSize())));
