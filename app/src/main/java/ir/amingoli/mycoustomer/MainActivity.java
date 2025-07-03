@@ -16,6 +16,7 @@ import java.util.List;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.GetTotalSales;
 import ir.amingoli.mycoustomer.model.Order;
+import ir.amingoli.mycoustomer.model.Transaction;
 import ir.amingoli.mycoustomer.util.Session;
 import ir.amingoli.mycoustomer.util.Tools;
 import ir.amingoli.mycoustomer.view.DialogBusinessInfo;
@@ -25,7 +26,8 @@ public class MainActivity extends AppCompatActivity {
     private static final String TAG = "amingoli78888-main";
     DatabaseHandler db;
     TextView salesAll, salesToday, salesThisMonth ,
-             totalCustomers, totalProduct, totalOrder, totalDetailOrder,textLogo, totalOrderIsPiedThisMonth;
+             totalCustomers, totalProduct, totalOrder, totalDetailOrder,textLogo, totalOrderIsPiedThisMonth,
+            totalBedehi;
     View live_salesAll,live_salesToday,live_salesThisWeek,live_salesThisMonth;
     
     @Override
@@ -72,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
         totalOrder = findViewById(R.id.totalOrders);
         totalDetailOrder = findViewById(R.id.totalDetailOrder);
         textLogo = findViewById(R.id.textLogo);
+        totalBedehi = findViewById(R.id.totalBedehi);
 
     }
 
@@ -116,6 +119,30 @@ public class MainActivity extends AppCompatActivity {
 
         populateBusinessName();
         textLogo.setOnClickListener(view -> dialogBusinessInfo());
+
+        initTotalBedehi();
+    }
+
+    private void initTotalBedehi(){
+        double tb = 0.0;
+        List<Transaction> bedehi = db.getTransactionBedehiCustomer(Tools.TRANSACTION_TYPE_BEDEHI);
+        for (int i = 0; i < bedehi.size(); i++) {
+            tb = tb + bedehi.get(i).getAmount();
+        }
+
+        double tbpayed = 0.0;
+        List<Transaction> bedehiPayed = db.getTransactionBedehiCustomer(
+                Tools.TRANSACTION_TYPE_PAY_BEDEHI_BY_OTHER_METHODE);
+        for (int i = 0; i < bedehiPayed.size(); i++) {
+            tbpayed = tbpayed + bedehiPayed.get(i).getAmount();
+        }
+
+        double r = tb-tbpayed;
+        if (r > 0){
+            totalBedehi.setText(Tools.getFormattedPrice(r,this) +" طلب دارید");
+        }else {
+            totalBedehi.setText("همه مشتری ها تسویه شده‌اند.");
+        }
     }
 
     private GetTotalSales getTotalSales(int howDays){
@@ -168,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void goToActivityTransaction(View view) {
         Intent intent = new Intent(this,ActivityTransactions.class);
+        intent.putExtra("type",Tools.TRANSACTION_TYPE_BEDEHI);
         startActivity(intent);
     }
 

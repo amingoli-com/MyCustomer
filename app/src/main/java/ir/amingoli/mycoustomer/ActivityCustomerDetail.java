@@ -18,6 +18,7 @@ import java.util.List;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
+import ir.amingoli.mycoustomer.model.Transaction;
 import ir.amingoli.mycoustomer.util.Tools;
 
 
@@ -27,7 +28,7 @@ public class ActivityCustomerDetail extends AppCompatActivity {
     private List<Customer> customerList;
 
     private TextView id,name,tel,desc;
-    private TextView waiting_order,last_pied,total_pied;
+    private TextView waiting_order,last_pied,total_pied,totalBedehi;
 
     @Override
     protected void onResume() {
@@ -36,6 +37,7 @@ public class ActivityCustomerDetail extends AppCompatActivity {
         initTotalWaitingOrder();
         initLastPied();
         initTotalPricePied();
+        initTotalBedehi();
     }
 
     @Override
@@ -67,6 +69,26 @@ public class ActivityCustomerDetail extends AppCompatActivity {
         }else {
             last_pied.setText(Tools.getFormattedDate(db.getOrderLastPiedByIdCustomer(CUSTOMER_ID)));
         }
+    }
+
+    private void initTotalBedehi(){
+        totalBedehi = findViewById(R.id.totalBedehi);
+        double tb = 0.0;
+        List<Transaction> bedehi = db.getTransactionBedehiCustomer(Tools.TRANSACTION_TYPE_BEDEHI,CUSTOMER_ID);
+        for (int i = 0; i < bedehi.size(); i++) {
+            tb = tb + bedehi.get(i).getAmount();
+        }
+
+        double tbpayed = 0.0;
+        List<Transaction> bedehiPayed = db.getTransactionBedehiCustomer(
+                Tools.TRANSACTION_TYPE_PAY_BEDEHI_BY_OTHER_METHODE,CUSTOMER_ID);
+        for (int i = 0; i < bedehiPayed.size(); i++) {
+            tbpayed = tbpayed + bedehiPayed.get(i).getAmount();
+        }
+
+        double r = tb-tbpayed;
+        if (r < 0) r = 0;
+        totalBedehi.setText(Tools.getFormattedPrice(r,this));
     }
 
     private void initTotalPricePied(){
@@ -128,6 +150,13 @@ public class ActivityCustomerDetail extends AppCompatActivity {
         Intent intent = new Intent(this,ActivityReportOrder.class);
         intent.putExtra("order_status",true);
         intent.putExtra("id_customer",CUSTOMER_ID);
+        startActivity(intent);
+    }
+
+    public void showTransActionList(View view) {
+        Intent intent = new Intent(this,ActivityTransactions.class);
+        intent.putExtra("id_customer",CUSTOMER_ID);
+        intent.putExtra("type",Tools.TRANSACTION_TYPE_BEDEHI);
         startActivity(intent);
     }
 

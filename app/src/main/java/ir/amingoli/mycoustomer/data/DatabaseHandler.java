@@ -721,6 +721,29 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
         return items;
     }
+
+    public List<Transaction> getAllTransactionByCustomer(long type, long id_customer) {
+        List<Transaction> items = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        if (id_customer == 0 && type == -1){
+            sb.append("select * from " + TABLE_TRANSACTION);
+        }else if (id_customer == 0 && type > -1){
+            sb.append("select * from " + TABLE_TRANSACTION +
+                    " w where  w." + COL_TRANSACTION_TYPE + " ='"+type+"'"
+            );
+        }else {
+            sb.append("select * from " + TABLE_TRANSACTION +
+                    " w where  w." + COL_TRANSACTION_ID_CUSTOMER + " ='"+id_customer+"'"+
+                    "AND w."+ COL_TRANSACTION_TYPE + " ='"+type+"'"
+            );
+        }
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        if (cursor.moveToFirst()) {
+            items = getListTransactionByCursor(cursor);
+        }
+        return items;
+    }
+
     public List<Transaction> getTransaction(long type, long id_order, long id_customer) {
         List<Transaction> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -728,6 +751,33 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 " w where  w." + COL_TRANSACTION_TYPE + " ='"+type+"'"+
                 " AND w."+ COL_TRANSACTION_ID_CUSTOMER + " ='"+id_customer+"'"+
                 " AND w."+ COL_TRANSACTION_ID_ORDER + " ='"+id_order+"'");
+        Log.d(TAG, "getTransaction: "+sb);
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        if (cursor.moveToFirst()) {
+            items = getListTransactionByCursor(cursor);
+        }
+        return items;
+    }
+
+    public List<Transaction> getTransactionBedehiCustomer(long type, long id_customer) {
+        List<Transaction> items = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("select * from " + TABLE_TRANSACTION +
+                " w where  w." + COL_TRANSACTION_TYPE + " ='"+type+"'"+
+                " AND w."+ COL_TRANSACTION_ID_CUSTOMER + " ='"+id_customer+"'");
+        Log.d(TAG, "getTransaction: "+sb);
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        if (cursor.moveToFirst()) {
+            items = getListTransactionByCursor(cursor);
+        }
+        return items;
+    }
+
+    public List<Transaction> getTransactionBedehiCustomer(long type) {
+        List<Transaction> items = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("select * from " + TABLE_TRANSACTION +
+                " w where  w." + COL_TRANSACTION_TYPE + " ='"+type+"'");
         Log.d(TAG, "getTransaction: "+sb);
         Cursor cursor = db.rawQuery(sb.toString(), null);
         if (cursor.moveToFirst()) {

@@ -13,6 +13,7 @@ public class Tools {
     public static long TRANSACTION_TYPE_BEDEHI = 1;
     public static long TRANSACTION_TYPE_PAY_BEDEHI = 2;
     public static long TRANSACTION_TYPE_PAY_DISCOUNT = 3;
+    public static long TRANSACTION_TYPE_PAY_BEDEHI_BY_OTHER_METHODE = 4;
     public static String getFormattedPrice(Double price, Context ctx) {
         NumberFormat format = NumberFormat.getInstance(AppConfig.PRICE_LOCAL_FORMAT);
         String result = format.format(price);

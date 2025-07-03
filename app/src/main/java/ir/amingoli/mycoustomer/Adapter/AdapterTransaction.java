@@ -22,8 +22,7 @@ public class AdapterTransaction extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Listener listener;
 
     public interface Listener {
-        void onClick(Transaction product);
-        void onClickEdit(Transaction product);
+        void onClick(Transaction transaction);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -66,13 +65,22 @@ public class AdapterTransaction extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (holder instanceof ViewHolder) {
             ViewHolder vItem = (ViewHolder) holder;
             final Transaction c = items.get(position);
-            vItem.name.setText(c.getId_customer() +"-"+c.getId_order()+" (موجودی " +Tools.getFormattedDiscount(c.getAmount())+")");
-            vItem.desc.setText(Tools.getFormattedPrice(c.getAmount(),ctx));
+            vItem.name.setText(c.getDesc());
+            if (c.getType() == Tools.TRANSACTION_TYPE_BEDEHI) {
+                vItem.desc.setText("بدهی");
+
+            } else if (c.getType() == Tools.TRANSACTION_TYPE_PAY_BEDEHI) {
+                vItem.desc.setText("مبلغ پرداخت شده");
+
+            } else if (c.getType() == Tools.TRANSACTION_TYPE_PAY_DISCOUNT) {
+                vItem.desc.setText("تخفیف");
+
+            } else if (c.getType() == Tools.TRANSACTION_TYPE_PAY_BEDEHI_BY_OTHER_METHODE) {
+                vItem.desc.setText("پرداخت بدهی");
+            }
             vItem.tv_id.setText(c.getId()+"");
-//            vItem.textBlue.setText(c.getAmount()+"");
-            vItem.textBlue.setText(ctx.getResources().getString(R.string.edit));
+            vItem.textBlue.setText(Tools.getFormattedPrice(c.getAmount(),ctx));
             vItem.view.setOnClickListener(view -> listener.onClick(c));
-            vItem.textBlue.setOnClickListener(view -> listener.onClickEdit(c));
         }
 
     }
