@@ -85,6 +85,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
           <TextView
+            android:id="@+id/textBedehkaran"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginTop="@dimen/_10sdp"
@@ -95,8 +96,9 @@
             android:textColor="@color/colorTitle"
             android:textSize="@dimen/_12ssp"
             android:textStyle="bold" />
-          
+
           <RelativeLayout
+            android:paddingVertical="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_10sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -123,6 +125,9 @@
           </RelativeLayout>
 
           <RelativeLayout
+            android:id="@+id/viewDiscount"
+            android:visibility="gone"
+            android:paddingVertical="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/_10sdp">
@@ -137,16 +142,19 @@
               android:textStyle="bold" />
 
             <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentEnd="true"
-              android:textColor="@color/colorTextGreen"
-              android:textSize="@dimen/_12ssp"
-              tools:text="500 تومان"
-              android:textStyle="bold" />
+              android:id = "@+id/totalDiscount"
+              android:layout_width = "wrap_content"
+              android:layout_height = "wrap_content"
+              android:layout_alignParentEnd = "true"
+              android:textColor = "@color/colorTextGreen"
+              android:textSize = "@dimen/_12ssp"
+              android:textStyle = "bold"
+              tools:text = "500 تومان" />
           </RelativeLayout>
 
           <RelativeLayout
+            android:id="@+id/viewPayed"
+            android:paddingVertical="@dimen/_5sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingHorizontal="@dimen/_10sdp">
@@ -161,13 +169,14 @@
               android:textStyle="bold" />
 
             <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_alignParentEnd="true"
-              android:textColor="@color/colorTextGreen"
-              android:textSize="@dimen/_12ssp"
-              tools:text="500 تومان"
-              android:textStyle="bold" />
+              android:id = "@+id/totalPayed"
+              android:layout_width = "wrap_content"
+              android:layout_height = "wrap_content"
+              android:layout_alignParentEnd = "true"
+              android:textColor = "@color/colorTextGreen"
+              android:textSize = "@dimen/_12ssp"
+              android:textStyle = "bold"
+              tools:text = "500 تومان" />
           </RelativeLayout>
 
         </LinearLayout>

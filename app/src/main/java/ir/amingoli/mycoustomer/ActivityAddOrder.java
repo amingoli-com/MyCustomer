@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import ir.amingoli.mycoustomer.Adapter.AdapterAddOrder;
 import ir.amingoli.mycoustomer.data.AppConfig;
@@ -30,6 +31,8 @@ import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
 import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Product;
+import ir.amingoli.mycoustomer.model.Transaction;
+import ir.amingoli.mycoustomer.util.PriceNumberTextWatcher;
 import ir.amingoli.mycoustomer.util.SetTextForSendSms;
 import ir.amingoli.mycoustomer.util.Tools;
 import ir.hamsaa.persiandatepicker.Listener;
@@ -45,6 +48,9 @@ public class ActivityAddOrder extends AppCompatActivity {
     private long ID_CUSTOMER = 0;
     private long ID_ORDER = 0;
     private long ID_ORDER_DETAIL = 0;
+    private Double _totalPayed = null;
+    private Double _totalDiscount = 0.0;
+    private Double _totalBedehi = 0.0;
     private long CRATED_AT = System.currentTimeMillis();
 
     private Long ID_THIS_ORDER = System.currentTimeMillis();
@@ -53,8 +59,9 @@ public class ActivityAddOrder extends AppCompatActivity {
     private RecyclerView recyclerView;
     private DatabaseHandler db;
     private AdapterAddOrder adapter;
-    private TextView totalPrice,customerName,dateToDay,addProduct;
-    private View boxCheckboxOrderIsReady,boxCheckBoxOrderIsWaiting,boxCheckBoxSendSmsToCustomer;
+    private TextView totalPrice,totalDiscount,totalPayed,textBedehkaran,customerName,dateToDay,
+            addProduct;
+    private View boxCheckboxOrderIsReady,boxCheckBoxOrderIsWaiting,boxCheckBoxSendSmsToCustomer,viewPayed,viewDiscount;
     private CheckBox checkboxOrderIsReady,checkBoxOrderIsWaiting,checkBoxSendSmsToCustomer;
     private Button submit;
 
@@ -78,11 +85,15 @@ public class ActivityAddOrder extends AppCompatActivity {
         populateData();
         initAdapter();
         if (ID_ORDER_DETAIL != 0 ){
+            Log.d(TAG, "onCreate: ID_ORDER_DETAIL != 0");
             findViewById(R.id.remove).setVisibility(View.VISIBLE);
             getListForOrderDetail();
+            getListPayed();
         }
         initCustomerDetail();
     }
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -106,6 +117,11 @@ public class ActivityAddOrder extends AppCompatActivity {
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         productsList = new ArrayList<>();
         totalPrice = findViewById(R.id.all_price);
+        totalDiscount = findViewById(R.id.totalDiscount);
+        totalPayed = findViewById(R.id.totalPayed);
+        viewDiscount = findViewById(R.id.viewDiscount);
+        viewPayed = findViewById(R.id.viewPayed);
+        textBedehkaran = findViewById(R.id.textBedehkaran);
         customerName = findViewById(R.id.customerName);
         dateToDay = findViewById(R.id.dateToDay);
         addProduct = findViewById(R.id.addProduct);
@@ -116,6 +132,9 @@ public class ActivityAddOrder extends AppCompatActivity {
         boxCheckBoxOrderIsWaiting = findViewById(R.id.boxCheckBoxOrderIsWaiting);
         boxCheckBoxSendSmsToCustomer = findViewById(R.id.boxCheckBoxSendSmsToCustomer);
         submit = findViewById(R.id.submit);
+
+        viewDiscount.setOnClickListener(view -> changeDiscount());
+        viewPayed.setOnClickListener(view -> changePayed());
     }
 
     private void initAdapter(){
@@ -193,6 +212,20 @@ public class ActivityAddOrder extends AppCompatActivity {
         setTextTotalPrice();
     }
 
+    private void getListPayed() {
+        Transaction tPayed = getTransactionByType(Tools.TRANSACTION_TYPE_PAY_BEDEHI);
+        Transaction tBedehi = getTransactionByType(Tools.TRANSACTION_TYPE_BEDEHI);
+        Transaction tDiscount = getTransactionByType(Tools.TRANSACTION_TYPE_PAY_DISCOUNT);
+
+        if (tPayed != null) {
+            _totalPayed = tPayed.amount;
+            Log.d(TAG, "getListPayed: "+tPayed.amount);
+        }
+        if (tBedehi != null) _totalBedehi = tBedehi.amount;
+        if (tDiscount != null) _totalDiscount = tDiscount.amount;
+        setTextTotalPrice();
+    }
+
 //    Save Order
     Order order;
     private void saveOrder(){
@@ -258,6 +291,55 @@ public class ActivityAddOrder extends AppCompatActivity {
 
     }
 
+    private void saveTransAction(){
+//        -------- Payed
+        Transaction transactionPayed = new Transaction();
+        if (getTransactionByType(Tools.TRANSACTION_TYPE_PAY_BEDEHI) != null) {
+            transactionPayed.setId(Objects.requireNonNull(getTransactionByType(Tools.TRANSACTION_TYPE_PAY_BEDEHI)).id);
+        }
+        transactionPayed.setId_order(ID_THIS_ORDER);
+        transactionPayed.setId_customer(ID_CUSTOMER);
+        transactionPayed.setType(Tools.TRANSACTION_TYPE_PAY_BEDEHI);
+        transactionPayed.setAmount(_totalPayed);
+        db.saveTransaction(transactionPayed);
+
+//        --------- Bedehi
+        Transaction transactionBedehi = new Transaction();
+        if (getTransactionByType(Tools.TRANSACTION_TYPE_BEDEHI) != null) {
+            transactionBedehi.setId(Objects.requireNonNull(getTransactionByType(Tools.TRANSACTION_TYPE_BEDEHI)).id);
+        }
+        transactionBedehi.setId_order(ID_THIS_ORDER);
+        transactionBedehi.setId_customer(ID_CUSTOMER);
+        transactionBedehi.setType(Tools.TRANSACTION_TYPE_BEDEHI);
+        transactionBedehi.setAmount(_totalBedehi);
+        db.saveTransaction(transactionBedehi);
+
+
+//        --------- Discount
+        Transaction transactionDiscount = new Transaction();
+        if (getTransactionByType(Tools.TRANSACTION_TYPE_PAY_DISCOUNT) != null) {
+            transactionDiscount.setId(Objects.requireNonNull(getTransactionByType(Tools.TRANSACTION_TYPE_PAY_DISCOUNT)).id);
+        }
+        transactionDiscount.setId_order(ID_THIS_ORDER);
+        transactionDiscount.setId_customer(ID_CUSTOMER);
+        transactionDiscount.setType(Tools.TRANSACTION_TYPE_PAY_DISCOUNT);
+        transactionDiscount.setAmount(_totalDiscount);
+        db.saveTransaction(transactionDiscount);
+
+
+    }
+
+    private Transaction getTransactionByType(Long type){
+        try {
+            Log.d(TAG, "getTransactionByType: ok");
+            return db.getTransaction(type,ID_THIS_ORDER,ID_CUSTOMER).get(0);
+        }catch (Exception e){
+            Log.e(TAG, "getTransactionByType: ERROR", e);
+        }
+        Log.d(TAG, "getTransactionByType: null");
+        return null;
+    }
+
 //    Util
     private void sendSms(String text){
         Uri uri = Uri.parse("smsto:"+customer_phone);
@@ -293,8 +375,28 @@ public class ActivityAddOrder extends AppCompatActivity {
         return p;
     }
 
+    private double getPricePayed(){
+        if (_totalPayed != null){
+            return _totalPayed;
+        }
+        return getAllPrice();
+    }
+
     private void setTextTotalPrice(){
         totalPrice.setText(Tools.getFormattedPrice(getAllPrice(),this));
+        totalDiscount.setText(Tools.getFormattedPrice(_totalDiscount,this));
+        totalPayed.setText(Tools.getFormattedPrice(getPricePayed(),this));
+
+        if ((getPricePayed() + _totalDiscount) < getAllPrice()){
+            _totalBedehi = getAllPrice() - (getPricePayed() + _totalDiscount);
+            String s = Tools.getFormattedPrice(_totalBedehi,this);
+            textBedehkaran.setText(getString(R.string.text_bedehkaran,s));
+            textBedehkaran.setVisibility(View.VISIBLE);
+        }else {
+            _totalBedehi = 0.0;
+            textBedehkaran.setText("");
+            textBedehkaran.setVisibility(View.GONE);
+        }
     }
 
     public void addProduct(View view) {
@@ -333,11 +435,68 @@ public class ActivityAddOrder extends AppCompatActivity {
                 .show();
     }
 
-//    onClick
+    @SuppressLint({"SetTextI18n", "NotifyDataSetChanged"})
+    private void changePayed(){
+        View view = View.inflate(this, R.layout.item_dialog_text_amount, null);
+        EditText amount = view.findViewById(R.id.amount);
+        amount.addTextChangedListener(new PriceNumberTextWatcher(amount));
+        amount.setText(getPricePayed()+"");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(view);
+        builder.setTitle(getString(R.string.change_discount_or_payed, "پرداختی"))
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.save), (dialog, id) -> {
+                    double d = Double.parseDouble(Tools.convertNumberToEN(amount.getText().toString().trim()));
+                    if (!TextUtils.isEmpty(amount.getText().toString())){
+                        if (d <= getAllPrice()){
+                            _totalPayed = d;
+                            setTextTotalPrice();
+                        }else {
+                            Toast.makeText(this, "مبلغ پرداختی نباید از مبلغ سفارش بیشتر باشد", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }else {
+                        Toast.makeText(this, getString(R.string.is_not_decimal), Toast.LENGTH_SHORT).show();
+                    }
+
+                })
+                .show();
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void changeDiscount(){
+        View view = View.inflate(this, R.layout.item_dialog_text_amount, null);
+        EditText amount = view.findViewById(R.id.amount);
+        amount.addTextChangedListener(new PriceNumberTextWatcher(amount));
+        amount.setText(_totalDiscount+"");
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setView(view);
+        builder.setTitle(getString(R.string.change_discount_or_payed, "تخفیف"))
+                .setCancelable(true)
+                .setPositiveButton(getString(R.string.save), (dialog, id) -> {
+                    double d = Double.parseDouble(Tools.convertNumberToEN(amount.getText().toString().trim()));
+                    if (!TextUtils.isEmpty(amount.getText().toString())){
+                        if (d <= (getAllPrice() - getPricePayed())){
+                            _totalDiscount = d;
+                            setTextTotalPrice();
+                        }else {
+                            Toast.makeText(this, "مبلغ تخفیف نباید از مبلغ سفارش بیشتر باشد", Toast.LENGTH_SHORT).show();
+                        }
+                    }else {
+                        Toast.makeText(this, getString(R.string.is_not_decimal), Toast.LENGTH_SHORT).show();
+                    }
+
+                })
+                .show();
+    }
+
+
+    //    onClick
     public void submit(View view) {
         if (productsList.size() !=0){
             saveOrder();
             saveOrderDetail();
+            saveTransAction();
             finish();
         }
     }

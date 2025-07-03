@@ -74,6 +74,10 @@
     <string name="remove">حذف</string>
     <string name="do_you_want_remove_this_product">%1$s حذف شود؟</string>
     <string name="change_discount_product">تعداد %1$s را وارد کنید</string>
+    <string name="change_discount_or_payed">مبلغ %1$s را وارد کنید</string>
+    <string name="text_bedehkaran">مبلغ %1$s از این فاکتور باقی مانده که به عنوان بدهی مشتری در
+      سیستم
+      ثبت میگردد</string>
     <string name="do_you_want_remove_this_order">این سفارش حذف شود؟</string>
     <string name="yes">بله</string>
     <string name="no">خیر</string>

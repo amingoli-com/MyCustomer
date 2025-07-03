@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -21,6 +22,7 @@ import ir.amingoli.mycoustomer.view.DialogBusinessInfo;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static final String TAG = "amingoli78888-main";
     DatabaseHandler db;
     TextView salesAll, salesToday, salesThisMonth ,
              totalCustomers, totalProduct, totalOrder, totalDetailOrder,textLogo, totalOrderIsPiedThisMonth;
@@ -38,6 +40,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         db = new DatabaseHandler(this);
+
+        for (int i = 0; i < db.getAllTransaction().size(); i++) {
+            Log.d(TAG, "onCreate: "+db.getAllTransaction().get(i).id_order);
+        }
     }
     private void initData(){
         initId();
@@ -160,6 +166,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void goToActivityTransaction(View view) {
+        Intent intent = new Intent(this,ActivityTransactions.class);
+        startActivity(intent);
+    }
+
     public void addOrder(View view) {
         Intent intent = new Intent(this,ActivityCustomer.class);
         intent.putExtra("add_order",true);
@@ -179,4 +190,5 @@ public class MainActivity extends AppCompatActivity {
             textLogo.setText(Session.getInstance(this).getString("bn"));
         }
     }
+
 }

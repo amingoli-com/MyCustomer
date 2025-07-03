@@ -155,7 +155,7 @@
       android:weightSum="1">
 
       <androidx.cardview.widget.CardView
-        android:onClick="goToActivityBedehkaran"
+        android:onClick="goToActivityTransaction"
         style="@style/CardView_MainActivity"
         android:layout_width="match_parent">
         <RelativeLayout

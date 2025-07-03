@@ -19,6 +19,7 @@ import ir.amingoli.mycoustomer.model.Transaction;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
 
+    private static final String TAG = "amingoli78888-db";
     private SQLiteDatabase db;
     private Context context;
 
@@ -156,7 +157,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + COL_TRANSACTION_ID_CUSTOMER + " INTEGER, "
                 + COL_TRANSACTION_ID_ORDER + " INTEGER, "
                 + COL_TRANSACTION_TYPE + " INTEGER, "
-                + COL_TRANSACTION_AMOUNT + " INTEGER, "
+                + COL_TRANSACTION_AMOUNT + " NUMERIC, "
                 + COL_TRANSACTION_DESC + " TEXT, "
                 + COL_TRANSACTION_CREATED_AT  + " NUMERIC "
                 + ")";
@@ -368,6 +369,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return obj;
     }
 
+    private Transaction getTransactionByCursor(Cursor cur) {
+        Transaction obj = new Transaction();
+        obj.id = cur.getLong(cur.getColumnIndex(COL_TRANSACTION_ID));
+        obj.id_customer = cur.getLong(cur.getColumnIndex(COL_TRANSACTION_ID_CUSTOMER));
+        obj.id_order = cur.getLong(cur.getColumnIndex(COL_TRANSACTION_ID_ORDER));
+        obj.type = cur.getLong(cur.getColumnIndex(COL_TRANSACTION_TYPE));
+        obj.amount = cur.getDouble(cur.getColumnIndex(COL_TRANSACTION_AMOUNT));
+        obj.created_at = cur.getLong(cur.getColumnIndex(COL_TRANSACTION_CREATED_AT));
+        return obj;
+    }
+
     //    GET CUSTOMER
     public List<Customer> getCustomerByPage(int limit, int offset) {
         List<Customer> items = new ArrayList<>();
@@ -413,7 +425,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
-//    GET ORDER DETAIL
+    //    GET ORDER DETAIL
     public List<OrderDetail> getOrderDetailListById(Long id) {
         List<OrderDetail> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -436,7 +448,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
-//    GET ORDER
+    //    GET ORDER
     public List<Order> getOrderList(boolean isPied, long mils) {
         int status = isPied ? 1 : 0;
         List<Order> items = new ArrayList<>();
@@ -506,7 +518,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return cursor.getLong(cursor.getColumnIndex(COL_ORDER_CREATED_AT));
     }
 
-//    GET PRODUCT
+    //    GET PRODUCT
     public List<Product> getProductList() {
         List<Product> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -580,7 +592,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
-//    DELETE CUSTOMER
+    private List<Transaction> getListTransactionByCursor(Cursor cur) {
+        List<Transaction> items = new ArrayList<Transaction>();
+        if (cur.moveToFirst()) {
+            do {
+                items.add(getTransactionByCursor(cur));
+            } while (cur.moveToNext());
+        }
+        return items;
+    }
+
+    //    DELETE CUSTOMER
     public void deleteCustomer(Long id) {
         db.delete(TABLE_CUSTOMER, COL_CUSTOMER_ID + " = ?", new String[]{id.toString()});
     }
@@ -588,7 +610,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_CUSTOMER);
     }
 
-//    DELETE ORDER DETAIL
+    //    DELETE ORDER DETAIL
     public void deleteOrderDetail(Long id) {
         db.delete(TABLE_ORDER_DETAIL, COL_ORDER_DETAIL_ID_ORDER_DETAIL + " = ?", new String[]{id.toString()});
     }
@@ -596,7 +618,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_ORDER_DETAIL);
     }
 
-//    DELETE ORDER
+    //    DELETE ORDER
     public void deleteOrder(Long order_id) {
         db.delete(TABLE_ORDER, COL_ORDER_ID + " = ?", new String[]{order_id.toString()});
     }
@@ -604,7 +626,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_ORDER);
     }
 
-//    DELETE PRODUCT
+    //    DELETE PRODUCT
     public void deleteProduct(Long order_id) {
         db.delete(TABLE_PRODUCT, COL_PRODUCT_ID + " = ?", new String[]{order_id.toString()});
     }
@@ -612,7 +634,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db.execSQL("DELETE FROM " + TABLE_PRODUCT);
     }
 
-//    GET SIZE
+    //    GET SIZE
     public int getCustomerSize() {
         int count = (int) DatabaseUtils.queryNumEntries(db, TABLE_CUSTOMER);
         return count;
@@ -657,7 +679,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         Cursor cursor =db.query(TABLE_ORDER,
                 new String[] {},
                 COL_ORDER_STATUS + " IN (0)"+ " AND " +COL_ORDER_ID_CUSTOMER + " IN ("+idCustomer+")",
-        null, null, null, null);
+                null, null, null, null);
         return cursor.getCount();
     }
 
@@ -671,6 +693,47 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public int getProductSize() {
         int count = (int) DatabaseUtils.queryNumEntries(db, TABLE_PRODUCT);
         return count;
+    }
+
+    //    Transaction
+    public List<Transaction> getAllTransaction() {
+        List<Transaction> items = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("select * from " + TABLE_TRANSACTION + " DESC ");
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        if (cursor.moveToFirst()) {
+            items = getListTransactionByCursor(cursor);
+        }
+        return items;
+    }
+    public List<Transaction> getTransaction(long type, long id_order, long id_customer) {
+        List<Transaction> items = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("select * from " + TABLE_TRANSACTION +
+                " w where  w." + COL_TRANSACTION_TYPE + " ='"+type+"'"+
+                " AND w."+ COL_TRANSACTION_ID_CUSTOMER + " ='"+id_customer+"'"+
+                " AND w."+ COL_TRANSACTION_ID_ORDER + " ='"+id_order+"'");
+        Log.d(TAG, "getTransaction: "+sb);
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        if (cursor.moveToFirst()) {
+            items = getListTransactionByCursor(cursor);
+        }
+        return items;
+    }
+
+    public Transaction getTransaction2(long type, long id_order, long id_customer) {
+        Transaction obj = null;
+        String query = "SELECT * FROM " + TABLE_TRANSACTION +
+                " w WHERE w." + COL_TRANSACTION_TYPE + " = ? "+
+                "  AND w." + COL_TRANSACTION_ID_CUSTOMER + " = ?"+
+                "  AND w." + COL_TRANSACTION_ID_ORDER + " = ?"
+                ;
+        Cursor cursor = db.rawQuery(query, new String[]{type+"" ,id_order+"", id_customer+""});
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            obj = getTransactionByCursor(cursor);
+        }
+        return obj;
     }
 
 }

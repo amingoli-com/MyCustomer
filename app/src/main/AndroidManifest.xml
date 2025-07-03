@@ -16,6 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ActivityTransactions" />
         <activity android:name=".ActivityProductsOrdered" />
         <activity android:name=".ActivityReportOrder" />
         <activity android:name=".ActivityAddOrder" />
