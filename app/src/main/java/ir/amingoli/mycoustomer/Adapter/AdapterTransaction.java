@@ -1,5 +1,6 @@
 package ir.amingoli.mycoustomer.Adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -60,6 +61,7 @@ public class AdapterTransaction extends RecyclerView.Adapter<RecyclerView.ViewHo
     }
 
     // Replace the contents of a view (invoked by the layout manager)
+    @SuppressLint("SetTextI18n")
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof ViewHolder) {
@@ -78,7 +80,7 @@ public class AdapterTransaction extends RecyclerView.Adapter<RecyclerView.ViewHo
             } else if (c.getType() == Tools.TRANSACTION_TYPE_PAY_BEDEHI_BY_OTHER_METHODE) {
                 vItem.desc.setText("پرداخت بدهی");
             }
-            vItem.tv_id.setText(c.getId()+"");
+            vItem.tv_id.setText((position+1)+"");
             vItem.textBlue.setText(Tools.getFormattedPrice(c.getAmount(),ctx));
             vItem.view.setOnClickListener(view -> listener.onClick(c));
         }

@@ -93,6 +93,7 @@ public class ActivityAddOrder extends AppCompatActivity {
             findViewById(R.id.remove).setVisibility(View.VISIBLE);
             getListForOrderDetail();
             getListPayed();
+            checkboxOrderIsReady.setChecked(true);
         }
         initCustomerDetail();
     }

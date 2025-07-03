@@ -28,7 +28,7 @@ public class ActivityCustomerDetail extends AppCompatActivity {
     private List<Customer> customerList;
 
     private TextView id,name,tel,desc;
-    private TextView waiting_order,last_pied,total_pied,totalBedehi;
+    private TextView waiting_order,last_pied,total_pied,totalBedehi,totalDiscount;
 
     @Override
     protected void onResume() {
@@ -38,6 +38,7 @@ public class ActivityCustomerDetail extends AppCompatActivity {
         initLastPied();
         initTotalPricePied();
         initTotalBedehi();
+        initTotalDiscount();
     }
 
     @Override
@@ -89,6 +90,16 @@ public class ActivityCustomerDetail extends AppCompatActivity {
         double r = tb-tbpayed;
         if (r < 0) r = 0;
         totalBedehi.setText(Tools.getFormattedPrice(r,this));
+    }
+
+    private void initTotalDiscount(){
+        totalDiscount = findViewById(R.id.totalDiscount);
+        double tb = 0.0;
+        List<Transaction> discount = db.getTransactionBedehiCustomer(Tools.TRANSACTION_TYPE_PAY_DISCOUNT,CUSTOMER_ID);
+        for (int i = 0; i < discount.size(); i++) {
+            tb = tb + discount.get(i).getAmount();
+        }
+        totalDiscount.setText(Tools.getFormattedPrice(tb,this));
     }
 
     private void initTotalPricePied(){
