@@ -61,7 +61,8 @@ public class ActivityAddOrder extends AppCompatActivity {
     private AdapterAddOrder adapter;
     private TextView totalPrice,totalDiscount,totalPayed,textBedehkaran,customerName,dateToDay,
             addProduct;
-    private View boxCheckboxOrderIsReady,boxCheckBoxOrderIsWaiting,boxCheckBoxSendSmsToCustomer,viewPayed,viewDiscount;
+    private View boxCheckboxOrderIsReady,boxCheckBoxOrderIsWaiting,boxCheckBoxSendSmsToCustomer,
+            viewPayed,viewDiscount,viewBedehi;
     private CheckBox checkboxOrderIsReady,checkBoxOrderIsWaiting,checkBoxSendSmsToCustomer;
     private Button submit;
 
@@ -84,8 +85,11 @@ public class ActivityAddOrder extends AppCompatActivity {
         CRATED_AT = getIntent().getLongExtra("crated_at",System.currentTimeMillis());
         populateData();
         initAdapter();
+
+        Log.d(TAG, "onCreate: ID_ORDER_DETAIL: "+ID_ORDER_DETAIL+" - ID_THIS_ORDER: "+ID_THIS_ORDER);
         if (ID_ORDER_DETAIL != 0 ){
             Log.d(TAG, "onCreate: ID_ORDER_DETAIL != 0");
+            ID_THIS_ORDER = ID_ORDER_DETAIL;
             findViewById(R.id.remove).setVisibility(View.VISIBLE);
             getListForOrderDetail();
             getListPayed();
@@ -121,6 +125,7 @@ public class ActivityAddOrder extends AppCompatActivity {
         totalPayed = findViewById(R.id.totalPayed);
         viewDiscount = findViewById(R.id.viewDiscount);
         viewPayed = findViewById(R.id.viewPayed);
+        viewBedehi = findViewById(R.id.viewBedehi);
         textBedehkaran = findViewById(R.id.textBedehkaran);
         customerName = findViewById(R.id.customerName);
         dateToDay = findViewById(R.id.dateToDay);
@@ -267,12 +272,17 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
     private void saveOrderDetail(){
+
+        db.deleteOrderDetailByOrderCode(ID_THIS_ORDER);
+
+        OrderDetail orderDetail = new OrderDetail();
         for (int i = 0; i < productsList.size(); i++) {
-            OrderDetail orderDetail = new OrderDetail();
+
             orderDetail.setCreated_at(CRATED_AT);
             orderDetail.setId_product(productsList.get(i).getId());
             orderDetail.setId_order_detail(ID_THIS_ORDER);
             orderDetail.setName(productsList.get(i).getName());
+            Log.d(TAG, "saveOrderDetail: "+productsList.get(i).getAmount());
             orderDetail.setAmount(productsList.get(i).getAmount());
             orderDetail.setPrice_item(productsList.get(i).getPrice());
             orderDetail.setPrice_all(productsList.get(i).getPrice_all());
@@ -389,13 +399,12 @@ public class ActivityAddOrder extends AppCompatActivity {
 
         if ((getPricePayed() + _totalDiscount) < getAllPrice()){
             _totalBedehi = getAllPrice() - (getPricePayed() + _totalDiscount);
-            String s = Tools.getFormattedPrice(_totalBedehi,this);
-            textBedehkaran.setText(getString(R.string.text_bedehkaran,s));
-            textBedehkaran.setVisibility(View.VISIBLE);
+            textBedehkaran.setText(Tools.getFormattedPrice(_totalBedehi,this));
+            viewBedehi.setVisibility(View.VISIBLE);
         }else {
             _totalBedehi = 0.0;
             textBedehkaran.setText("");
-            textBedehkaran.setVisibility(View.GONE);
+            viewBedehi.setVisibility(View.GONE);
         }
     }
 

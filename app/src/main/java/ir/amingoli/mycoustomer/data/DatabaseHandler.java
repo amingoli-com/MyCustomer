@@ -437,6 +437,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
+    public List<OrderDetail> getOrderDetailListByOrderCode(Long orderCode) {
+        List<OrderDetail> items = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("select * from " + TABLE_ORDER_DETAIL + " DESC where " + COL_ORDER_DETAIL_ID_ORDER_DETAIL + " = ?");
+        Cursor cursor = db.rawQuery(sb.toString(), new String[]{orderCode + ""});
+        if (cursor.moveToFirst()) {
+            items = getListOrderDetailByCursor(cursor);
+        }
+        return items;
+    }
+
     public List<OrderDetail> getOrderDetailByPage(int limit, int offset) {
         List<OrderDetail> items = new ArrayList<>();
         StringBuilder sb = new StringBuilder();
@@ -613,6 +624,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     //    DELETE ORDER DETAIL
     public void deleteOrderDetail(Long id) {
         db.delete(TABLE_ORDER_DETAIL, COL_ORDER_DETAIL_ID_ORDER_DETAIL + " = ?", new String[]{id.toString()});
+    }
+
+    public void deleteOrderDetailByOrderCode(Long orderCode) {
+        db.delete(TABLE_ORDER_DETAIL, COL_ORDER_DETAIL_ID_ORDER_DETAIL + " = ?", new String[]{orderCode.toString()});
     }
     public void deleteOrderDetail() {
         db.execSQL("DELETE FROM " + TABLE_ORDER_DETAIL);
