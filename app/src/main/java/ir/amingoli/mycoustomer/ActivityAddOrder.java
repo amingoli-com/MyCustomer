@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 
 import ir.amingoli.mycoustomer.Adapter.AdapterAddOrder;
+import ir.amingoli.mycoustomer.Adapter.AdapterSmsSample;
 import ir.amingoli.mycoustomer.data.AppConfig;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
@@ -96,6 +97,25 @@ public class ActivityAddOrder extends AppCompatActivity {
         }
         getListPayed();
         initCustomerDetail();
+
+
+
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView r = findViewById(R.id.recyclerViewSms);
+        ArrayList<String> s = new ArrayList<>();
+        s.add("سلام");
+        s.add("سلام متن تست");
+        AdapterSmsSample adapterSmsSample = new AdapterSmsSample(this, s, new AdapterSmsSample.Listener() {
+            @Override
+            public void onClick(String string) {
+
+            }
+
+            @Override
+            public void onClickEdit(String string) {
+
+            }
+        });
+        r.setAdapter(adapterSmsSample);
     }
 
 

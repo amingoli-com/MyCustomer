@@ -95,6 +95,7 @@
   <string name = "business_name">نام کسب‌وکار</string>
   <string name = "business_name_you">نام کسب‌وکار شما</string>
   <string name = "submit">ذخیره</string>
+  <string name = "help_sms_sample">شما میتوانید با استفاده از فرمت های تعریف شده، متغییر های پیام را بر اساس سفارش مشتری نمایش دهید.\nبه طور مثال: با استفاده از متغییر [cname] نام مشتری را بر اساس سفارش نمایش دهید، یعنی اگر در سفارش نام مشتری امین است و در سفارش دیگر نام مشتری علی، متن متغییر به صورت خودکار و به طور صحیح وارد میشود.</string>
   <string name = "no_bedehkar">طلبی نداری</string>
   <string name = "setting">تنظیمات</string>
 

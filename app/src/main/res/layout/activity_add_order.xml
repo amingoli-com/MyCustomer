@@ -241,6 +241,7 @@
         </LinearLayout>
 
         <LinearLayout
+          android:visibility="gone"
           android:id="@+id/boxCheckBoxSendSmsToCustomer"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -254,6 +255,22 @@
             android:layout_height="wrap_content" />
 
         </LinearLayout>
+
+        <TextView
+          android:paddingHorizontal="@dimen/_12sdp"
+          android:layout_marginTop="@dimen/_12sdp"
+          android:text="ارسال پیام به مشتری"
+          android:textColor="@color/textBlack"
+          android:textSize="@dimen/_12ssp"
+          android:layout_width = "match_parent"
+          android:layout_height = "wrap_content"/>
+        <androidx.recyclerview.widget.RecyclerView
+          android:id="@+id/recyclerViewSms"
+          android:orientation="horizontal"
+          app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+          tools:listitem="@layout/item_sms_sample"
+          android:layout_width = "match_parent"
+          android:layout_height = "wrap_content"/>
       </LinearLayout>
     </RelativeLayout>
   </ScrollView>
