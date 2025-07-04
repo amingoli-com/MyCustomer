@@ -629,6 +629,12 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteOrderDetailByOrderCode(Long orderCode) {
         db.delete(TABLE_ORDER_DETAIL, COL_ORDER_DETAIL_ID_ORDER_DETAIL + " = ?", new String[]{orderCode.toString()});
     }
+    public void deleteTransactionByOrderCode(Long orderCode) {
+        db.delete(TABLE_TRANSACTION, COL_TRANSACTION_ID_ORDER + " = ?", new String[]{orderCode.toString()});
+    }
+    public void deleteOrderByOrderCode(Long orderCode) {
+        db.delete(TABLE_ORDER, COL_ORDER_CODE + " = ?", new String[]{orderCode.toString()});
+    }
     public void deleteOrderDetail() {
         db.execSQL("DELETE FROM " + TABLE_ORDER_DETAIL);
     }

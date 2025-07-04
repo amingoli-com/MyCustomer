@@ -92,9 +92,9 @@ public class ActivityAddOrder extends AppCompatActivity {
             ID_THIS_ORDER = ID_ORDER_DETAIL;
             findViewById(R.id.remove).setVisibility(View.VISIBLE);
             getListForOrderDetail();
-            getListPayed();
             checkboxOrderIsReady.setChecked(true);
         }
+        getListPayed();
         initCustomerDetail();
     }
 
@@ -194,7 +194,7 @@ public class ActivityAddOrder extends AppCompatActivity {
 //    Set Data From Database in Factor
     private void getListForOrderDetail(){
         if (ORDER_STATUS_IS_PIED){
-            addProduct.setVisibility(View.GONE);
+//            addProduct.setVisibility(View.GONE);
             boxCheckboxOrderIsReady.setVisibility(View.GONE);
             boxCheckBoxOrderIsWaiting.setVisibility(View.GONE);
             boxCheckBoxSendSmsToCustomer.setVisibility(View.GONE);
@@ -226,7 +226,7 @@ public class ActivityAddOrder extends AppCompatActivity {
         if (tPayed != null) {
             _totalPayed = tPayed.amount;
             Log.d(TAG, "getListPayed: "+tPayed.amount);
-        }
+        }else {_totalPayed = getPricePayed();}
         if (tBedehi != null) _totalBedehi = tBedehi.amount;
         if (tDiscount != null) _totalDiscount = tDiscount.amount;
         setTextTotalPrice();
@@ -235,6 +235,7 @@ public class ActivityAddOrder extends AppCompatActivity {
 //    Save Order
     Order order;
     private void saveOrder(){
+        db.deleteOrderByOrderCode(ID_THIS_ORDER);
         order = new Order();
         if (ID_ORDER != 0) order.setId(ID_ORDER);
         order.setCreated_at(CRATED_AT);
@@ -303,6 +304,7 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
     private void saveTransAction(){
+        db.deleteTransactionByOrderCode(ID_THIS_ORDER);
 //        -------- Payed
         Transaction transactionPayed = new Transaction();
         if (getTransactionByType(Tools.TRANSACTION_TYPE_PAY_BEDEHI) != null) {
@@ -311,6 +313,7 @@ public class ActivityAddOrder extends AppCompatActivity {
         transactionPayed.setId_order(ID_THIS_ORDER);
         transactionPayed.setId_customer(ID_CUSTOMER);
         transactionPayed.setType(Tools.TRANSACTION_TYPE_PAY_BEDEHI);
+        Log.d(TAG, "_totalPayed: "+_totalPayed);
         transactionPayed.setAmount(_totalPayed);
         db.saveTransaction(transactionPayed);
 
@@ -517,7 +520,9 @@ public class ActivityAddOrder extends AppCompatActivity {
                 .setCancelable(true)
                 .setPositiveButton(getString(R.string.yes), (dialog, id) -> {
                     db.deleteOrder(ID_ORDER);
+                    db.deleteOrderByOrderCode(ID_ORDER_DETAIL);
                     db.deleteOrderDetail(ID_ORDER_DETAIL);
+                    db.deleteTransactionByOrderCode(ID_THIS_ORDER);
                     finish(); })
                 .setNegativeButton(getString(R.string.no),
                         (dialogInterface, i) -> dialogInterface.dismiss())

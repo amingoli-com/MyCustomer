@@ -32,6 +32,7 @@ public class ActivityTransactions extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         ((MyCustomerApplication) getApplication()).refreshLocale(this);
+        loadTransaction();
     }
 
     @SuppressLint("SetTextI18n")
