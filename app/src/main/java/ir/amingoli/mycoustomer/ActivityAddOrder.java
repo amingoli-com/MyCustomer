@@ -147,35 +147,29 @@ public class ActivityAddOrder extends AppCompatActivity {
         adapter = new AdapterAddOrder(this, productsList, new AdapterAddOrder.Listener() {
             @Override
             public void onClickPlus(Product product) {
-                if (!ORDER_STATUS_IS_PIED){
-                    product.setAmount(product.getAmount() + 1.0);
-                    product.setPrice_all(product.getAmount()*product.getPrice());
-                    productsList.set(product.getPosition(),product);
-                    adapter.notifyDataSetChanged();
-                    setTextTotalPrice();
-                }
+                product.setAmount(product.getAmount() + 1.0);
+                product.setPrice_all(product.getAmount()*product.getPrice());
+                productsList.set(product.getPosition(),product);
+                adapter.notifyDataSetChanged();
+                setTextTotalPrice();
             }
 
             @Override
             public void onClickRemove(Product product) {
-                if (!ORDER_STATUS_IS_PIED){
-                    if (product.getAmount() == 1) {
-                        productsList.remove(product.getPosition());
-                    } else {
-                        product.setAmount(product.getAmount() - 1.0);
-                        product.setPrice_all(product.getAmount() * product.getPrice());
-                        productsList.set(product.getPosition(),product);
-                    }
-                    adapter.notifyDataSetChanged();
-                    setTextTotalPrice();
+                if (product.getAmount() == 1) {
+                    productsList.remove(product.getPosition());
+                } else {
+                    product.setAmount(product.getAmount() - 1.0);
+                    product.setPrice_all(product.getAmount() * product.getPrice());
+                    productsList.set(product.getPosition(),product);
                 }
+                adapter.notifyDataSetChanged();
+                setTextTotalPrice();
             }
 
             @Override
             public void onClickChangeAmount(Product product, int position) {
-                if (!ORDER_STATUS_IS_PIED){
-                    changeAmount(product,position);
-                }
+                changeAmount(product,position);
             }
         });
         recyclerView.setAdapter(adapter);
@@ -391,9 +385,9 @@ public class ActivityAddOrder extends AppCompatActivity {
 
     private double getPricePayed(){
         if (_totalPayed != null){
-            return _totalPayed;
-        }
-        return getAllPrice();
+            if (_totalPayed > getAllPrice()) return getAllPrice();
+            else return _totalPayed;
+        }else return getAllPrice();
     }
 
     private void setTextTotalPrice(){
@@ -413,11 +407,9 @@ public class ActivityAddOrder extends AppCompatActivity {
     }
 
     public void addProduct(View view) {
-        if (!ORDER_STATUS_IS_PIED){
-            Intent intent = new Intent(this,ActivityProduct.class);
-            intent.putExtra("get_product",true);
-            startActivityForResult(intent, STATIC_INTEGER_VALUE);
-        }
+        Intent intent = new Intent(this,ActivityProduct.class);
+        intent.putExtra("get_product",true);
+        startActivityForResult(intent, STATIC_INTEGER_VALUE);
     }
 
 //    dialog

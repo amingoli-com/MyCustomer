@@ -36,7 +36,7 @@
   <string name = "number">تلفن</string>
   <string name = "and">و</string>
   <string name = "product">محصول</string>
-  <string name = "add_product">افزودن محصول</string>
+  <string name = "add_product">افزودن محصول/خدمت</string>
   <string name = "total_pied">جمع سفارشات</string>
   <string name = "last_pied">آخرین پرداختی</string>
   <string name = "product_list">لیست محصولات</string>
