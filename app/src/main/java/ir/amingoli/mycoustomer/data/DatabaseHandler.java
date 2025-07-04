@@ -27,7 +27,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 3;
 
     // Database Name
-    private static final String DATABASE_NAME = "markeet.db";
+    public static final String DATABASE_NAME = "markeet.db";
 
     // Table Name
     private static final String TABLE_CUSTOMER = "customer";

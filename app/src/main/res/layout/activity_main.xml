@@ -241,6 +241,7 @@
     </LinearLayout>
 
     <LinearLayout
+      android:visibility="gone"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:orientation="horizontal"
@@ -248,7 +249,7 @@
       <androidx.cardview.widget.CardView
         style="@style/CardView_MainActivity">
         <LinearLayout
-          android:onClick="goToActivityProductsOrdered"
+          android:onClick="goToActivitySetting"
           style="@style/LinearLayout_vmw_padding">
           <TextView
             android:id="@+id/setting"

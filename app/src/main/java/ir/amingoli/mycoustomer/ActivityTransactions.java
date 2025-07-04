@@ -1,10 +1,12 @@
 package ir.amingoli.mycoustomer;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
@@ -32,6 +34,7 @@ public class ActivityTransactions extends AppCompatActivity {
         ((MyCustomerApplication) getApplication()).refreshLocale(this);
     }
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +45,13 @@ public class ActivityTransactions extends AppCompatActivity {
         populateData();
         initAdapter();
         loadTransaction();
+
+        TextView t = include_empty.findViewById(R.id.text);
+        if (CUSTOMER_ID != 0){
+            t.setText("هوراا‌\n"+db.getCustomer(CUSTOMER_ID).getName()+" هیچ بدهی ندارد‌ :)");
+        }else {
+            t.setText("هورااا\nهیچ بدهی وجود نداره!");
+        }
     }
 
     private void populateData(){

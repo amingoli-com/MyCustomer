@@ -219,4 +219,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void goToActivitySetting(View view) {
+        Intent intent = new Intent(this,ActivitySetting.class);
+        startActivity(intent);
+    }
 }

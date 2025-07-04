@@ -7,6 +7,7 @@
     android:layout_height="match_parent">
 
     <TextView
+      android:id="@+id/text"
         android:onClick="addCustomer"
         android:text="@string/for_add_product_click_on_item_pluse"
         android:textColor="@color/colorDesc"

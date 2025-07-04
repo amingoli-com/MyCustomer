@@ -198,7 +198,7 @@ public class ActivityAddOrder extends AppCompatActivity {
             boxCheckboxOrderIsReady.setVisibility(View.GONE);
             boxCheckBoxOrderIsWaiting.setVisibility(View.GONE);
             boxCheckBoxSendSmsToCustomer.setVisibility(View.GONE);
-            submit.setVisibility(View.GONE);
+//            submit.setVisibility(View.GONE);
         } else {
             boxCheckBoxOrderIsWaiting.setVisibility(View.GONE);
             boxCheckboxOrderIsReady.setVisibility(View.VISIBLE);
