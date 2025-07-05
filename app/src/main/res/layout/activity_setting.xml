@@ -20,6 +20,8 @@
     android:layout_height = "wrap_content"/>
   <TextView
     android:id="@+id/backup"
+    android:textSize="@dimen/_12ssp"
+    android:textColor="@color/textBlack"
     android:padding="@dimen/_10sdp"
     android:drawableStart="@drawable/baseline_table_rows_24"
     android:drawablePadding="@dimen/_10sdp"
@@ -28,6 +30,8 @@
     android:layout_height = "wrap_content"/>
   <TextView
     android:id="@+id/restore"
+    android:textSize="@dimen/_12ssp"
+    android:textColor="@color/textBlack"
     android:padding="@dimen/_10sdp"
     android:drawablePadding="@dimen/_10sdp"
     android:drawableStart="@drawable/baseline_settings_backup_restore_24"
@@ -38,13 +42,22 @@
 
   <TextView
     android:id="@+id/addSmsSample"
-    android:padding="@dimen/_10sdp"
+    android:paddingTop="@dimen/_5sdp"
+    android:textSize="@dimen/_12ssp"
+    android:textColor="@color/textBlack"
+    android:paddingHorizontal="@dimen/_10sdp"
     android:drawableStart="@drawable/baseline_sms_24"
     android:drawablePadding="@dimen/_10sdp"
     android:text="افزودن پیامک نمونه"
     android:layout_width = "match_parent"
     android:layout_height = "wrap_content"/>
-
+  <TextView
+    android:paddingHorizontal="@dimen/_10sdp"
+    android:textSize="@dimen/_9ssp"
+    android:textColor="@color/textBlack"
+    android:text="برای ویرایش پیامک های نمونه، متن آن را لمس کنید."
+    android:layout_width = "match_parent"
+    android:layout_height = "wrap_content"/>
   <androidx.recyclerview.widget.RecyclerView
     android:id="@+id/recyclerView"
     android:orientation="horizontal"
@@ -53,4 +66,5 @@
     tools:itemCount="2"
     android:layout_width = "match_parent"
     android:layout_height = "wrap_content"/>
+
 </LinearLayout>

@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -113,7 +114,9 @@ public class ActivityAddOrder extends AppCompatActivity {
                     (transaction, string) -> showShareCopyDialog(ActivityAddOrder.this,string),true,
                     customer_name,customer_phone,
                     getAllPrice(),_totalPayed,_totalBedehi,_totalDiscount,
-                    getAllTotalBedehiCustomer(),!checkBoxOrderIsWaiting.isChecked(),CRATED_AT,
+                    getAllTotalBedehiCustomer(),
+                    !checkBoxOrderIsWaiting.isChecked() == checkboxOrderIsReady.isChecked(),
+                    CRATED_AT,
                     new Date().getTime(),
                     orderDetailShort(),orderDetailLong(),orderDetailFull());
             recyclerViewSmsSample.setAdapter(adapterSmsSample);
@@ -277,11 +280,8 @@ public class ActivityAddOrder extends AppCompatActivity {
         transactionArrayList = (ArrayList<Transaction>) db.getAllTransactionByType(Tools.TRANSACTION_TYPE_SMS_SAMPLE);
 
         if (transactionArrayList.isEmpty()){
-            Transaction t = new Transaction();
-            t.setDesc("میتوانید از قسمت تنظیمات متن های سفارشی برای ارسال پیام به مشتریان خود ایجاد نمایید.");
-
             Transaction t1 = new Transaction();
-            t.setDesc("سلام [نام_مشتری] عزیز" +
+            t1.setDesc("سلام [نام_مشتری] عزیز" +
                     "\n" +
                     "وضعیت سفارش شما [وضعیت_سفارش] میباشد." +
                     "\n" +
@@ -295,10 +295,23 @@ public class ActivityAddOrder extends AppCompatActivity {
                     "جمع سفارش: [مبلغ_کل_سفارش]" +
                     "\n" +
                     "مانده: [کل_بدهی_مشتری]");
-            transactionArrayList.add(t);
             transactionArrayList.add(t1);
             transactionArrayList.add(t2);
         }
+
+        checkBoxOrderIsWaiting.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setTextTotalPrice();
+            }
+        });
+
+        checkboxOrderIsReady.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                setTextTotalPrice();
+            }
+        });
     }
 
     private void initAdapter(){
