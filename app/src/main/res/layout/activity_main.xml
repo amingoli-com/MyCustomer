@@ -298,7 +298,7 @@
           android:onClick="donate"
           style="@style/LinearLayout_vmw_padding">
           <TextView
-            android:text="حمایت از توسعه دهنده"
+            android:text="با فروشنده حرفه‌ای تر بفروش! (محصول جدید)"
             style="@style/ActivityMainTitle"/>
         </LinearLayout>
       </androidx.cardview.widget.CardView>

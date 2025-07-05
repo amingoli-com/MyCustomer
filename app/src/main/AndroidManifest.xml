@@ -16,7 +16,8 @@
     android:supportsRtl = "true"
     android:theme = "@style/AppTheme">
     <activity android:name = ".ActivitySetting" />
-    <activity android:name = ".ActivitySplash">
+    <activity android:name = ".ActivitySplash"
+      android:exported = "true">
       <intent-filter>
         <action android:name = "android.intent.action.MAIN" />
 

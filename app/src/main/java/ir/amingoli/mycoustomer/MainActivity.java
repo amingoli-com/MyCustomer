@@ -1,14 +1,18 @@
 package ir.amingoli.mycoustomer;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -128,7 +132,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             PackageInfo pInfo = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
             String version = pInfo.versionName;
-            txtVersionApp.setText("نسخه "+Tools.convertNumberToEN(version));
+            txtVersionApp.setText("نسخه "+version);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -237,11 +241,58 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void privacy(View view) {
+        showSimpleTextDialog("سیاست حریم خصوصی اپلیکیشن \"مشتریان من\"\n" +
+                "این برنامه:\n" +
+                "هیچ دسترسی\u200Cای به اینترنت یا داده\u200Cهای شخصی شما ندارد.\n" +
+                "تمام اطلاعات فقط روی دستگاه شما ذخیره می\u200Cشود.\n" +
+                "برای بکاپ/بازگردانی فقط از فولدر داخلی خود برنامه استفاده می\u200Cکند.\n" +
+                "کاربرد اصلی:\n" +
+                "ثبت فاکتورها، محاسبه مانده مشتریان و مدیریت تخفیف\u200Cها به صورت کاملاً آفلاین.\n"
+        );
     }
 
     public void about(View view) {
+        showSimpleTextDialog("درباره ما - اپلیکیشن \"مشتریان من\"\n" +
+                "ویژگی\u200Cهای اپلیکیشن:\n" +
+                "طراحی ساده و کاربرپسند\n" +
+                "کارایی سریع بدون نیاز به اینترنت\n" +
+                "\n" +
+                "امنیت کامل داده\u200Cها (ذخیره\u200Cسازی محلی)\n" +
+                "هدف از توسعه:\n" +
+                "راه\u200Cحلی آسان برای:\n" +
+                "✓ ثبت فاکتورها\n" +
+                "✓ محاسبه خودکار مانده مشتری\n" +
+                "✓ مدیریت تخفیف\u200Cها\n" +
+                "✓ پشتیبان\u200Cگیری امن بدون نیاز به دسترسی\u200Cهای سیستمی\n" +
+                "تماس با ما:\n" +
+                "[09195191378 | selller.ir@gmail.com]\n" +
+                "توسعه\u200Cیافته با ❤\uFE0F برای سهولت کار کسب\u200Cوکارهای کوچک\n"
+        );
     }
 
     public void donate(View view) {
+        openWebsite("https://selller.ir/mycustomer");
+    }
+
+    public void showSimpleTextDialog(String message) {
+        new AlertDialog.Builder(this)
+                .setMessage(message)
+                .setPositiveButton("بستن", (dialog, which) -> dialog.dismiss())
+                .show();
+    }
+
+    public void openWebsite(String url) {
+        try {
+            // بررسی اینکه آیا URL با http:// یا https:// شروع شده است
+            if (!url.startsWith("http://") && !url.startsWith("https://")) {
+                url = "http://" + url;
+            }
+
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            startActivity(intent);
+        } catch (ActivityNotFoundException e) {
+            // اگر مرورگری نصب نباشد
+            Toast.makeText(this, "هیچ برنامه‌ای برای باز کردن وب‌سایت یافت نشد", Toast.LENGTH_SHORT).show();
+        }
     }
 }
