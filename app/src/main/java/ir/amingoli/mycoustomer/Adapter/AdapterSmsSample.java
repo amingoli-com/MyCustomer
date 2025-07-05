@@ -17,6 +17,7 @@ import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
 import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Transaction;
+import ir.amingoli.mycoustomer.util.Session;
 import ir.amingoli.mycoustomer.util.Tools;
 
 public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
@@ -40,8 +41,7 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
     private String orderDetailFull;
 
     public interface Listener {
-        void onClick(Transaction transaction);
-        void onClick(String string);
+        void onClick(Transaction transaction, String string);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,7 +51,7 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
 
         public ViewHolder(View itemView) {
             super(itemView);
-            view = itemView;
+            view = itemView.findViewById(R.id.view);
             txt = (TextView) itemView.findViewById(R.id.txt);
         }
     }
@@ -102,8 +102,8 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
             String c = populateText(items.get(position).getDesc());
             vItem.txt.setText(c);
             vItem.view.setOnClickListener(view -> {
-                listener.onClick(items.get(position));
-                listener.onClick(c);
+                Log.d("amingoli", "onBindViewHolder: ");
+                listener.onClick(items.get(position),c);
             });
         }
 
@@ -116,11 +116,12 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
             String[][] mChars = new String[][]{
                     {"[نام_مشتری]", customerName},
                     {"[تلفن_مشتری]", customerPhone},
+                    {"[نام_کسب_و_کار_شما]", Session.getInstance(ctx).getString("bn") },
                     {"[مبلغ_کل_سفارش]", Tools.getFormattedPrice(totalOrder,ctx)},
                     {"[مبلغ_تخفیف_سفارش]", Tools.getFormattedPrice(totalDiscount,ctx)},
                     {"[مبلغ_پرداخت_شده]", Tools.getFormattedPrice(totlaPayed,ctx)},
                     {"[مبلغ_مانده_سفارش]", Tools.getFormattedPrice(totalBedehi,ctx)},
-//                    {"[کل_بدهی_مشتری]", Tools.getFormattedPrice(totalAllBedehiCustomer+totalBedehi,ctx)},
+                    {"[کل_بدهی_مشتری]", Tools.getFormattedPrice(totalAllBedehiCustomer+totalBedehi,ctx)},
                     {"[مانده_قبل]", Tools.getFormattedPrice(totalAllBedehiCustomer,ctx)},
                     {"[وضعیت_سفارش]", s},
                     {"[لیست_محصولات_کوتاه]", orderDetailShort},

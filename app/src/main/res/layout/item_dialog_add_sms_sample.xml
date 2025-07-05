@@ -14,7 +14,7 @@
     android:id="@+id/recyclerView"
     android:orientation="horizontal"
     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-    tools:listitem="@layout/item_sms_sample"
+    tools:listitem="@layout/item_sms_sample_data"
     android:clipToPadding="false"
     android:layout_width = "match_parent"
     android:layout_height = "wrap_content"/>
@@ -36,6 +36,13 @@
           android:minLines="1"
             android:maxLines="5"/>
     </com.google.android.material.textfield.TextInputLayout>
+
+  <TextView
+    android:text="با استفاده از متغییر های بالا مانند [نام_مشتری]، میتوانید متن پیامک های اختصاصی خود را طراحی نمایید، سیستم به صورت خودکار متن های متغییر را جایگذاری میکند."
+    android:layout_width = "match_parent"
+    android:textColor="@color/textBlack"
+    android:textSize="@dimen/_9ssp"
+    android:layout_height = "wrap_content"/>
 
 <LinearLayout
   android:layout_gravity="left"

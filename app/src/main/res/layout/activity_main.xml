@@ -252,7 +252,7 @@
           style="@style/LinearLayout_vmw_padding">
           <TextView
             android:id="@+id/setting"
-            android:text="@string/setting"
+            android:text="فایل پشتیبانی / پیامک"
             style="@style/ActivityMainTitle"/>
         </LinearLayout>
       </androidx.cardview.widget.CardView>

@@ -36,8 +36,7 @@ public class AdapterSmsSampleData extends RecyclerView.Adapter<RecyclerView.View
     private String orderDetailFull;
 
     public interface Listener {
-        void onClick(Transaction transaction);
-        void onClick(String string);
+        void onClick(Transaction transaction, String string);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -98,8 +97,7 @@ public class AdapterSmsSampleData extends RecyclerView.Adapter<RecyclerView.View
             String c = populateText(items.get(position).getDesc());
             vItem.txt.setText(c);
             vItem.view.setOnClickListener(view -> {
-                listener.onClick(items.get(position));
-                listener.onClick(c);
+                listener.onClick(items.get(position),c);
             });
         }
 

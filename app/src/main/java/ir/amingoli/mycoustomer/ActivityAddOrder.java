@@ -108,16 +108,9 @@ public class ActivityAddOrder extends AppCompatActivity {
 
     private void initSmsSample() {
         try {
-            AdapterSmsSample adapterSmsSample = new AdapterSmsSample(this, transactionArrayList, new AdapterSmsSample.Listener() {
-                @Override
-                public void onClick(Transaction transaction) {
-                }
-
-                @Override
-                public void onClick(String string) {
-                    showShareCopyDialog(ActivityAddOrder.this,string);
-                }
-            },true,
+            AdapterSmsSample adapterSmsSample = new AdapterSmsSample(this,
+                    transactionArrayList,
+                    (transaction, string) -> showShareCopyDialog(ActivityAddOrder.this,string),true,
                     customer_name,customer_phone,
                     getAllPrice(),_totalPayed,_totalBedehi,_totalDiscount,
                     getAllTotalBedehiCustomer(),!checkBoxOrderIsWaiting.isChecked(),CRATED_AT,
@@ -191,10 +184,12 @@ public class ActivityAddOrder extends AppCompatActivity {
     private double getAllTotalBedehiCustomer(){
         double d = 0.0;
         try {
+            Transaction thisTransaction = getTransactionByType(Tools.TRANSACTION_TYPE_BEDEHI);
             ArrayList<Transaction> t = (ArrayList<Transaction>) db.getAllTransactionByCustomer(Tools.TRANSACTION_TYPE_BEDEHI,ID_CUSTOMER);
             for (int i = 0; i < t.size(); i++) {
                 d = d+t.get(i).getAmount();
             }
+            if (thisTransaction != null) d = d-thisTransaction.getAmount();
             return d;
         }catch (Exception e){
             return d;

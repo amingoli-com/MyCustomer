@@ -29,8 +29,7 @@ public class ActivitySetting extends AppCompatActivity {
 
     private TextView addSmsSample;
     private RecyclerView recyclerView;
-    private AdapterSmsSample adapter;
-    private DialogAddSmsSample d;
+    private DialogAddSmsSample d,d1;
     private DatabaseHandler db;
 
 
@@ -60,6 +59,7 @@ public class ActivitySetting extends AppCompatActivity {
         addSmsSample.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Log.d("amingoli-a-s", "DialogAddSmsSample new DialogAddSmsSample: ");
                 d = new DialogAddSmsSample(ActivitySetting.this, new DialogAddSmsSample.listener() {
                     @Override
                     public void result(String text, Transaction transaction) {
@@ -105,36 +105,32 @@ public class ActivitySetting extends AppCompatActivity {
         ArrayList<Transaction> transactionsList =
                 (ArrayList<Transaction>) db.getAllTransactionByType(Tools.TRANSACTION_TYPE_SMS_SAMPLE);
 
-        adapter = new AdapterSmsSample(this, transactionsList, new AdapterSmsSample.Listener() {
-            @Override
-            public void onClick(Transaction transaction) {
-                d = new DialogAddSmsSample(ActivitySetting.this, new DialogAddSmsSample.listener() {
-                    @Override
-                    public void result(String text, Transaction transaction) {
-                        Transaction t = new Transaction();
-                        if (transaction != null) t.setId(transaction.getId());
-                        t.setType(Tools.TRANSACTION_TYPE_SMS_SAMPLE);
-                        Log.d("amingoli-a-s", "DialogAddSmsSample result: "+text);
-                        t.setDesc(text);
-                        db.saveTransaction(t);
-                        initAdapter();
-                        d.dismiss();
-                    }
+        AdapterSmsSample adapter = new AdapterSmsSample(this, transactionsList, (transaction, string) -> {
 
-                    @Override
-                    public void remove(Transaction transaction) {
-                        db.deleteTransactionByID(transaction.getId());
-                        initAdapter();
-                        d.dismiss();
-                    }
-                }, transaction);
-                d.show();
-            }
+            Log.d("amingoli-a-s", "new AdapterSmsSample->DialogAddSmsSample : ");
+            d1 = new DialogAddSmsSample(ActivitySetting.this, new DialogAddSmsSample.listener() {
+                @Override
+                public void result(String text, Transaction transaction) {
+                    Transaction t = new Transaction();
+                    if (transaction != null) t.setId(transaction.getId());
+                    t.setType(Tools.TRANSACTION_TYPE_SMS_SAMPLE);
+                    Log.d("amingoli-a-s", "DialogAddSmsSample result: "+text);
+                    t.setDesc(text);
+                    db.saveTransaction(t);
+                    initAdapter();
+                    d1.dismiss();
+                }
 
-            @Override
-            public void onClick(String string) {
+                @Override
+                public void remove(Transaction transaction) {
+                    db.deleteTransactionByID(transaction.getId());
+                    initAdapter();
+                    d1.dismiss();
+                }
+            }, transaction);
+            d1.show();
 
-            }
+            Log.d("amingoli-a-s", "DialogAddSmsSample: ");
         });
         recyclerView.setAdapter(adapter);
     }

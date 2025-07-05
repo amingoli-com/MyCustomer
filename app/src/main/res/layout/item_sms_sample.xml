@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="@dimen/_114sdp"
-    android:layout_marginTop="@dimen/_5sdp"
-    android:layout_marginEnd="@dimen/_7sdp"
-    android:layout_marginStart="@dimen/_7sdp"
-    android:layout_marginBottom="@dimen/_5sdp">
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:tools="http://schemas.android.com/tools"
+  android:layout_width="wrap_content"
+  android:id="@+id/view"
+  android:layout_height="@dimen/_114sdp"
+  android:layout_marginTop="@dimen/_5sdp"
+  android:layout_marginEnd="@dimen/_7sdp"
+  android:layout_marginStart="@dimen/_7sdp"
+  android:layout_marginBottom="@dimen/_5sdp">
 
   <ScrollView
     android:layout_width = "wrap_content"

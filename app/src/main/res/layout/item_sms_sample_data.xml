@@ -12,7 +12,7 @@
   <TextView
     android:id="@+id/txt"
     android:padding="@dimen/_5sdp"
-    android:text="امین عزیز سفارش شما به شماره ۲۲۲ آماده شد"
+    android:text="[نام_مشتری]"
     android:textColor="@color/colorTitle"
     android:textSize="@dimen/_10ssp"
     android:layout_width="wrap_content"

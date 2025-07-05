@@ -68,13 +68,14 @@ public class DialogAddSmsSample extends AlertDialog{
 
         ArrayList<Transaction> s = new ArrayList<>();
         s.add(new Transaction("[نام_مشتری]"));
+        s.add(new Transaction("[نام_کسب_و_کار_شما]"));
         s.add(new Transaction("[تلفن_مشتری]"));
         s.add(new Transaction("[مبلغ_کل_سفارش]"));
         s.add(new Transaction("[مبلغ_تخفیف_سفارش]"));
         s.add(new Transaction("[مبلغ_پرداخت_شده]"));
         s.add(new Transaction("[مبلغ_مانده_سفارش]"));
         s.add(new Transaction("[مانده_قبل]"));
-//        s.add(new Transaction("[کل_بدهی_مشتری]"));
+        s.add(new Transaction("[کل_بدهی_مشتری]"));
         s.add(new Transaction("[وضعیت_سفارش]"));
         s.add(new Transaction("[لیست_محصولات_کوتاه]"));
         s.add(new Transaction("[لیست_محصولات_جزییات]"));
@@ -84,15 +85,10 @@ public class DialogAddSmsSample extends AlertDialog{
         adapter = new AdapterSmsSampleData(ac, s, new AdapterSmsSampleData.Listener() {
             @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(Transaction transaction) {
+            public void onClick(Transaction transaction, String string) {
                 Editable editableText = name.getText();
                 int cursorPosition = name.getSelectionStart();
                 editableText.insert(cursorPosition, transaction.getDesc());
-            }
-
-            @Override
-            public void onClick(String string) {
-
             }
         });
         recyclerView.setAdapter(adapter);
