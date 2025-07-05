@@ -2,6 +2,8 @@ package ir.amingoli.mycoustomer;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -27,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     DatabaseHandler db;
     TextView salesAll, salesToday, salesThisMonth ,
              totalCustomers, totalProduct, totalOrder, totalDetailOrder,textLogo, totalOrderIsPiedThisMonth,
-            totalBedehi;
+            totalBedehi,txtVersionApp;
     View live_salesAll,live_salesToday,live_salesThisWeek,live_salesThisMonth;
     
     @Override
@@ -59,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         salesToday = findViewById(R.id.salesToday);
 //        salesThisMonth = include_info_app.findViewById(R.id.salesThisMonth);
         salesThisMonth = findViewById(R.id.salesThisMonth);
+        txtVersionApp = findViewById(R.id.txtVersionApp);
 
         live_salesAll = findViewById(R.id.live_salesAll);
         live_salesToday = findViewById(R.id.live_salesToday);
@@ -121,6 +124,15 @@ public class MainActivity extends AppCompatActivity {
         textLogo.setOnClickListener(view -> dialogBusinessInfo());
 
         initTotalBedehi();
+
+        try {
+            PackageInfo pInfo = this.getPackageManager().getPackageInfo(this.getPackageName(), 0);
+            String version = pInfo.versionName;
+            txtVersionApp.setText("نسخه "+Tools.convertNumberToEN(version));
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initTotalBedehi(){
@@ -222,5 +234,14 @@ public class MainActivity extends AppCompatActivity {
     public void goToActivitySetting(View view) {
         Intent intent = new Intent(this,ActivitySetting.class);
         startActivity(intent);
+    }
+
+    public void privacy(View view) {
+    }
+
+    public void about(View view) {
+    }
+
+    public void donate(View view) {
     }
 }

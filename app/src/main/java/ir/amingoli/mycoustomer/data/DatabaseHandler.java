@@ -171,6 +171,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         if (oldVersion == 1 && newVersion == 2){
             db.execSQL("ALTER TABLE "+TABLE_ORDER+" ADD COLUMN "+COL_ORDER_STATUS+" TEXT DEFAULT ''");
         }
+        if (oldVersion == 2 && newVersion == 3){
+            createTableTransaction(db);
+        }
     }
 
     public void truncateDB(SQLiteDatabase db) {

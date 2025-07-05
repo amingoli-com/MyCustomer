@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 3,
   "artifactType": {
     "type": "APK",
     "kind": "Directory"
@@ -10,11 +10,12 @@
     {
       "type": "SINGLE",
       "filters": [],
-      "properties": [],
-      "versionCode": 5,
-      "versionName": "5",
-      "enabled": true,
-      "outputFile": "Customer 1.5 beta.apk"
+      "attributes": [],
+      "versionCode": 8,
+      "versionName": "2.0.0",
+      "outputFile": "Customer 2.0.0.apk"
     }
-  ]
+  ],
+  "elementType": "File",
+  "minSdkVersionForDexing": 19
 }

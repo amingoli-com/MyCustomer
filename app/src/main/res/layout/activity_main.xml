@@ -257,6 +257,61 @@
         </LinearLayout>
       </androidx.cardview.widget.CardView>
     </LinearLayout>
+
+    <LinearLayout
+      android:layout_marginTop="@dimen/_30sdp"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="2">
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity">
+        <LinearLayout
+          android:onClick="privacy"
+          style="@style/LinearLayout_vmw_padding">
+          <TextView
+            android:text="حریم‌خصوصی"
+            style="@style/ActivityMainTitle"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity">
+        <LinearLayout
+          android:onClick="about"
+          style="@style/LinearLayout_vmw_padding">
+          <TextView
+            android:text="درباره ما"
+            style="@style/ActivityMainTitle"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      android:weightSum="1">
+      <androidx.cardview.widget.CardView
+        style="@style/CardView_MainActivity">
+        <LinearLayout
+          android:onClick="donate"
+          style="@style/LinearLayout_vmw_padding">
+          <TextView
+            android:text="حمایت از توسعه دهنده"
+            style="@style/ActivityMainTitle"/>
+        </LinearLayout>
+      </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+    <TextView
+      android:id="@+id/txtVersionApp"
+      android:textAlignment="center"
+      android:layout_marginBottom="@dimen/_20sdp"
+      tools:text="نسخه ۲.۰.۰"
+      android:layout_width = "match_parent"
+      android:layout_height = "wrap_content"/>
+
   </LinearLayout>
 </ScrollView>
 

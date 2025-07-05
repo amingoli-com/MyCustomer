@@ -253,7 +253,7 @@
           android:paddingHorizontal="@dimen/_10sdp"
           android:textSize="@dimen/_9ssp"
           android:textColor="@color/textBlack"
-          android:text="برای ارسال پیامک، متن آن را لمس کنید."
+          android:text="برای ارسال پیامک، متن آن را لمس کنید، و برای افزودن متن های نمونه به صفحه اصلی اپلیکیشن -> پیامک مراجعه فرمایید."
           android:layout_width = "match_parent"
           android:layout_height = "wrap_content"/>
         <androidx.recyclerview.widget.RecyclerView
