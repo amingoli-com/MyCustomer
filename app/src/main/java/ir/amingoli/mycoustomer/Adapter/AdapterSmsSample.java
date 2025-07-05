@@ -20,10 +20,11 @@ import ir.amingoli.mycoustomer.model.Transaction;
 import ir.amingoli.mycoustomer.util.Session;
 import ir.amingoli.mycoustomer.util.Tools;
 
-public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private Context ctx;
     private Boolean populateTextStatus = false;
+    private int possition_selected = -1;
     private ArrayList<Transaction> items;
     private Listener listener;
     private String customerName;
@@ -39,6 +40,13 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
     private String orderDetailShort;
     private String orderDetailLong;
     private String orderDetailFull;
+
+    @Override
+    public void onClick(View view) {
+        int p = (int) view.getTag(R.id.txt);
+        Log.d("amingoli", "onBindViewHolder: "+items.get(p).getDesc()+"-"+view.getTag(1));
+        listener.onClick(items.get(p),view.getTag(R.id.view).toString());
+    }
 
     public interface Listener {
         void onClick(Transaction transaction, String string);
@@ -97,16 +105,12 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
     // Replace the contents of a view (invoked by the layout manager)
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        if (holder instanceof ViewHolder) {
-            ViewHolder vItem = (ViewHolder) holder;
-            String c = populateText(items.get(position).getDesc());
-            vItem.txt.setText(c);
-            vItem.view.setOnClickListener(view -> {
-                Log.d("amingoli", "onBindViewHolder: ");
-                listener.onClick(items.get(position),c);
-            });
-        }
-
+        ViewHolder vItem = (ViewHolder) holder;
+        String c = populateText(items.get(position).getDesc());
+        vItem.txt.setText(c);
+        vItem.txt.setTag(R.id.txt,position);
+        vItem.txt.setTag(R.id.view,c);
+        vItem.txt.setOnClickListener(this);
     }
 
     private String populateText(String string) {
