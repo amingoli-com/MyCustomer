@@ -1,31 +1,36 @@
 package ir.amingoli.mycoustomer;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import ir.amingoli.mycoustomer.Adapter.AdapterSmsSample;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
-import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Transaction;
+import ir.amingoli.mycoustomer.util.DatabaseBackupRestore;
 import ir.amingoli.mycoustomer.util.Tools;
 import ir.amingoli.mycoustomer.view.DialogAddSmsSample;
 
 public class ActivitySetting extends AppCompatActivity {
 
+    private DatabaseBackupRestore dbBackupRestore;
 
-    TextView addSmsSample;
-    RecyclerView recyclerView;
-    AdapterSmsSample adapter;
-    DialogAddSmsSample d;
+    private TextView addSmsSample;
+    private RecyclerView recyclerView;
+    private AdapterSmsSample adapter;
+    private DialogAddSmsSample d;
     private DatabaseHandler db;
 
 
@@ -34,6 +39,20 @@ public class ActivitySetting extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        dbBackupRestore = new DatabaseBackupRestore(this, this);
+
+        TextView btnBackup = findViewById(R.id.backup);
+        TextView btnRestore = findViewById(R.id.restore);
+
+        btnBackup.setOnClickListener(v -> {
+            if (checkPermissions()) dbBackupRestore.backupDatabase();
+        });
+        btnRestore.setOnClickListener(v -> {
+            if(checkPermissions()) dbBackupRestore.restoreDatabase();
+        });
+
+
         db = new DatabaseHandler(this);
         addSmsSample = findViewById(R.id.addSmsSample);
         recyclerView = findViewById(R.id.recyclerView);
@@ -63,6 +82,23 @@ public class ActivitySetting extends AppCompatActivity {
             }
         });
         initAdapter();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        dbBackupRestore.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private boolean checkPermissions() {
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
+                    100);
+            return false;
+        }
+        return true;
     }
 
     private void initAdapter(){

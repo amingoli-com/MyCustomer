@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 import ir.amingoli.mycoustomer.Adapter.AdapterSmsSample;
+import ir.amingoli.mycoustomer.Adapter.AdapterSmsSampleData;
 import ir.amingoli.mycoustomer.R;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
@@ -31,7 +32,7 @@ public class DialogAddSmsSample extends AlertDialog{
     private listener listener;
     private Transaction transaction;
     private RecyclerView recyclerView;
-    private AdapterSmsSample adapter;
+    private AdapterSmsSampleData adapter;
     private EditText name;
     private TextInputLayout name_lyt;
     private Button submit,remove;
@@ -80,7 +81,7 @@ public class DialogAddSmsSample extends AlertDialog{
         s.add(new Transaction("[لیست_محصولات_جزییات_کامل]"));
         s.add(new Transaction("[تاریخ_امروز]"));
         s.add(new Transaction("[تاریخ_ثبت_سفارش]"));
-        adapter = new AdapterSmsSample(ac, s, new AdapterSmsSample.Listener() {
+        adapter = new AdapterSmsSampleData(ac, s, new AdapterSmsSampleData.Listener() {
             @SuppressLint("SetTextI18n")
             @Override
             public void onClick(Transaction transaction) {
