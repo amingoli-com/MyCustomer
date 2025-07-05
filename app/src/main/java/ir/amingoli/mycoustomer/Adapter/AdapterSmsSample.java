@@ -120,7 +120,7 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
                     {"[مبلغ_تخفیف_سفارش]", Tools.getFormattedPrice(totalDiscount,ctx)},
                     {"[مبلغ_پرداخت_شده]", Tools.getFormattedPrice(totlaPayed,ctx)},
                     {"[مبلغ_مانده_سفارش]", Tools.getFormattedPrice(totalBedehi,ctx)},
-                    {"[کل_بدهی_مشتری]", Tools.getFormattedPrice(totalAllBedehiCustomer+totalBedehi,ctx)},
+//                    {"[کل_بدهی_مشتری]", Tools.getFormattedPrice(totalAllBedehiCustomer+totalBedehi,ctx)},
                     {"[مانده_قبل]", Tools.getFormattedPrice(totalAllBedehiCustomer,ctx)},
                     {"[وضعیت_سفارش]", s},
                     {"[لیست_محصولات_کوتاه]", orderDetailShort},
@@ -134,7 +134,9 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
                 try {
                     string = string.replace(num[0], num[1]);
                 }catch (Exception e){
-                    string = string.replace(num[0], num[0]);
+                    try {
+                        string = string.replace(num[0], num[0]);
+                    }catch (Exception e2){}
                 }
 
             }

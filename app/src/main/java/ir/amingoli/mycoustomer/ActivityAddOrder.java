@@ -67,9 +67,9 @@ public class ActivityAddOrder extends AppCompatActivity {
     private AdapterAddOrder adapter;
     private TextView totalPrice,totalDiscount,totalPayed,textBedehkaran,customerName,dateToDay,
             addProduct;
-    private View boxCheckboxOrderIsReady,boxCheckBoxOrderIsWaiting,boxCheckBoxSendSmsToCustomer,
+    private View boxCheckboxOrderIsReady,boxCheckBoxOrderIsWaiting,
             viewPayed,viewDiscount,viewBedehi;
-    private CheckBox checkboxOrderIsReady,checkBoxOrderIsWaiting,checkBoxSendSmsToCustomer;
+    private CheckBox checkboxOrderIsReady,checkBoxOrderIsWaiting;
     private Button submit;
 
     private String customer_phone, customer_name;
@@ -120,7 +120,7 @@ public class ActivityAddOrder extends AppCompatActivity {
             },true,
                     customer_name,customer_phone,
                     getAllPrice(),_totalPayed,_totalBedehi,_totalDiscount,
-                    getAllTotalBedehiCustomer(),ORDER_STATUS_IS_PIED,CRATED_AT,
+                    getAllTotalBedehiCustomer(),!checkBoxOrderIsWaiting.isChecked(),CRATED_AT,
                     new Date().getTime(),
                     orderDetailShort(),orderDetailLong(),orderDetailFull());
             recyclerViewSmsSample.setAdapter(adapterSmsSample);
@@ -271,17 +271,39 @@ public class ActivityAddOrder extends AppCompatActivity {
         dateToDay = findViewById(R.id.dateToDay);
         addProduct = findViewById(R.id.addProduct);
         checkBoxOrderIsWaiting = findViewById(R.id.checkboxOrderIsWaiting);
-        checkBoxSendSmsToCustomer = findViewById(R.id.checkboxSendSmsToCustomer);
         checkboxOrderIsReady = findViewById(R.id.checkboxOrderIsReady);
         boxCheckboxOrderIsReady = findViewById(R.id.boxCheckboxOrderIsReady);
         boxCheckBoxOrderIsWaiting = findViewById(R.id.boxCheckBoxOrderIsWaiting);
-        boxCheckBoxSendSmsToCustomer = findViewById(R.id.boxCheckBoxSendSmsToCustomer);
         submit = findViewById(R.id.submit);
 
         viewDiscount.setOnClickListener(view -> changeDiscount());
         viewPayed.setOnClickListener(view -> changePayed());
 
         transactionArrayList = (ArrayList<Transaction>) db.getAllTransactionByType(Tools.TRANSACTION_TYPE_SMS_SAMPLE);
+
+        if (transactionArrayList.isEmpty()){
+            Transaction t = new Transaction();
+            t.setDesc("میتوانید از قسمت تنظیمات متن های سفارشی برای ارسال پیام به مشتریان خود ایجاد نمایید.");
+
+            Transaction t1 = new Transaction();
+            t.setDesc("سلام [نام_مشتری] عزیز" +
+                    "\n" +
+                    "وضعیت سفارش شما [وضعیت_سفارش] میباشد." +
+                    "\n" +
+                    "جمع سفارش: [مبلغ_کل_سفارش]");
+
+            Transaction t2 = new Transaction();
+            t2.setDesc("سلام امین عزیز" +
+                    "\n" +
+                    "وضعیت سفارش شما [وضعیت_سفارش] میباشد." +
+                    "\n" +
+                    "جمع سفارش: [مبلغ_کل_سفارش]" +
+                    "\n" +
+                    "مانده: [کل_بدهی_مشتری]");
+            transactionArrayList.add(t);
+            transactionArrayList.add(t1);
+            transactionArrayList.add(t2);
+        }
     }
 
     private void initAdapter(){
@@ -332,7 +354,6 @@ public class ActivityAddOrder extends AppCompatActivity {
 //            addProduct.setVisibility(View.GONE);
             boxCheckboxOrderIsReady.setVisibility(View.GONE);
             boxCheckBoxOrderIsWaiting.setVisibility(View.GONE);
-            boxCheckBoxSendSmsToCustomer.setVisibility(View.GONE);
 //            submit.setVisibility(View.GONE);
         } else {
             boxCheckBoxOrderIsWaiting.setVisibility(View.GONE);
@@ -382,26 +403,13 @@ public class ActivityAddOrder extends AppCompatActivity {
         if (boxCheckboxOrderIsReady.getVisibility() == View.GONE){
             if (checkBoxOrderIsWaiting.isChecked()){
                 order.setStatus(false);
-                if (checkBoxSendSmsToCustomer.isChecked()){
-                    sendSms(SetTextForSendSms.SEND_SMS_ORDER_IS_WAITING(
-                            this
-                            , customer_name
-                            , getAllPrice()
-                            , productsList));
-                }
             } else {
                 order.setStatus(true);
-                if (checkBoxSendSmsToCustomer.isChecked()){
-                    sendSms(SetTextForSendSms.SEND_SMS_ORDER_IS_PIED(customer_name));
-                }
             }
         } else {
             if (checkboxOrderIsReady.isChecked()){
                 order.setCreated_at(System.currentTimeMillis());
                 order.setStatus(true);
-                if (checkBoxSendSmsToCustomer.isChecked()){
-                    sendSms(SetTextForSendSms.SEND_SMS_ORDER_IS_WAITING_IS_PIED(customer_name));
-                }
             }else {
                 order.setStatus(false);
             }

@@ -240,22 +240,6 @@
             android:layout_height="wrap_content" />
         </LinearLayout>
 
-        <LinearLayout
-          android:visibility="gone"
-          android:id="@+id/boxCheckBoxSendSmsToCustomer"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:gravity="center|start"
-          android:orientation="horizontal">
-
-          <androidx.appcompat.widget.AppCompatCheckBox
-            android:id="@+id/checkboxSendSmsToCustomer"
-            android:layout_width="wrap_content"
-            android:text="@string/send_sms_to_customer"
-            android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
         <TextView
           android:paddingHorizontal="@dimen/_12sdp"
           android:layout_marginTop="@dimen/_12sdp"

@@ -74,7 +74,7 @@ public class DialogAddSmsSample extends AlertDialog{
         s.add(new Transaction("[مبلغ_پرداخت_شده]"));
         s.add(new Transaction("[مبلغ_مانده_سفارش]"));
         s.add(new Transaction("[مانده_قبل]"));
-        s.add(new Transaction("[کل_بدهی_مشتری]"));
+//        s.add(new Transaction("[کل_بدهی_مشتری]"));
         s.add(new Transaction("[وضعیت_سفارش]"));
         s.add(new Transaction("[لیست_محصولات_کوتاه]"));
         s.add(new Transaction("[لیست_محصولات_جزییات]"));
