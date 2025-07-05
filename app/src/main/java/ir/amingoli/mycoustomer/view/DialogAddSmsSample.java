@@ -74,7 +74,9 @@ public class DialogAddSmsSample extends AlertDialog{
         s.add(new Transaction("[مبلغ_مانده_سفارش]"));
         s.add(new Transaction("[کل_بدهی_مشتری]"));
         s.add(new Transaction("[وضعیت_سفارش]"));
-        s.add(new Transaction("[لیست_محصولات]"));
+        s.add(new Transaction("[لیست_محصولات_کوتاه]"));
+        s.add(new Transaction("[لیست_محصولات_جزییات]"));
+        s.add(new Transaction("[لیست_محصولات_جزییات_کامل]"));
         s.add(new Transaction("[تاریخ_امروز]"));
         s.add(new Transaction("[تاریخ_ثبت_سفارش]"));
         adapter = new AdapterSmsSample(ac, s, new AdapterSmsSample.Listener() {
@@ -87,7 +89,7 @@ public class DialogAddSmsSample extends AlertDialog{
             }
 
             @Override
-            public void onClickEdit(String string) {
+            public void onClick(String string) {
 
             }
         });

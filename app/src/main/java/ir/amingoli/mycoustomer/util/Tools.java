@@ -1,13 +1,22 @@
 package ir.amingoli.mycoustomer.util;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
+import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
+import android.content.Intent;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 
+import ir.amingoli.mycoustomer.R;
 import ir.amingoli.mycoustomer.data.AppConfig;
 import saman.zamani.persiandate.PersianDate;
 import saman.zamani.persiandate.PersianDateFormat;
@@ -124,4 +133,32 @@ public class Tools {
         }
     }
 
+    public static void shareText(Context context, String textToShare) {
+        try {
+            Intent shareIntent = new Intent(Intent.ACTION_SEND);
+            shareIntent.setType("text/plain");
+
+            // متن اصلی برای اشتراک‌گذاری
+            shareIntent.putExtra(Intent.EXTRA_TEXT, textToShare);
+
+            // موضوع اختیاری (برای ایمیل یا برخی اپلیکیشن‌ها)
+            shareIntent.putExtra(Intent.EXTRA_SUBJECT, "متن اشتراک‌گذاری شده");
+
+            // برای برخی اپلیکیشن‌ها مانند واتس‌اپ می‌توانید شماره یا اطلاعات اضافه کنید
+            // shareIntent.putExtra("jid", "98912xxxxxxx@s.whatsapp.net");
+
+            // ایجاد Chooser با عنوان فارسی
+            Intent chooser = Intent.createChooser(shareIntent, "اشتراک‌گذاری متن با...");
+
+            // تنظیم flag برای بازگشت به اپلیکیشن پس از اشتراک‌گذاری
+            chooser.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+            // شروع فعالیت اشتراک‌گذاری
+            context.startActivity(chooser);
+
+        } catch (Exception e) {
+            Toast.makeText(context, "خطا در اشتراک‌گذاری: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
 }

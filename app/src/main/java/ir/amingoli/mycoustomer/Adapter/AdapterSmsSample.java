@@ -15,6 +15,7 @@ import ir.amingoli.mycoustomer.R;
 import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
 import ir.amingoli.mycoustomer.model.Order;
+import ir.amingoli.mycoustomer.model.OrderDetail;
 import ir.amingoli.mycoustomer.model.Transaction;
 import ir.amingoli.mycoustomer.util.Tools;
 
@@ -24,13 +25,21 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
     private Boolean populateTextStatus = false;
     private ArrayList<Transaction> items;
     private Listener listener;
-    private DatabaseHandler db;
-    private long customerID;
-    private long ORDER_CODE;
+    private String customerName;
+    private String customerPhone;
+    private double totalOrder;
+    private double totlaPayed;
+    private double totalBedehi;
+    private double totalDiscount;
+    private double totalAllBedehiCustomer;
+    private boolean orderStatus;
+    private long orderDateCreated;
+    private long todayDate;
+    private ArrayList<OrderDetail> orderDetailArrayList;
 
     public interface Listener {
         void onClick(Transaction transaction);
-        void onClickEdit(String string);
+        void onClick(String string);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -51,23 +60,26 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.listener = listener;
     }
 
-
-    public AdapterSmsSample(Context ctx, ArrayList<Transaction> items, Listener listener,DatabaseHandler db) {
-        this.ctx = ctx;
-        this.items = items;
-        this.listener = listener;
-        this.db = db;
-    }
-
     public AdapterSmsSample(Context ctx, ArrayList<Transaction> items, Listener listener,
-                            boolean populateTextStatus, DatabaseHandler db, long customerID, long ORDER_CODE) {
+                            boolean populateTextStatus, String customerName, String customerPhone,
+                            double totalOrder, double totlaPayed, double totalBedehi, double totalDiscount,
+                            double totalAllBedehiCustomer, boolean orderStatus, long orderDateCreated,
+                            long todayDate, ArrayList<OrderDetail> orderDetailArrayList) {
         this.ctx = ctx;
         this.items = items;
         this.listener = listener;
         this.populateTextStatus = populateTextStatus;
-        this.db = db;
-        this.customerID = customerID;
-        this.ORDER_CODE = ORDER_CODE;
+        this.customerName = customerName;
+        this.customerPhone = customerPhone;
+        this.totalOrder = totalOrder;
+        this.totlaPayed = totlaPayed;
+        this.totalBedehi = totalBedehi;
+        this.totalDiscount = totalDiscount;
+        this.totalAllBedehiCustomer = totalAllBedehiCustomer;
+        this.orderStatus = orderStatus;
+        this.orderDateCreated = orderDateCreated;
+        this.todayDate = todayDate;
+        this.orderDetailArrayList = orderDetailArrayList;
     }
 
     @Override
@@ -86,35 +98,71 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
             String c = populateText(items.get(position).getDesc());
             vItem.txt.setText(c);
             vItem.view.setOnClickListener(view -> listener.onClick(items.get(position)));
+            vItem.view.setOnClickListener(view -> listener.onClick(c));
         }
 
     }
 
     private String populateText(String string) {
         if (populateTextStatus){
-            Customer customer = db.getCustomer(customerID);
-            Order order = db.getOrderByOrderCode(ORDER_CODE);
-
+            String s = "در انتظار";
+            if (orderStatus) s = "تکمیل شده";
             String[][] mChars = new String[][]{
-                    {"[نام_مشتری]", customer.getName()},
-                    {"[تلفن_مشتری]", customer.getTel()},
-                    {"[مبلغ_کل_سفارش]", Tools.getFormattedPrice(order.getPrice(),ctx)},
-                    {"[مبلغ_تخفیف_سفارش]", Tools.getFormattedPrice(order.getPrice(),ctx)},
-                    {"[مبلغ_پرداخت_شده]", Tools.getFormattedPrice(order.getPrice(),ctx)},
-                    {"[مبلغ_مانده_سفارش]", Tools.getFormattedPrice(order.getPrice(),ctx)},
-//                    {"[کل_بدهی_مشتری]", customer.getName()},
-//                    {"[وضعیت_سفارش]", customer.getName()},
-//                    {"[لیست_محصولات]", customer.getName()},
-//                    {"[تاریخ_امروز]", customer.getName()},
-//                    {"[تاریخ_ثبت_سفارش]", customer.getName()},
+                    {"[نام_مشتری]", customerName},
+                    {"[تلفن_مشتری]", customerPhone},
+                    {"[مبلغ_کل_سفارش]", Tools.getFormattedPrice(totalOrder,ctx)},
+                    {"[مبلغ_تخفیف_سفارش]", Tools.getFormattedPrice(totalDiscount,ctx)},
+                    {"[مبلغ_پرداخت_شده]", Tools.getFormattedPrice(totlaPayed,ctx)},
+                    {"[مبلغ_مانده_سفارش]", Tools.getFormattedPrice(totalBedehi,ctx)},
+                    {"[کل_بدهی_مشتری]", Tools.getFormattedPrice(totalAllBedehiCustomer,ctx)},
+                    {"[وضعیت_سفارش]", s},
+                    {"[لیست_محصولات_کوتاه]", orderDetailShort()},
+                    {"[لیست_محصولات_جزییات]", orderDetailLong()},
+                    {"[لیست_محصولات_جزییات_کامل]", orderDetailFull()},
+                    {"[تاریخ_امروز]", Tools.getFormattedDate(todayDate)},
+                    {"[تاریخ_ثبت_سفارش]", Tools.getFormattedDate(orderDateCreated)},
             };
             for (String[] num : mChars) {
                 Log.d("amingoli-adapter-sms", "populateText: "+num[0]+"-"+num[1]);
-                string = string.replace(num[0], num[1]);
+                try {
+                    string = string.replace(num[0], num[1]);
+                }catch (Exception e){
+                    string = string.replace(num[0], num[0]);
+                }
 
             }
         }
         return string;
+    }
+
+    private String orderDetailShort(){
+        StringBuilder s = new StringBuilder();
+        if (orderDetailArrayList != null){
+            for (int i = 0; i < orderDetailArrayList.size(); i++) {
+                s.append("");
+            }
+        }
+        return s.toString();
+    }
+
+    private String orderDetailLong(){
+        StringBuilder s = new StringBuilder();
+        if (orderDetailArrayList != null){
+            for (int i = 0; i < orderDetailArrayList.size(); i++) {
+                s.append("");
+            }
+        }
+        return s.toString();
+    }
+
+    private String orderDetailFull(){
+        StringBuilder s = new StringBuilder();
+        if (orderDetailArrayList != null){
+            for (int i = 0; i < orderDetailArrayList.size(); i++) {
+                s.append("");
+            }
+        }
+        return s.toString();
     }
 
     @Override

@@ -96,7 +96,7 @@ public class ActivitySetting extends AppCompatActivity {
             }
 
             @Override
-            public void onClickEdit(String string) {
+            public void onClick(String string) {
 
             }
         });

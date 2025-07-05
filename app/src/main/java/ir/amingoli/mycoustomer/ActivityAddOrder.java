@@ -7,12 +7,14 @@ import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -21,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -56,8 +59,10 @@ public class ActivityAddOrder extends AppCompatActivity {
 
     private Long ID_THIS_ORDER = System.currentTimeMillis();
 
+    ArrayList<Transaction> transactionArrayList;
     private ArrayList<Product> productsList;
-    private RecyclerView recyclerView;
+    private ArrayList<OrderDetail> orderDetailArrayList;
+    private RecyclerView recyclerView, recyclerViewSmsSample;
     private DatabaseHandler db;
     private AdapterAddOrder adapter;
     private TextView totalPrice,totalDiscount,totalPayed,textBedehkaran,customerName,dateToDay,
@@ -98,22 +103,66 @@ public class ActivityAddOrder extends AppCompatActivity {
         getListPayed();
         initCustomerDetail();
 
+        initSmsSample();
+    }
 
+    private void initSmsSample() {
+        try {
+            AdapterSmsSample adapterSmsSample = new AdapterSmsSample(this, transactionArrayList, new AdapterSmsSample.Listener() {
+                @Override
+                public void onClick(Transaction transaction) {
+                }
 
-        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView r = findViewById(R.id.recyclerViewSms);
-        ArrayList<Transaction> transactionArrayList = (ArrayList<Transaction>) db.getAllTransactionByType(Tools.TRANSACTION_TYPE_SMS_SAMPLE);
-        AdapterSmsSample adapterSmsSample = new AdapterSmsSample(this, transactionArrayList, new AdapterSmsSample.Listener() {
-            @Override
-            public void onClick(Transaction transaction) {
+                @Override
+                public void onClick(String string) {
+                    showShareCopyDialog(ActivityAddOrder.this,string);
+                }
+            },true,
+                    customer_name,customer_phone,
+                    getAllPrice(),_totalPayed,_totalBedehi,_totalDiscount,
+                    0.0,ORDER_STATUS_IS_PIED,ID_THIS_ORDER,
+                    new Date().getTime(),
+                    orderDetailArrayList);
+            recyclerViewSmsSample.setAdapter(adapterSmsSample);
+        }catch (Exception e){
 
-            }
+        }
+    }
 
-            @Override
-            public void onClickEdit(String string) {
+    public void showShareCopyDialog(Context context, String textToShare) {
+        // ساخت ویوی سفارشی برای دیالوگ
+        View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_share_copy, null);
 
-            }
-        },true,db,ID_CUSTOMER,ID_THIS_ORDER);
-        r.setAdapter(adapterSmsSample);
+        // ساخت دیالوگ
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setView(dialogView);
+        AlertDialog dialog = builder.create();
+
+        // دکمه‌های دیالوگ
+        Button btnShare = dialogView.findViewById(R.id.btn_share);
+        @SuppressLint({"MissingInflatedId", "LocalSuppress"}) Button btnSendSms = dialogView.findViewById(R.id.btn_send_sms);
+
+        // رویداد کلیک برای دکمه اشتراک‌گذاری
+        btnShare.setOnClickListener(v -> {
+            // متد اشتراک‌گذاری (باید پیاده‌سازی شود)
+            Tools.shareText(this,textToShare);
+            dialog.dismiss();
+        });
+
+        // رویداد کلیک برای دکمه کپی
+        /*btnCopy.setOnClickListener(v -> {
+            // متد کپی (باید پیاده‌سازی شود)
+            Tools.copyText(this,textToShare);
+            dialog.dismiss();
+        });*/
+        // رویداد کلیک برای دکمه کپی
+        btnSendSms.setOnClickListener(v -> {
+            // متد کپی (باید پیاده‌سازی شود)
+            sendSms(textToShare);
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
 
@@ -138,6 +187,7 @@ public class ActivityAddOrder extends AppCompatActivity {
     private void populateData(){
         db = new DatabaseHandler(this);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        recyclerViewSmsSample = findViewById(R.id.recyclerViewSms);
         productsList = new ArrayList<>();
         totalPrice = findViewById(R.id.all_price);
         totalDiscount = findViewById(R.id.totalDiscount);
@@ -159,6 +209,8 @@ public class ActivityAddOrder extends AppCompatActivity {
 
         viewDiscount.setOnClickListener(view -> changeDiscount());
         viewPayed.setOnClickListener(view -> changePayed());
+
+        transactionArrayList = (ArrayList<Transaction>) db.getAllTransactionByType(Tools.TRANSACTION_TYPE_SMS_SAMPLE);
     }
 
     private void initAdapter(){
@@ -226,6 +278,7 @@ public class ActivityAddOrder extends AppCompatActivity {
             product.setAmount(item.get(i).getAmount());
             addProductInOrder(product);
         }
+        orderDetailArrayList = (ArrayList<OrderDetail>) item;
         adapter.notifyDataSetChanged();
         setTextTotalPrice();
     }
@@ -422,6 +475,7 @@ public class ActivityAddOrder extends AppCompatActivity {
             textBedehkaran.setText("");
             viewBedehi.setVisibility(View.GONE);
         }
+        initSmsSample();
     }
 
     public void addProduct(View view) {
