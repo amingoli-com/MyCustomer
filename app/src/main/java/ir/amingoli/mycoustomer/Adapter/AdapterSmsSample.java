@@ -35,7 +35,9 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
     private boolean orderStatus;
     private long orderDateCreated;
     private long todayDate;
-    private ArrayList<OrderDetail> orderDetailArrayList;
+    private String orderDetailShort;
+    private String orderDetailLong;
+    private String orderDetailFull;
 
     public interface Listener {
         void onClick(Transaction transaction);
@@ -64,7 +66,7 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
                             boolean populateTextStatus, String customerName, String customerPhone,
                             double totalOrder, double totlaPayed, double totalBedehi, double totalDiscount,
                             double totalAllBedehiCustomer, boolean orderStatus, long orderDateCreated,
-                            long todayDate, ArrayList<OrderDetail> orderDetailArrayList) {
+                            long todayDate, String orderDetailShort, String orderDetailLong, String orderDetailFull) {
         this.ctx = ctx;
         this.items = items;
         this.listener = listener;
@@ -79,7 +81,9 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
         this.orderStatus = orderStatus;
         this.orderDateCreated = orderDateCreated;
         this.todayDate = todayDate;
-        this.orderDetailArrayList = orderDetailArrayList;
+        this.orderDetailShort = orderDetailShort;
+        this.orderDetailLong = orderDetailLong;
+        this.orderDetailFull = orderDetailFull;
     }
 
     @Override
@@ -97,8 +101,10 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
             ViewHolder vItem = (ViewHolder) holder;
             String c = populateText(items.get(position).getDesc());
             vItem.txt.setText(c);
-            vItem.view.setOnClickListener(view -> listener.onClick(items.get(position)));
-            vItem.view.setOnClickListener(view -> listener.onClick(c));
+            vItem.view.setOnClickListener(view -> {
+                listener.onClick(items.get(position));
+                listener.onClick(c);
+            });
         }
 
     }
@@ -114,11 +120,12 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
                     {"[مبلغ_تخفیف_سفارش]", Tools.getFormattedPrice(totalDiscount,ctx)},
                     {"[مبلغ_پرداخت_شده]", Tools.getFormattedPrice(totlaPayed,ctx)},
                     {"[مبلغ_مانده_سفارش]", Tools.getFormattedPrice(totalBedehi,ctx)},
-                    {"[کل_بدهی_مشتری]", Tools.getFormattedPrice(totalAllBedehiCustomer,ctx)},
+                    {"[کل_بدهی_مشتری]", Tools.getFormattedPrice(totalAllBedehiCustomer+totalBedehi,ctx)},
+                    {"[مانده_قبل]", Tools.getFormattedPrice(totalAllBedehiCustomer,ctx)},
                     {"[وضعیت_سفارش]", s},
-                    {"[لیست_محصولات_کوتاه]", orderDetailShort()},
-                    {"[لیست_محصولات_جزییات]", orderDetailLong()},
-                    {"[لیست_محصولات_جزییات_کامل]", orderDetailFull()},
+                    {"[لیست_محصولات_کوتاه]", orderDetailShort},
+                    {"[لیست_محصولات_جزییات]", orderDetailLong},
+                    {"[لیست_محصولات_جزییات_کامل]", orderDetailFull},
                     {"[تاریخ_امروز]", Tools.getFormattedDate(todayDate)},
                     {"[تاریخ_ثبت_سفارش]", Tools.getFormattedDate(orderDateCreated)},
             };
@@ -133,36 +140,6 @@ public class AdapterSmsSample extends RecyclerView.Adapter<RecyclerView.ViewHold
             }
         }
         return string;
-    }
-
-    private String orderDetailShort(){
-        StringBuilder s = new StringBuilder();
-        if (orderDetailArrayList != null){
-            for (int i = 0; i < orderDetailArrayList.size(); i++) {
-                s.append("");
-            }
-        }
-        return s.toString();
-    }
-
-    private String orderDetailLong(){
-        StringBuilder s = new StringBuilder();
-        if (orderDetailArrayList != null){
-            for (int i = 0; i < orderDetailArrayList.size(); i++) {
-                s.append("");
-            }
-        }
-        return s.toString();
-    }
-
-    private String orderDetailFull(){
-        StringBuilder s = new StringBuilder();
-        if (orderDetailArrayList != null){
-            for (int i = 0; i < orderDetailArrayList.size(); i++) {
-                s.append("");
-            }
-        }
-        return s.toString();
     }
 
     @Override

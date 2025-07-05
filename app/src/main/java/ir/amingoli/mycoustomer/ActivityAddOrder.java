@@ -120,15 +120,86 @@ public class ActivityAddOrder extends AppCompatActivity {
             },true,
                     customer_name,customer_phone,
                     getAllPrice(),_totalPayed,_totalBedehi,_totalDiscount,
-                    0.0,ORDER_STATUS_IS_PIED,ID_THIS_ORDER,
+                    getAllTotalBedehiCustomer(),ORDER_STATUS_IS_PIED,CRATED_AT,
                     new Date().getTime(),
-                    orderDetailArrayList);
+                    orderDetailShort(),orderDetailLong(),orderDetailFull());
             recyclerViewSmsSample.setAdapter(adapterSmsSample);
         }catch (Exception e){
 
         }
     }
 
+    private String orderDetailShort(){
+        StringBuilder s = new StringBuilder();
+        try {
+            if (productsList != null){
+                for (int i = 0; i < productsList.size(); i++) {
+                    Product o = productsList.get(i);
+//                s.append("محصول یک (۲۵.۰۰۰ تومان)");
+                    s.append(o.name+" ");
+                    s.append("("+(Tools.getFormattedPrice(o.price_all,this))+")");
+                    s.append("\n");
+                }
+            }
+        }catch (Exception e){}
+        return s.toString();
+    }
+
+    private String orderDetailLong(){
+        StringBuilder s = new StringBuilder();
+        try {
+            if (productsList != null){
+                for (int i = 0; i < productsList.size(); i++) {
+                    Product o = productsList.get(i);
+//                s.append("محصول یک × ۲۵ عدد (۲۵.۰۰۰ تومان)");
+                    s.append(o.name+" ");
+                    s.append("× ");
+                    s.append(Tools.getFormattedDiscount(o.amount)+" عدد ");
+                    s.append("("+(Tools.getFormattedPrice(o.price_all,this))+")");
+                    s.append("\n");
+                }
+            }
+        }catch (Exception e){}
+        return s.toString();
+    }
+
+    private String orderDetailFull(){
+        StringBuilder s = new StringBuilder();
+        try {
+            if (productsList != null){
+                for (int i = 0; i < productsList.size(); i++) {
+                    Product o = productsList.get(i);
+//                s.append("محصول یک × ۲۵ عدد (۲۵ × ‍۱.۰۰۰ تومان = ۲۵.۰۰۰ تومان)");
+
+                    s.append(o.name+" ");
+                    s.append("(");
+                    s.append(Tools.getFormattedDiscount(o.amount)+" عدد ");
+                    s.append("× ");
+                    s.append((Tools.getFormattedPrice(o.price,this)));
+                    s.append("= ");
+                    s.append((Tools.getFormattedPrice(o.price_all,this)));
+                    s.append(")");
+                    s.append("\n");
+                }
+            }
+        }catch (Exception e){
+
+        }
+        return s.toString();
+    }
+
+    private double getAllTotalBedehiCustomer(){
+        double d = 0.0;
+        try {
+            ArrayList<Transaction> t = (ArrayList<Transaction>) db.getAllTransactionByCustomer(Tools.TRANSACTION_TYPE_BEDEHI,ID_CUSTOMER);
+            for (int i = 0; i < t.size(); i++) {
+                d = d+t.get(i).getAmount();
+            }
+            return d;
+        }catch (Exception e){
+            return d;
+        }
+    }
     public void showShareCopyDialog(Context context, String textToShare) {
         // ساخت ویوی سفارشی برای دیالوگ
         View dialogView = LayoutInflater.from(context).inflate(R.layout.dialog_share_copy, null);
