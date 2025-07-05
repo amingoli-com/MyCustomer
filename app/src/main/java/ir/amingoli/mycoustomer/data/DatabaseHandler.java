@@ -312,6 +312,17 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return obj;
     }
 
+    public Order getOrderByOrderCode(long orderCode) {
+        Order obj = null;
+        String query = "SELECT * FROM " + TABLE_ORDER + " o WHERE o." + COL_ORDER_CODE + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{orderCode + ""});
+        if (cursor.moveToFirst()) {
+            cursor.moveToFirst();
+            obj = getOrderByCursor(cursor);
+        }
+        return obj;
+    }
+
     public Product getProduct(long id) {
         Product obj = null;
         String query = "SELECT * FROM " + TABLE_PRODUCT + " o WHERE o." + COL_PRODUCT_ID + " = ?";
@@ -376,6 +387,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         obj.id_order = cur.getLong(cur.getColumnIndex(COL_TRANSACTION_ID_ORDER));
         obj.type = cur.getLong(cur.getColumnIndex(COL_TRANSACTION_TYPE));
         obj.amount = cur.getDouble(cur.getColumnIndex(COL_TRANSACTION_AMOUNT));
+        obj.desc = cur.getString(cur.getColumnIndex(COL_TRANSACTION_DESC));
         obj.created_at = cur.getLong(cur.getColumnIndex(COL_TRANSACTION_CREATED_AT));
         return obj;
     }
@@ -632,6 +644,9 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void deleteTransactionByOrderCode(Long orderCode) {
         db.delete(TABLE_TRANSACTION, COL_TRANSACTION_ID_ORDER + " = ?", new String[]{orderCode.toString()});
     }
+    public void deleteTransactionByID(Long id) {
+        db.delete(TABLE_TRANSACTION, COL_TRANSACTION_ID + " = ?", new String[]{id.toString()});
+    }
     public void deleteOrderByOrderCode(Long orderCode) {
         db.delete(TABLE_ORDER, COL_ORDER_CODE + " = ?", new String[]{orderCode.toString()});
     }
@@ -743,6 +758,19 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     "AND w."+ COL_TRANSACTION_TYPE + " ='"+type+"'"
             );
         }
+        Cursor cursor = db.rawQuery(sb.toString(), null);
+        if (cursor.moveToFirst()) {
+            items = getListTransactionByCursor(cursor);
+        }
+        return items;
+    }
+
+    public List<Transaction> getAllTransactionByType(long type) {
+        List<Transaction> items = new ArrayList<>();
+        StringBuilder sb = new StringBuilder();
+        sb.append("select * from " + TABLE_TRANSACTION +
+                " w where  w." + COL_TRANSACTION_TYPE + " ='"+type+"'"
+        );
         Cursor cursor = db.rawQuery(sb.toString(), null);
         if (cursor.moveToFirst()) {
             items = getListTransactionByCursor(cursor);

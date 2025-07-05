@@ -101,12 +101,10 @@ public class ActivityAddOrder extends AppCompatActivity {
 
 
         @SuppressLint({"MissingInflatedId", "LocalSuppress"}) RecyclerView r = findViewById(R.id.recyclerViewSms);
-        ArrayList<String> s = new ArrayList<>();
-        s.add("سلام");
-        s.add("سلام متن تست");
-        AdapterSmsSample adapterSmsSample = new AdapterSmsSample(this, s, new AdapterSmsSample.Listener() {
+        ArrayList<Transaction> transactionArrayList = (ArrayList<Transaction>) db.getAllTransactionByType(Tools.TRANSACTION_TYPE_SMS_SAMPLE);
+        AdapterSmsSample adapterSmsSample = new AdapterSmsSample(this, transactionArrayList, new AdapterSmsSample.Listener() {
             @Override
-            public void onClick(String string) {
+            public void onClick(Transaction transaction) {
 
             }
 
@@ -114,7 +112,7 @@ public class ActivityAddOrder extends AppCompatActivity {
             public void onClickEdit(String string) {
 
             }
-        });
+        },true,db,ID_CUSTOMER,ID_THIS_ORDER);
         r.setAdapter(adapterSmsSample);
     }
 

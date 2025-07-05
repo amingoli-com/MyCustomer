@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.WindowManager;
@@ -19,27 +20,31 @@ import java.util.Objects;
 
 import ir.amingoli.mycoustomer.Adapter.AdapterSmsSample;
 import ir.amingoli.mycoustomer.R;
+import ir.amingoli.mycoustomer.data.DatabaseHandler;
 import ir.amingoli.mycoustomer.model.Customer;
+import ir.amingoli.mycoustomer.model.Transaction;
+import ir.amingoli.mycoustomer.util.Tools;
 
-public class DialogAddSmsSample extends AlertDialog implements
-        View.OnClickListener {
+public class DialogAddSmsSample extends AlertDialog{
 
     private Activity ac;
     private listener listener;
+    private Transaction transaction;
     private RecyclerView recyclerView;
     private AdapterSmsSample adapter;
     private EditText name;
     private TextInputLayout name_lyt;
-    private Button submit;
+    private Button submit,remove;
 
-    public DialogAddSmsSample(Activity a, listener listeners) {
+    public DialogAddSmsSample(Activity a, listener listeners, Transaction transaction) {
         super(a);
         // TODO Auto-generated constructor stub
         this.ac = a;
         this.listener = listeners;
+        this.transaction = transaction;
     }
 
-    @SuppressLint("MissingInflatedId")
+    @SuppressLint({"MissingInflatedId", "SetTextI18n"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +54,7 @@ public class DialogAddSmsSample extends AlertDialog implements
         name_lyt = findViewById(R.id.name_lyt);
         name = findViewById(R.id.customerName);
         submit = findViewById(R.id.submit);
+        remove = findViewById(R.id.remove);
         recyclerView = findViewById(R.id.recyclerView);
 
 
@@ -59,24 +65,25 @@ public class DialogAddSmsSample extends AlertDialog implements
 
 
 
-
-        ArrayList<String> s = new ArrayList<>();
-        s.add("[نام_مشتری]");
-        s.add("[تلفن_مشتری]");
-        s.add("[مبلغ_کل_سفارش]");
-        s.add("[مبلغ_تخفیف_سفارش]");
-        s.add("[مبلغ_پرداخت_شده]");
-        s.add("[مبلغ_مانده_سفارش]");
-        s.add("[کل_بدهی_مشتری]");
-        s.add("[وضعیت_سفارش]");
-        s.add("[لیست_محصولات]");
-        s.add("[تاریخ_امروز]");
-        s.add("[تاریخ_ثبت_سفارش]");
+        ArrayList<Transaction> s = new ArrayList<>();
+        s.add(new Transaction("[نام_مشتری]"));
+        s.add(new Transaction("[تلفن_مشتری]"));
+        s.add(new Transaction("[مبلغ_کل_سفارش]"));
+        s.add(new Transaction("[مبلغ_تخفیف_سفارش]"));
+        s.add(new Transaction("[مبلغ_پرداخت_شده]"));
+        s.add(new Transaction("[مبلغ_مانده_سفارش]"));
+        s.add(new Transaction("[کل_بدهی_مشتری]"));
+        s.add(new Transaction("[وضعیت_سفارش]"));
+        s.add(new Transaction("[لیست_محصولات]"));
+        s.add(new Transaction("[تاریخ_امروز]"));
+        s.add(new Transaction("[تاریخ_ثبت_سفارش]"));
         adapter = new AdapterSmsSample(ac, s, new AdapterSmsSample.Listener() {
             @SuppressLint("SetTextI18n")
             @Override
-            public void onClick(String string) {
-                name.setText(name.getText().toString()+string);
+            public void onClick(Transaction transaction) {
+                Editable editableText = name.getText();
+                int cursorPosition = name.getSelectionStart();
+                editableText.insert(cursorPosition, transaction.getDesc());
             }
 
             @Override
@@ -86,21 +93,36 @@ public class DialogAddSmsSample extends AlertDialog implements
         });
         recyclerView.setAdapter(adapter);
 
+        if (transaction != null){
+            submit.setText("بروزرسانی");
+            name.setText(transaction.getDesc());
+            remove.setVisibility(View.VISIBLE);
+        }else remove.setVisibility(View.GONE);
 
-        submit.setOnClickListener(this);
-    }
 
-    @Override
-    public void onClick(View v) {
-        if (TextUtils.isEmpty(getText(name))){
-            name_lyt.setError(ac.getString(R.string.error_name));
-            requestFocus(name);
-        }
+        submit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(getText(name))){
+                    name_lyt.setError(ac.getString(R.string.error_name));
+                    requestFocus(name);
+                }else {
+                    listener.result(name.getText().toString(), transaction);
+                }
+            }
+        });
 
+        remove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (transaction != null) listener.remove(transaction);
+            }
+        });
     }
 
     public interface listener{
-        void result(Customer customer);
+        void result(String text, Transaction transaction);
+        void remove(Transaction transaction);
     }
 
     private String getText(EditText editText){

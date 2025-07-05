@@ -2,14 +2,18 @@ package ir.amingoli.mycoustomer.model;
 
 public class Transaction {
     public Long id;
-    public Long id_customer;
-    public Long id_order;
+    public Long id_customer = 0L;
+    public Long id_order = 0L;
     public Long type;
-    public Double amount;
+    public Double amount = 0.0;
     public String desc;
     public Long created_at = System.currentTimeMillis();
 
     public Transaction() {}
+
+    public Transaction(String desc) {
+        this.desc = desc;
+    }
 
     public Transaction(Long id, Long id_customer, Long id_order, Long type, Double amount, String desc, Long created_at) {
         this.id = id;

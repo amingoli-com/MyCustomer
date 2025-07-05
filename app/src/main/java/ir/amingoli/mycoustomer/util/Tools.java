@@ -1,6 +1,9 @@
 package ir.amingoli.mycoustomer.util;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
+import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -14,6 +17,8 @@ public class Tools {
     public static long TRANSACTION_TYPE_PAY_BEDEHI = 2;
     public static long TRANSACTION_TYPE_PAY_DISCOUNT = 3;
     public static long TRANSACTION_TYPE_PAY_BEDEHI_BY_OTHER_METHODE = 4;
+    public static long TRANSACTION_TYPE_SMS_SAMPLE = 200;
+
     public static String getFormattedPrice(Double price, Context ctx) {
         NumberFormat format = NumberFormat.getInstance(AppConfig.PRICE_LOCAL_FORMAT);
         String result = format.format(price);
@@ -86,6 +91,37 @@ public class Tools {
         number  =   number.substring(0,number.length()-8)+" "+number.substring(number.length()-8,number.length());
         number  =   number.substring(0, number.length()-12)+" "+number.substring(number.length()-12, number.length());*/
         return number;
+    }
+
+    public static void copyText(Context context, String textToCopy) {
+        // دریافت ClipboardManager
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+
+        // ایجاد ClipData
+        ClipData clip = ClipData.newPlainText("کپی شده", textToCopy);
+
+        // تنظیم ClipData در کلیپ‌بورد
+        if (clipboard != null) {
+            clipboard.setPrimaryClip(clip);
+            // نمایش پیام موفقیت‌آمیز (اختیاری)
+            Toast.makeText(context, "متن کپی شد", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public static String pasteText(Context context) {
+        ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+
+        if (clipboard != null && clipboard.hasPrimaryClip()) {
+            ClipData.Item item = clipboard.getPrimaryClip().getItemAt(0);
+            String pastedText = item.getText().toString();
+
+            // نمایش پیام موفقیت‌آمیز (اختیاری)
+            Toast.makeText(context, "متن پیست شد", Toast.LENGTH_SHORT).show();
+            return pastedText;
+        } else {
+            Toast.makeText(context, "هیچ متنی در کلیپ‌بورد وجود ندارد", Toast.LENGTH_SHORT).show();
+            return "";
+        }
     }
 
 }
