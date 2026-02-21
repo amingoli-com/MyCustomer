@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 
 import ir.amingoli.mycoustomer.R;
 import ir.amingoli.mycoustomer.data.AppConfig;
@@ -71,11 +72,21 @@ public class Tools {
         return pdformater.format(new PersianDate(dateTime));
     }
 
-    public static long dayToMillis(int howBeforeDay){
-        long toDay = System.currentTimeMillis();
-        long oneDay = 86400000;
-        if (howBeforeDay >= 1 ) return toDay -oneDay * howBeforeDay;
-        return toDay ;
+    public static long dayToMillis(int howBeforeDay) {
+        Calendar calendar = Calendar.getInstance();
+
+        // تنظیم به نیمه‌شب امروز
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        // عقب‌گرد به روزهای قبل
+        if (howBeforeDay >= 1) {
+            calendar.add(Calendar.DAY_OF_YEAR, -howBeforeDay);
+        }
+
+        return calendar.getTimeInMillis(); // نیمه‌شب روز مورد نظر
     }
 
     public static String convertNumberToEN(String string) {
