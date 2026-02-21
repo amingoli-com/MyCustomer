@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -602,7 +603,8 @@ public class ActivityAddOrder extends AppCompatActivity {
         View view = View.inflate(this, R.layout.item_dialog_text_amount, null);
         EditText amount = view.findViewById(R.id.amount);
         amount.addTextChangedListener(new PriceNumberTextWatcher(amount));
-        amount.setText(getPricePayed() + "");
+        amount.setText(bigDecimal(getPricePayed()+""));
+        Log.d(TAG, "changePayed: "+bigDecimal(getPricePayed()+""));
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setView(view);
         builder.setTitle(getString(R.string.change_discount_or_payed, "پرداختی"))
@@ -621,6 +623,12 @@ public class ActivityAddOrder extends AppCompatActivity {
                     }
                 })
                 .show();
+    }
+
+    private String bigDecimal(String string){
+        String scientificNumber = string;
+        BigDecimal bd = new BigDecimal(scientificNumber);
+        return bd.toPlainString();
     }
 
     @SuppressLint("SetTextI18n")
