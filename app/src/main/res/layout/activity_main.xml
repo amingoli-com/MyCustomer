@@ -34,19 +34,17 @@
         android:layout_marginBottom="@dimen/_24sdp">
 
         <androidx.cardview.widget.CardView
-          android:visibility="gone"
           android:layout_width="@dimen/_80sdp"
           android:layout_height="@dimen/_80sdp"
           app:cardCornerRadius="@dimen/_40sdp"
           app:cardElevation="@dimen/_4sdp"
-          app:cardBackgroundColor="@color/primary_light">
+          app:cardBackgroundColor="@color/colorPrimary">
 
           <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@drawable/ic_store"
-            android:padding="@dimen/_16sdp"
-            app:tint = "@color/primary" />
+            android:src="@drawable/ic_launcher_foreground"
+            app:tint = "@color/textBlack" />
         </androidx.cardview.widget.CardView>
 
         <TextView
@@ -672,30 +670,30 @@
           android:background="?android:attr/selectableItemBackground"
           android:gravity="center_vertical">
 
-          <androidx.cardview.widget.CardView
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            app:cardCornerRadius="@dimen/_20sdp"
-            app:cardBackgroundColor="@color/primary_light">
-
-            <ImageView
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:src="@drawable/baseline_star_24"
-              android:padding="@dimen/_10sdp"
-              app:tint = "@color/primary" />
-          </androidx.cardview.widget.CardView>
-
-          <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+          <LinearLayout
+            android:orientation="vertical"
+            android:layout_width = "0dp"
             android:layout_weight="1"
-            android:layout_marginHorizontal="@dimen/_12sdp"
-            android:text="با فروشنده حرفه‌ای تر بفروش! (محصول جدید)"
-            android:textSize="@dimen/_14ssp"
-            android:textColor="@color/primary"
-            android:textStyle="bold"
-            android:fontFamily="@font/iranyekan_regular"/>
+            android:layout_height = "wrap_content">
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="@dimen/_12sdp"
+              android:text="حمایت مالی از توسعه دهنده"
+              android:textSize="@dimen/_12ssp"
+              android:textColor="@color/primary"
+              android:textStyle="bold"
+              android:fontFamily="@font/iranyekan_regular"/>
+            <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginHorizontal="@dimen/_12sdp"
+              android:text="این اپلیکیشن رایگان و بدون هرگونه تبلیغی برای رشد کسب و کار شما طراحی شده، در صورت تمایل میتوانید از توسعه دهنده حمایت کنید."
+              android:textSize="@dimen/_8ssp"
+              android:textColor="@color/text_dark"
+              android:textStyle="bold"
+              android:fontFamily="@font/iranyekan_regular"/>
+          </LinearLayout>
 
           <ImageView
             android:layout_width="@dimen/_24sdp"
