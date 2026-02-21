@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityProductsOrdered">
+  android:background="@drawable/gradient_background"
+  tools:context=".ActivityProductsOrdered">
     <include
         android:id="@+id/include_empty"
         android:visibility="gone"
@@ -12,8 +13,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         layout="@layout/include_empty"/>
+
+  <TextView
+    android:id="@+id/orderWaitting"
+    android:layout_alignParentTop="true"
+    android:text="محصولات/خدمات جهت آماده سازی"
+    android:textSize="@dimen/_12ssp"
+    android:paddingVertical="@dimen/_10sdp"
+    android:textAlignment="center"
+    android:layout_width = "match_parent"
+    android:layout_height = "wrap_content"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
+      android:layout_below="@+id/orderWaitting"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>

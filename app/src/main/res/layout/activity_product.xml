@@ -5,7 +5,8 @@
     android:id="@+id/content"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ActivityProduct">
+  android:background="@drawable/gradient_background"
+  tools:context=".ActivityProduct">
 
     <include
         android:id="@+id/include_empty"
@@ -27,6 +28,14 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+      <TextView
+        android:text="لیست محصولات و خدمات"
+        android:textSize="@dimen/_14ssp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:textAlignment="center"
+        android:layout_width = "match_parent"
+        android:layout_height = "wrap_content"/>
         <include
             android:id="@+id/include_search"
             layout="@layout/item_serach"/>
