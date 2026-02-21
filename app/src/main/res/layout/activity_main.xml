@@ -34,6 +34,7 @@
         android:layout_marginBottom="@dimen/_24sdp">
 
         <androidx.cardview.widget.CardView
+          android:visibility="gone"
           android:layout_width="@dimen/_80sdp"
           android:layout_height="@dimen/_80sdp"
           app:cardCornerRadius="@dimen/_40sdp"
@@ -63,7 +64,7 @@
           android:id="@+id/txtBusinessSubtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="مدیریت فروش و مشتریان"
+          android:text="هو الرزاق"
           android:textSize="@dimen/_14ssp"
           android:textColor="@color/text_secondary"
           android:fontFamily="@font/iranyekan_regular"/>
