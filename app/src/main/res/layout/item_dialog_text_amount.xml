@@ -22,7 +22,6 @@
             android:digits="0123456789."
             android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
             android:inputType="numberDecimal"
-            android:maxLength="9"
             android:maxLines="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
