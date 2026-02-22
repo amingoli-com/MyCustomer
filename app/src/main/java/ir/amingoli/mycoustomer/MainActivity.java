@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity {
     TextView salesAll, salesToday, salesThisMonth ,
              totalCustomers, totalProduct, totalOrder, totalDetailOrder,textLogo, totalOrderIsPiedThisMonth,
             totalBedehi,txtVersionApp;
-    View live_salesAll,live_salesToday,live_salesThisWeek,live_salesThisMonth;
-    
     @Override
     protected void onResume() {
         super.onResume();
@@ -67,11 +65,6 @@ public class MainActivity extends AppCompatActivity {
         salesThisMonth = findViewById(R.id.salesThisMonth);
         txtVersionApp = findViewById(R.id.txtVersionApp);
 
-        live_salesAll = findViewById(R.id.live_salesAll);
-        live_salesToday = findViewById(R.id.live_salesToday);
-        live_salesThisWeek = findViewById(R.id.live_salesThisWeek);
-        live_salesThisMonth = findViewById(R.id.live_salesThisMonth);
-
 //        totalOrderIsPiedThisMonth = include_info_app.findViewById(R.id.totalOrderIsPiedThisMonth);
 //        totalCustomers = include_info_app.findViewById(R.id.totalCustomers);
 //        totalProduct = include_info_app.findViewById(R.id.totalProducts);
@@ -96,7 +89,6 @@ public class MainActivity extends AppCompatActivity {
                     Tools.getFormattedPrice(all.getTotalSales(), this),
                     Tools.getFormattedInteger(all.getSalesCount())));
         } else {
-            live_salesAll.setVisibility(View.GONE);
             salesAll.setText(getString(R.string.no_data_sales_all));
         }
         if (today != null) {
@@ -104,14 +96,12 @@ public class MainActivity extends AppCompatActivity {
                     Tools.getFormattedPrice(today.getTotalSales(), this),
                     Tools.getFormattedInteger(today.getSalesCount())));
         } else {
-            live_salesToday.setVisibility(View.GONE);
             salesToday.setText(getString(R.string.no_data_sales_today));
         }
         if (thisMonth != null) {
             salesThisMonth.setText("فروش این ماه \n"+Tools.getFormattedPrice(thisMonth.getTotalSales(), this));
 //            totalOrderIsPiedThisMonth.setText(Tools.getFormattedInteger(thisMonth.getSalesCount()));
         } else {
-            live_salesThisMonth.setVisibility(View.GONE);
             salesThisMonth.setText(getString(R.string.no_data_sales_this_month));
         }
 

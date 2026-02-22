@@ -31,51 +31,38 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginBottom="@dimen/_24sdp">
-
-        <androidx.cardview.widget.CardView
-          android:layout_width="@dimen/_80sdp"
-          android:layout_height="@dimen/_80sdp"
-          app:cardCornerRadius="@dimen/_40sdp"
-          app:cardElevation="@dimen/_4sdp"
-          app:cardBackgroundColor="@color/colorPrimary">
-
-          <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:src="@drawable/ic_launcher_foreground"
-            app:tint = "@color/textBlack" />
-        </androidx.cardview.widget.CardView>
-
-        <TextView
-          android:id="@+id/textLogo"
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:text="نام کسب‌وکار شما"
-          android:textSize="@dimen/_24ssp"
-          android:textColor="@color/text_dark"
-          android:textStyle="bold"
-          android:layout_marginTop="@dimen/_8sdp"
-          android:fontFamily="@font/iranyekan_regular"/>
+        android:layout_marginBottom="@dimen/_14sdp">
 
         <TextView
           android:id="@+id/txtBusinessSubtitle"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="هو الرزاق"
-          android:textSize="@dimen/_14ssp"
+          android:textSize="@dimen/_10ssp"
           android:textColor="@color/text_secondary"
           android:fontFamily="@font/iranyekan_regular"/>
+        <TextView
+          android:id="@+id/textLogo"
+          android:layout_width="match_parent"
+          android:gravity="center"
+          android:layout_height="wrap_content"
+          android:text="نام کسب‌وکار شما"
+          android:textSize="@dimen/_14ssp"
+          android:textColor="@color/text_dark"
+          android:textStyle="bold"
+          android:layout_marginTop="@dimen/_8sdp"
+          android:fontFamily="@font/iranyekan_regular"/>
+
       </LinearLayout>
 
       <!-- دکمه افزودن سفارش جدید -->
       <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:onClick="addOrder"
         app:cardElevation="@dimen/_8sdp"
-        app:cardCornerRadius="@dimen/_16sdp"
+        app:cardCornerRadius="@dimen/_8sdp"
         app:cardBackgroundColor="@color/primary">
 
         <LinearLayout
@@ -83,7 +70,7 @@
           android:layout_height="wrap_content"
           android:orientation="horizontal"
           android:gravity="center"
-          android:paddingVertical="@dimen/_20sdp"
+          android:paddingVertical="@dimen/_5sdp"
           android:paddingHorizontal="@dimen/_24sdp">
 
           <com.airbnb.lottie.LottieAnimationView
@@ -111,7 +98,7 @@
       <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_16sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:onClick="goToActivityOrderIsPied"
         android:tag="1"
         app:cardElevation="@dimen/_4sdp"
@@ -121,20 +108,11 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="vertical"
-          android:padding="@dimen/_12sdp"
           android:background="@drawable/card_gradient_blue">
-
-          <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/live_salesToday"
-            android:layout_width="@dimen/_40sdp"
-            android:layout_height="@dimen/_40sdp"
-            android:layout_gravity="center_horizontal"
-            app:lottie_rawRes="@raw/live"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true" />
 
           <TextView
             android:id="@+id/salesToday"
+            android:padding="@dimen/_10sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -153,15 +131,13 @@
       <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_marginBottom="@dimen/_16sdp">
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/_10sdp">
 
         <androidx.cardview.widget.CardView
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:layout_marginEnd="@dimen/_8sdp"
+          android:layout_marginBottom="@dimen/_10sdp"
           android:onClick="goToActivityOrderIsPied"
           android:tag="0"
           app:cardElevation="@dimen/_4sdp"
@@ -176,14 +152,6 @@
             android:padding="@dimen/_12sdp"
             android:background="@drawable/card_gradient_purple">
 
-            <com.airbnb.lottie.LottieAnimationView
-              android:id="@+id/live_salesAll"
-              android:layout_width="@dimen/_40sdp"
-              android:layout_height="@dimen/_40sdp"
-              app:lottie_rawRes="@raw/live"
-              app:lottie_loop="true"
-              app:lottie_autoPlay="true" />
-
             <TextView
               android:id="@+id/salesAll"
               android:layout_width="wrap_content"
@@ -191,7 +159,6 @@
               android:text="@string/no_data_sales_all"
               android:textColor="@android:color/white"
               android:textSize="@dimen/_12ssp"
-              android:minLines="4"
               android:gravity="center"
               android:textStyle="bold"
               android:fontFamily="@font/iranyekan_regular" />
@@ -201,10 +168,8 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-          android:layout_width="0dp"
+          android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:layout_weight="1"
-          android:layout_marginStart="@dimen/_8sdp"
           android:onClick="goToActivityOrderIsPied"
           android:tag="30"
           app:cardElevation="@dimen/_4sdp"
@@ -217,15 +182,6 @@
             android:padding="@dimen/_12sdp"
             android:background="@drawable/card_gradient_green">
 
-            <com.airbnb.lottie.LottieAnimationView
-              android:id="@+id/live_salesThisMonth"
-              android:layout_width="@dimen/_40sdp"
-              android:layout_height="@dimen/_40sdp"
-              android:layout_gravity="center_horizontal"
-              app:lottie_rawRes="@raw/live"
-              app:lottie_loop="true"
-              app:lottie_autoPlay="true" />
-
             <TextView
               android:id="@+id/salesThisMonth"
               android:layout_width="wrap_content"
@@ -236,7 +192,6 @@
               android:textColor="@android:color/white"
               android:textSize="@dimen/_12ssp"
               android:textStyle="bold"
-              android:minLines="4"
               android:fontFamily="@font/iranyekan_regular" />
           </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -255,42 +210,20 @@
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:orientation="horizontal"
-          android:padding="@dimen/_16sdp"
           android:background="@drawable/card_gradient_orange">
 
-          <LinearLayout
-            android:layout_width="0dp"
+          <TextView
+            android:id="@+id/totalBedehi"
+            android:layout_width="match_parent"
+            android:gravity="center"
+            android:padding="@dimen/_12sdp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:text="هیچ طلبی ندارید"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            android:fontFamily="@font/iranyekan_regular" />
 
-            <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="بدهکاران"
-              android:textColor="@android:color/white"
-              android:textSize="@dimen/_12ssp"
-              android:fontFamily="@font/iranyekan_regular"/>
-
-            <TextView
-              android:id="@+id/totalBedehi"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="هیچ طلبی ندارید"
-              android:textColor="@android:color/white"
-              android:textSize="@dimen/_14ssp"
-              android:textStyle="bold"
-              android:fontFamily="@font/iranyekan_regular"
-              android:layout_marginTop="@dimen/_4sdp" />
-          </LinearLayout>
-
-          <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/live_salesThisWeek"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
-            app:lottie_rawRes="@raw/live"
-            app:lottie_loop="true"
-            app:lottie_autoPlay="true" />
         </LinearLayout>
       </androidx.cardview.widget.CardView>
 
