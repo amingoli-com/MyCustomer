@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             salesToday.setText(getString(R.string.no_data_sales_today));
         }
         if (thisMonth != null) {
-            salesThisMonth.setText("فروش این ماه "+Tools.getFormattedPrice(thisMonth.getTotalSales(), this));
+            salesThisMonth.setText("فروش این ماه \n"+Tools.getFormattedPrice(thisMonth.getTotalSales(), this));
 //            totalOrderIsPiedThisMonth.setText(Tools.getFormattedInteger(thisMonth.getSalesCount()));
         } else {
             live_salesThisMonth.setVisibility(View.GONE);

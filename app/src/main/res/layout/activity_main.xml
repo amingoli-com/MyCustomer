@@ -120,44 +120,33 @@
         <LinearLayout
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
-          android:orientation="horizontal"
-          android:padding="@dimen/_16sdp"
-          android:background="@drawable/card_gradient_purple">
-
-          <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="مجموع فروش"
-              android:textColor="@android:color/white"
-              android:textSize="@dimen/_12ssp"
-              android:fontFamily="@font/iranyekan_regular"/>
-
-            <TextView
-              android:id="@+id/salesAll"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="@string/no_data_sales_all"
-              android:textColor="@android:color/white"
-              android:textSize="@dimen/_14ssp"
-              android:textStyle="bold"
-              android:fontFamily="@font/iranyekan_regular"
-              android:layout_marginTop="@dimen/_4sdp" />
-          </LinearLayout>
+          android:orientation="vertical"
+          android:padding="@dimen/_12sdp"
+          android:background="@drawable/card_gradient_blue">
 
           <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/live_salesAll"
-            android:layout_width="@dimen/_50sdp"
-            android:layout_height="@dimen/_50sdp"
+            android:id="@+id/live_salesToday"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_gravity="center_horizontal"
             app:lottie_rawRes="@raw/live"
             app:lottie_loop="true"
             app:lottie_autoPlay="true" />
+
+          <TextView
+            android:id="@+id/salesToday"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/no_data_sales_today"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_12ssp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:fontFamily="@font/iranyekan_regular"
+            android:layout_marginTop="@dimen/_4sdp" />
         </LinearLayout>
+
       </androidx.cardview.widget.CardView>
 
       <!-- ردیف فروش امروز و این ماه -->
@@ -182,41 +171,33 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
+            android:layout_gravity="center"
+            android:gravity="center"
             android:padding="@dimen/_12sdp"
-            android:background="@drawable/card_gradient_blue">
+            android:background="@drawable/card_gradient_purple">
 
             <com.airbnb.lottie.LottieAnimationView
-              android:id="@+id/live_salesToday"
+              android:id="@+id/live_salesAll"
               android:layout_width="@dimen/_40sdp"
               android:layout_height="@dimen/_40sdp"
-              android:layout_gravity="center_horizontal"
               app:lottie_rawRes="@raw/live"
               app:lottie_loop="true"
               app:lottie_autoPlay="true" />
 
             <TextView
+              android:id="@+id/salesAll"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:text="فروش امروز"
+              android:text="@string/no_data_sales_all"
               android:textColor="@android:color/white"
               android:textSize="@dimen/_12ssp"
-              android:fontFamily="@font/iranyekan_regular"
-              android:layout_marginTop="@dimen/_4sdp" />
-
-            <TextView
-              android:id="@+id/salesToday"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:text="@string/no_data_sales_today"
-              android:textColor="@android:color/white"
-              android:textSize="@dimen/_14ssp"
+              android:minLines="4"
+              android:gravity="center"
               android:textStyle="bold"
-              android:minLines="3"
-              android:fontFamily="@font/iranyekan_regular"
-              android:layout_marginTop="@dimen/_4sdp" />
+              android:fontFamily="@font/iranyekan_regular" />
+
           </LinearLayout>
+
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
@@ -246,27 +227,17 @@
               app:lottie_autoPlay="true" />
 
             <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:layout_gravity="center_horizontal"
-              android:text="فروش این ماه"
-              android:textColor="@android:color/white"
-              android:textSize="@dimen/_12ssp"
-              android:fontFamily="@font/iranyekan_regular"
-              android:layout_marginTop="@dimen/_4sdp" />
-
-            <TextView
               android:id="@+id/salesThisMonth"
               android:layout_width="wrap_content"
               android:layout_height="wrap_content"
               android:layout_gravity="center_horizontal"
               android:text="@string/no_data_sales_this_month"
+              android:gravity="center"
               android:textColor="@android:color/white"
-              android:textSize="@dimen/_14ssp"
+              android:textSize="@dimen/_12ssp"
               android:textStyle="bold"
-              android:minLines="3"
-              android:fontFamily="@font/iranyekan_regular"
-              android:layout_marginTop="@dimen/_4sdp" />
+              android:minLines="4"
+              android:fontFamily="@font/iranyekan_regular" />
           </LinearLayout>
         </androidx.cardview.widget.CardView>
       </LinearLayout>

@@ -50,10 +50,18 @@
   <string name = "from">از</string>
   <string name = "cancel">لغو</string>
   <string name = "today">امروز</string>
-  <string name = "sales_tody">فروش امروز %1$s از %2$s سفارش</string>
+  <string name = "sales_tody">فروش امروز
+    \n
+     %1$s
+    \n
+    از %2$s سفارش</string>
   <string name = "sales_this_week">فروش این هفته %1$s از %2$s سفارش</string>
   <string name = "sales_this_month">فروش ۳۰ روز گذشته %1$s از %2$s سفارش</string>
-  <string name = "sales_all">فروش کل %1$s \n از %2$s سفارش</string>
+  <string name = "sales_all">فروش کل
+    \n
+    %1$s
+    \n
+    از %2$s سفارش</string>
 
   <string name = "test_tel_number">9195191378</string>
   //
