@@ -30,6 +30,17 @@
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
             app:tint="@color/colorDesc" />
+
+      <ImageView
+        android:id = "@+id/btnImportContacts"
+        android:visibility="gone"
+        android:layout_width = "@dimen/_26sdp"
+        android:layout_height = "@dimen/_26sdp"
+        android:layout_alignEnd = "@+id/searchView"
+        android:layout_centerVertical = "true"
+        android:layout_margin = "@dimen/_7sdp"
+        android:src = "@drawable/baseline_perm_contact_calendar_24"
+        app:tint = "@color/colorDesc" />
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>
