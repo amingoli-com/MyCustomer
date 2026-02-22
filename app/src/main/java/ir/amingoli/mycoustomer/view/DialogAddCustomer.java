@@ -106,6 +106,7 @@ public class DialogAddCustomer extends AlertDialog implements
         name.setText(customer.getName());
         desc.setText(customer.getDesc());
         tel.setText(customer.getTel());
+//        if (customer.getTel() != null) tel.setEnabled(false);
         submit.setText(ac.getResources().getString(R.string.update));
     }
 }

@@ -127,7 +127,25 @@ public class ActivityCustomer extends AppCompatActivity {
 
     private void dialogAddCustomer(Customer c){
         DialogAddCustomer dialogAddCustomer = new DialogAddCustomer(this,c, value -> {
-            db.saveCustomer(value);
+            if (c == null){
+                // چک کن قبلا ثبت نشده باشه
+                List<Customer> existingList = db.getCustomerByTel(value.tel);
+                boolean exists = existingList != null && !existingList.isEmpty();
+
+                if (!exists) {
+                    Customer customer = new Customer();
+                    customer.setName(value.name);
+                    customer.setDesc(value.desc);
+                    customer.setTel(value.tel);
+                    db.saveCustomer(customer);
+                    loadCustomerListByNameOrTel("", false);
+                    Toast.makeText(ActivityCustomer.this, "مخاطب با موفقیت اضافه شد", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(ActivityCustomer.this, "این شماره قبلا ثبت شده است", Toast.LENGTH_SHORT).show();
+                }
+            }else {
+                db.saveCustomer(value);
+            }
             loadCustomerListByNameOrTel("",false);
         });
         dialogAddCustomer.show();
