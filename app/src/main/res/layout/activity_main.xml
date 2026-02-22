@@ -113,7 +113,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_16sdp"
         android:onClick="goToActivityOrderIsPied"
-        android:tag="0"
+        android:tag="1"
         app:cardElevation="@dimen/_4sdp"
         app:cardCornerRadius="@dimen/_12sdp">
 
@@ -163,7 +163,7 @@
           android:layout_weight="1"
           android:layout_marginEnd="@dimen/_8sdp"
           android:onClick="goToActivityOrderIsPied"
-          android:tag="1"
+          android:tag="0"
           app:cardElevation="@dimen/_4sdp"
           app:cardCornerRadius="@dimen/_12sdp">
 
