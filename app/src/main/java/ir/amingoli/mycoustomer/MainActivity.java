@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
 
     @SuppressLint({"StringFormatMatches", "SetTextI18n"})
     private void initValue(){
-        GetTotalSales all = getTotalSales(0);
-        GetTotalSales today = getTotalSales(1);
+        GetTotalSales all = getTotalSales(-1);
+        GetTotalSales today = getTotalSales(0);
         GetTotalSales thisWeek = getTotalSales(7);
         GetTotalSales thisMonth = getTotalSales(30);
         if (all != null) {
@@ -165,7 +165,7 @@ public class MainActivity extends AppCompatActivity {
         GetTotalSales model = new GetTotalSales();
         double total = 0;
         List<Order> orders;
-        if (howDays == 0){
+        if (howDays == -1){
             orders = db.getOrderList(true);
         }else {
             orders = db.getOrderList(true , Tools.dayToMillis(howDays));
