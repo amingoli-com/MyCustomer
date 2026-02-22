@@ -3,4 +3,6 @@
   <external-path name="external_files" path="." />
   <external-path name="database_backups" path="DatabaseBackups" />
   <files-path name="databases" path="databases/" />
+  <cache-path name="cache" path="/" />
+  <external-cache-path name="external_cache" path="/" />
 </paths>

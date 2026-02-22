@@ -41,6 +41,17 @@
             android:id="@+id/include_search"
             layout="@layout/item_serach"/>
 
+      <Button
+        android:id="@+id/btnExportExcel"
+        android:drawableStart="@drawable/baseline_folder_shared_24"
+        android:drawableTint="@color/white"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="خروجی مشتریان صورت CSV"
+        android:backgroundTint="#4CAF50"
+        android:textColor="#FFFFFF"
+        android:layout_marginHorizontal="@dimen/_5sdp"/>
+
         <include
             android:visibility="gone"
             android:id="@+id/filter"

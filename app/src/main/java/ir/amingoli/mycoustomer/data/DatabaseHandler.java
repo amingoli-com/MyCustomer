@@ -440,6 +440,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return items;
     }
 
+    public List<Customer> getAllCustomers() {
+        List<Customer> items = new ArrayList<>();
+        String query = "SELECT * FROM " + TABLE_CUSTOMER + " ORDER BY " + COL_CUSTOMER_ID + " DESC";
+        Cursor cursor = db.rawQuery(query, null);
+        if (cursor.moveToFirst()) {
+            items = getListCustomerByCursor(cursor);
+        }
+        return items;
+    }
+
     //    GET ORDER DETAIL
     public List<OrderDetail> getOrderDetailListById(Long id) {
         List<OrderDetail> items = new ArrayList<>();

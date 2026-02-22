@@ -4,6 +4,7 @@ import android.Manifest;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
@@ -21,6 +22,8 @@ import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -69,6 +72,9 @@ public class ActivityCustomer extends AppCompatActivity {
         View btnAddFromContact = include_search.findViewById(R.id.btnImportContacts);
         btnAddFromContact.setVisibility(View.VISIBLE);
         btnAddFromContact.setOnClickListener(view -> checkPermissionAndImport());
+
+        Button btnExportExcel = findViewById(R.id.btnExportExcel);
+        btnExportExcel.setOnClickListener(v -> exportToCsvAndShare());
     }
 
     private void initAdapter(){
@@ -269,5 +275,73 @@ public class ActivityCustomer extends AppCompatActivity {
                 }
             }).start();
         }
+    }
+
+
+
+    // این متدها رو به کلاس اضافه کن:
+    private void exportToCsvAndShare() {
+        include_load.setVisibility(View.VISIBLE);
+
+        new Thread(() -> {
+            try {
+                // گرفتن لیست مشتریان
+                List<Customer> customers = db.getAllCustomers();
+
+                if (customers.isEmpty()) {
+                    runOnUiThread(() -> {
+                        include_load.setVisibility(View.GONE);
+                        Toast.makeText(ActivityCustomer.this, "لیست مشتریان خالی است", Toast.LENGTH_SHORT).show();
+                    });
+                    return;
+                }
+
+                // ساخت محتوای CSV
+                StringBuilder csvContent = new StringBuilder();
+                csvContent.append("ردیف,نام مشتری,شماره تلفن,توضیحات\n");
+
+                for (int i = 0; i < customers.size(); i++) {
+                    Customer c = customers.get(i);
+                    csvContent.append(i + 1).append(",")
+                            .append("\"").append(c.getName()).append("\"").append(",")
+                            .append("\"").append(c.getTel()).append("\"").append(",")
+                            .append("\"").append(c.getDesc() != null ? c.getDesc() : "").append("\"")
+                            .append("\n");
+                }
+
+                // ذخیره موقت در حافظه داخلی اپ
+                String fileName = "customers_" + System.currentTimeMillis() + ".csv";
+                File cacheDir = getExternalCacheDir();
+                if (cacheDir == null) {
+                    cacheDir = getCacheDir();
+                }
+
+                File csvFile = new File(cacheDir, fileName);
+                FileOutputStream fos = new FileOutputStream(csvFile);
+                fos.write(csvContent.toString().getBytes("UTF-8"));
+                fos.close();
+
+                // ارسال فایل
+                Uri fileUri = FileProvider.getUriForFile(this,
+                        getPackageName() + ".fileprovider", csvFile);
+
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.setType("text/csv");
+                shareIntent.putExtra(Intent.EXTRA_STREAM, fileUri);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+                runOnUiThread(() -> {
+                    include_load.setVisibility(View.GONE);
+                    startActivity(Intent.createChooser(shareIntent, "اشتراک‌گذاری لیست مشتریان"));
+                });
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                runOnUiThread(() -> {
+                    include_load.setVisibility(View.GONE);
+                    Toast.makeText(ActivityCustomer.this, "خطا: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                });
+            }
+        }).start();
     }
 }
